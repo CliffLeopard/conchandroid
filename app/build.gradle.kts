@@ -1,34 +1,81 @@
-import com.android.ide.common.resources.generateLocaleConfigManifestAttribute
+import java.io.FileInputStream
+import java.util.Properties
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    id("org.jetbrains.kotlin.kapt")
 }
+
+// 读取签名
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 android {
     namespace = "com.cliff.conch"
-    compileSdk = 34
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.cliff.conch"
-        minSdk = 16
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
+        applicationId   = "com.cliff.conch"
+        minSdk          = libs.versions.minSdk16.get().toInt()
+        targetSdk       = libs.versions.targetSdk.get().toInt()
+        versionCode     = libs.versions.versionCode.get().toInt()
+        versionName     = libs.versions.versionName.get()
+        resourceConfigurations.addAll(listOf("cn", "en")) // 语言配置
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        getByName("debug") {
+            keyAlias        = keystoreProperties["keyAlias"] as String
+            keyPassword     = keystoreProperties["keyPassword"] as String
+            storeFile       = rootProject.file(keystoreProperties["storeFile"] as String)
+            storePassword   = keystoreProperties["storePassword"] as String
+
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+            enableV4Signing = true
+        }
+
+        register("release") {
+            keyAlias        = keystoreProperties["keyAlias"] as String
+            keyPassword     = keystoreProperties["keyPassword"] as String
+            storeFile       = rootProject.file(keystoreProperties["storeFile"] as String)
+            storePassword   = keystoreProperties["storePassword"] as String
+
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+            enableV4Signing = true
+        }
+    }
+
     buildTypes {
-        release {
+        getByName("debug") {
             isMinifyEnabled = false
+            isShrinkResources = false
+            signingConfig = signingConfigs.getByName("debug")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+
+        }
+
+        getByName("release") {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -42,34 +89,35 @@ android {
     }
 
     flavorDimensions.add("minSdk")
-    productFlavors.create("minSdk16"){
-        dimension = "minSdk"
-        minSdk = 16
-    }
-
-    productFlavors.create("minSdk28"){
-        dimension = "minSdk"
-        minSdk = 28
+    productFlavors {
+        register("minSdk28") {
+            dimension = "minSdk"
+            minSdk = libs.versions.minSdk28.get().toInt()
+        }
+        register("minSdk16") {
+            dimension = "minSdk"
+            minSdk = libs.versions.minSdk16.get().toInt()
+        }
     }
 }
 
 dependencies {
-    implementation("org.greenrobot:eventbus:3.3.1")
-    kapt("org.greenrobot:eventbus-annotation-processor:3.3.1")
-    implementation("com.orhanobut:logger:2.2.0")
-    implementation("androidx.multidex:multidex:2.0.1")
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.vectordrawable:vectordrawable:1.1.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(libs.eventbus)
+    kapt(libs.eventbus.annotation)
+    implementation(libs.logger)
+    implementation(libs.androidx.multidex)
+    implementation(libs.androidx.multidex)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.google.material)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.vectordrawable)
+    implementation(libs.androidx.livedata)
+    implementation(libs.androidx.viewmodel)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso)
 }
 
 kapt {

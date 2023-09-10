@@ -1,9 +1,7 @@
 package com.cliff.conch.scene
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.cliff.conch.R
-import com.cliff.conch.databinding.ActivityEventBusBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.cliff.conch.databinding.ActivityRetrofitBinding
 
 class RetrofitActivity : AppCompatActivity() {

@@ -1,0 +1,47 @@
+[versions]
+androidGradlePlugin     = "8.1.1"
+compileSdk              = "34"
+targetSdk               = "34"
+minSdk16                = "16"
+minSdk28                = "28"
+versionCode             = "1"
+versionName             = "1.0"
+kotlin                  = "1.9.0"
+junit                   = "4.13.2"
+eventbus                = "3.3.1"
+logger                  = "2.2.0"
+
+androidxCore            = "1.12.0"
+androidxMultidex        = "2.0.1"
+androidxAppCompat       = "1.6.1"
+googleMaterial          = "1.9.0"
+androidxConstraintlayout = "2.1.4"
+androidxVectordrawable   = "1.1.0"
+androidxLifecycle        = "2.6.2"
+androidxNavigation       = "2.7.2"
+
+androidxJunit           = "1.1.5"
+androidxEspresso        = "3.5.1"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
+androidx-multidex = { group = "androidx.multidex", name = "multidex", version.ref = "androidxMultidex" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraintlayout" }
+androidx-vectordrawable = { group = "androidx.vectordrawable", name = "vectordrawable", version.ref = "androidxVectordrawable" }
+androidx-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidxLifecycle" }
+androidx-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
+androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidxNavigation" }
+androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidxNavigation" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
+junit = {group= "junit",name="junit",version.ref = "junit"}
+androidx-junit={group="androidx.test.ext",name="junit",version.ref ="androidxJunit"}
+androidx-espresso={group="androidx.test.espresso",name="espresso-core",version.ref ="androidxEspresso"}
+eventbus={group="org.greenrobot",name="eventbus",version.ref ="eventbus"}
+eventbus-annotation={group="org.greenrobot",name="eventbus-annotation-processor",version.ref ="eventbus"}
+logger={group="com.orhanobut",name="logger",version.ref ="logger"}
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
