@@ -18,7 +18,8 @@ class ConchAppComponentFactory: AppComponentFactory() {
         init {
             Logger.addLogAdapter(object: AndroidLogAdapter() {
                 override fun isLoggable(priority: Int, tag: String?): Boolean {
-                    return BuildConfig.DEBUG
+//                    return BuildConfig.DEBUG
+                    return true
                 }
             })
         }
