@@ -86,6 +86,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        aidl = true
     }
 
     flavorDimensions.add("minSdk")
@@ -99,10 +100,18 @@ android {
             minSdk = libs.versions.minSdk16.get().toInt()
         }
     }
+    sourceSets {
+        getByName("main") {
+            aidl.srcDirs("src/main/aidl")
+        }
+    }
 }
 
 dependencies {
+    implementation(project(":nativelib"))
     implementation(libs.eventbus)
+    implementation(libs.annotation)
+    implementation(libs.slice.builders)
     kapt(libs.eventbus.annotation)
     implementation(libs.logger)
     implementation(libs.androidx.multidex)

@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "conch-android"
 include(":app")
+include(":nativelib")

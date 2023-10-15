@@ -14,14 +14,16 @@ logger                  = "2.2.0"
 androidxCore            = "1.12.0"
 androidxMultidex        = "2.0.1"
 androidxAppCompat       = "1.6.1"
-googleMaterial          = "1.9.0"
+googleMaterial          = "1.10.0"
 androidxConstraintlayout = "2.1.4"
 androidxVectordrawable   = "1.1.0"
 androidxLifecycle        = "2.6.2"
-androidxNavigation       = "2.7.2"
+androidxNavigation       = "2.7.4"
 
 androidxJunit           = "1.1.5"
 androidxEspresso        = "3.5.1"
+annotation = "1.7.0"
+slice-builders = "1.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
@@ -40,8 +42,11 @@ androidx-espresso={group="androidx.test.espresso",name="espresso-core",version.r
 eventbus={group="org.greenrobot",name="eventbus",version.ref ="eventbus"}
 eventbus-annotation={group="org.greenrobot",name="eventbus-annotation-processor",version.ref ="eventbus"}
 logger={group="com.orhanobut",name="logger",version.ref ="logger"}
+annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+slice-builders = { group = "androidx.slice", name = "slice-builders", version.ref = "slice-builders" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+com-android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }

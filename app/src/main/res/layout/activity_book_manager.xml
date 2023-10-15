@@ -4,29 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".scene.AidlActivity">
+    tools:context=".scene.BookManagerActivity">
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/start"
+        android:text="BindService"
+        android:id="@+id/bindServie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="start"
         app:layout_constraintTop_toTopOf="parent"
+        android:onClick="clickBindService"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:text="AddBook"
+        android:id="@+id/addBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/bindServie"
+        android:onClick="clickAddBook"
         />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/bind"
+        android:text="NewActivity"
+        android:id="@+id/newActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="bind"
-        app:layout_constraintTop_toBottomOf="@id/start"
+        app:layout_constraintTop_toBottomOf="@id/addBook"
+        android:onClick="clickStartActivity"
         />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/end"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="stop"
-        app:layout_constraintTop_toBottomOf="@id/bind"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
