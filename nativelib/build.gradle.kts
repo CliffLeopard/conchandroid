@@ -1,4 +1,4 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.kotlin.android)
@@ -6,11 +6,10 @@ plugins {
 
 android {
     namespace = "com.cliff.nativelib"
-    compileSdk = 33
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 21
-
+        minSdk = libs.versions.minSdk16.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
         externalNativeBuild {
@@ -32,7 +31,7 @@ android {
     externalNativeBuild {
         cmake {
             path("src/main/cpp/CMakeLists.txt")
-            version = "3.22.1"
+            version = libs.versions.cmakeVersion.get()
         }
     }
     compileOptions {
@@ -40,7 +39,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
 }
 
