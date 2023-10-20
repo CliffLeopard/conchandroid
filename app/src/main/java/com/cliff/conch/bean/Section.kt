@@ -4,6 +4,7 @@ import com.cliff.conch.scene.BookManagerActivity
 import com.cliff.conch.scene.EventBusActivity
 import com.cliff.conch.scene.ReflectActivity
 import com.cliff.conch.scene.RetrofitActivity
+import com.cliff.nativelib.FoodActivity
 
 data class Section(val title: String, val activity: Class<*>) {
     companion object {
@@ -12,6 +13,7 @@ data class Section(val title: String, val activity: Class<*>) {
             Section("Retrofit", RetrofitActivity::class.java),
             Section("Reflect", ReflectActivity::class.java),
             Section("AIDL", BookManagerActivity::class.java),
+            Section("FOOD", FoodActivity::class.java),
         )
     }
 }
