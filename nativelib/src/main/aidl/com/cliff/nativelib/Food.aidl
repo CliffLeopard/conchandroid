@@ -5,3 +5,9 @@ parcelable Food {
     int foodId;
     String foodName;
 }
+
+//parcelable Food cpp_header "Food.h";
+//{
+//    int foodId;
+//    String foodName;
+//}
