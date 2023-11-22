@@ -8,7 +8,7 @@ project("native-activity"
         )
 
 # build native_app_glue as a static lib
-set(${CMAKE_C_FLAGS}, "${CMAKE_C_FLAGS}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 add_library(native_app_glue STATIC
         ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
 # 添加被连接的库的可调用接口
