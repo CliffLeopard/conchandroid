@@ -1,5 +1,6 @@
 package com.cliff.conch.bean
 
+import android.app.NativeActivity
 import com.cliff.conch.scene.BookManagerActivity
 import com.cliff.conch.scene.EventBusActivity
 import com.cliff.conch.scene.ReflectActivity
@@ -14,6 +15,7 @@ data class Section(val title: String, val activity: Class<*>) {
             Section("Reflect", ReflectActivity::class.java),
             Section("AIDL", BookManagerActivity::class.java),
             Section("FOOD", FoodActivity::class.java),
+            Section("NativeActivity", NativeActivity::class.java),
         )
     }
 }

@@ -13,5 +13,6 @@ class NativeLib {
         init {
             System.loadLibrary("nativelib")
         }
+        external fun charFromJNO():Int
     }
 }

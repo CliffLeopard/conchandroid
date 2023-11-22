@@ -108,7 +108,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":nativelib"))
+    implementation(projects.nativelib)
     implementation(libs.eventbus)
     implementation(libs.annotation)
     implementation(libs.slice.builders)

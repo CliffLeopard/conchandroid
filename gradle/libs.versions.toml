@@ -20,7 +20,7 @@ googleMaterial          = "1.10.0"
 androidxConstraintlayout = "2.1.4"
 androidxVectordrawable   = "1.1.0"
 androidxLifecycle        = "2.6.2"
-androidxNavigation       = "2.7.4"
+androidxNavigation       = "2.7.5"
 
 androidxJunit           = "1.1.5"
 androidxEspresso        = "3.5.1"
