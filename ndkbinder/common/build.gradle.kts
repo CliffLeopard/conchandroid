@@ -6,11 +6,10 @@ plugins {
 
 android {
     namespace = "com.cliff.common"
-    compileSdk = 33
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 16
-
+        minSdk = libs.versions.minSdk16.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
         externalNativeBuild {
