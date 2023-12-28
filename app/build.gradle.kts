@@ -25,6 +25,18 @@ android {
         versionName     = libs.versions.versionName.get()
         resourceConfigurations.addAll(listOf("cn", "en")) // 语言配置
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                cppFlags("")
+            }
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path("src/main/cpp/CMakeLists.txt")
+            version = libs.versions.cmakeVersion.get()
+        }
     }
 
     signingConfigs {
@@ -124,6 +136,11 @@ dependencies {
     implementation(libs.androidx.viewmodel)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
+
+    implementation(libs.pine.core)
+    implementation(libs.pine.enhances)
+    implementation(libs.pine.xposed)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso)

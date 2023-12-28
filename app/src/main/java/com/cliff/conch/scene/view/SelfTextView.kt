@@ -32,7 +32,7 @@ class SelfTextView(
 
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        Logger.d("onMeasure")
+//        Logger.d("onMeasure")
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         setMeasuredDimension(
             defaultSize(suggestedMinimumWidth, widthMeasureSpec),
@@ -41,12 +41,12 @@ class SelfTextView(
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        Logger.d("onLayout")
+//        Logger.d("onLayout")
         super.onLayout(changed, left, top, right, bottom)
     }
 
     override fun onDraw(canvas: Canvas) {
-        Logger.d("onDraw")
+//        Logger.d("onDraw")
         super.onDraw(canvas)
     }
 

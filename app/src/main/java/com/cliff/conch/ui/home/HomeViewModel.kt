@@ -9,5 +9,5 @@ class HomeViewModel : ViewModel() {
     private val _sections = MutableLiveData(
         Section.sections
     )
-    val sections: LiveData<MutableList<Section>> get() = _sections
+    val sections: LiveData<List<Section>> get() = _sections
 }

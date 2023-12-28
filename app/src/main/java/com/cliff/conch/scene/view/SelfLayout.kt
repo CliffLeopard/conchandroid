@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.LinearLayout
+import android.widget.FrameLayout
 import com.orhanobut.logger.Logger
 
 class SelfLayout(
@@ -32,17 +33,17 @@ class SelfLayout(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        Logger.d("onMeasure")
+//        Logger.d("onMeasure")
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        Logger.d("onLayout")
+//        Logger.d("onLayout")
         super.onLayout(changed, left, top, right, bottom)
     }
 
     override fun onDraw(canvas: Canvas) {
-        Logger.d("onDraw")
+//        Logger.d("onDraw")
         super.onDraw(canvas)
     }
 }

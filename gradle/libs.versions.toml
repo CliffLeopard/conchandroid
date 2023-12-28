@@ -1,6 +1,7 @@
 [versions]
 androidGradlePlugin = "8.2.0"
 compileSdk = "34"
+core = "0.2.7"
 targetSdk = "34"
 minSdk16 = "16"
 minSdk28 = "28"
@@ -26,6 +27,9 @@ androidxJunit = "1.1.5"
 androidxEspresso = "3.5.1"
 annotation = "1.7.1"
 slice-builders = "1.0.0"
+pine-core = "0.2.7"
+pine-xposed = "0.0.9"
+pine-enhances = "0.0.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
@@ -46,6 +50,9 @@ eventbus-annotation = { group = "org.greenrobot", name = "eventbus-annotation-pr
 logger = { group = "com.orhanobut", name = "logger", version.ref = "logger" }
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 slice-builders = { group = "androidx.slice", name = "slice-builders", version.ref = "slice-builders" }
+pine-core = { module = "top.canyie.pine:core", version.ref = "pine-core" }
+pine-xposed = { module = "top.canyie.pine:xposed", version.ref = "pine-xposed" }
+pine-enhances = { module = "top.canyie.pine:enhances", version.ref = "pine-enhances" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
