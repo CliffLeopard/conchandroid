@@ -18,7 +18,7 @@ import top.canyie.pine.callback.MethodHook
 
 class ConchApplication : MultiDexApplication() {
     override fun attachBaseContext(base: Context?) {
-        hook()
+//        hook()
         super.attachBaseContext(base)
         under28Init()
     }

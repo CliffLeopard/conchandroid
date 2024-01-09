@@ -120,6 +120,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.startup)
     implementation(projects.nativelib)
     implementation(libs.eventbus)
     implementation(libs.annotation)
