@@ -67,8 +67,8 @@ android {
 
     buildTypes {
         getByName("debug") {
-            isMinifyEnabled = false
-            isShrinkResources = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             signingConfig = signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -120,6 +120,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.rxandroid)
+    implementation(libs.rxjava)
     implementation(libs.androidx.work.runtime)
     implementation(libs.androidx.startup)
     implementation(projects.nativelib)
@@ -142,6 +144,8 @@ dependencies {
     implementation(libs.pine.core)
     implementation(libs.pine.enhances)
     implementation(libs.pine.xposed)
+
+    implementation(libs.gson)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

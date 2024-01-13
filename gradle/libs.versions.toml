@@ -2,6 +2,9 @@
 androidGradlePlugin = "8.2.0"
 compileSdk = "34"
 core = "0.2.7"
+gson = "2.10.1"
+rxandroid = "3.0.2"
+rxjava = "3.1.8"
 targetSdk = "34"
 minSdk16 = "16"
 minSdk28 = "28"
@@ -47,6 +50,7 @@ androidx-navigation-fragment = { group = "androidx.navigation", name = "navigati
 androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidxNavigation" }
 androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 androidx-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
@@ -54,6 +58,8 @@ eventbus = { group = "org.greenrobot", name = "eventbus", version.ref = "eventbu
 eventbus-annotation = { group = "org.greenrobot", name = "eventbus-annotation-processor", version.ref = "eventbus" }
 logger = { group = "com.orhanobut", name = "logger", version.ref = "logger" }
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
+rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
 slice-builders = { group = "androidx.slice", name = "slice-builders", version.ref = "slice-builders" }
 pine-core = { module = "top.canyie.pine:core", version.ref = "pine-core" }
 pine-xposed = { module = "top.canyie.pine:xposed", version.ref = "pine-xposed" }

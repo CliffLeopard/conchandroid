@@ -1,5 +1,8 @@
 package com.cliff.conch
 
+import com.cliff.conch.scene.gson.Data
+import com.cliff.conch.scene.gson.Data.Item
+import com.google.gson.Gson
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -13,5 +16,15 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+    @Test
+    fun gsonTest() {
+        val data = Data()
+        val gson = Gson()
+
+        val  jsonString =  gson.toJson(data)
+        println(jsonString)
+        val data2 = gson.fromJson(jsonString,Data::class.java)
+        println(data2.items[2].itemName)
     }
 }

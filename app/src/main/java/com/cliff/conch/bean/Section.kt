@@ -6,6 +6,7 @@ import com.cliff.conch.scene.EventBusActivity
 import com.cliff.conch.scene.PineActivity
 import com.cliff.conch.scene.ReflectActivity
 import com.cliff.conch.scene.RetrofitActivity
+import com.cliff.conch.scene.RxJavaActivity
 import com.cliff.conch.scene.SelfDefineViewActivity
 import com.cliff.conch.scene.provider.ProviderActivity
 import com.cliff.nativelib.FoodActivity
@@ -21,7 +22,8 @@ data class Section(val title: String, val activity: Class<*>) {
             SelfDefineViewActivity::class.java,
             PineActivity::class.java,
             ANRActivity::class.java,
-            ProviderActivity::class.java
+            ProviderActivity::class.java,
+            RxJavaActivity::class.java
 
         )
         val sections: List<Section> = activities.map {
