@@ -2,6 +2,7 @@ package com.cliff.conch.bean
 
 import android.app.NativeActivity
 import com.cliff.conch.scene.ANRActivity
+import com.cliff.conch.scene.CoroutineActivity
 import com.cliff.conch.scene.EventBusActivity
 import com.cliff.conch.scene.PineActivity
 import com.cliff.conch.scene.ReflectActivity
@@ -23,7 +24,8 @@ data class Section(val title: String, val activity: Class<*>) {
             PineActivity::class.java,
             ANRActivity::class.java,
             ProviderActivity::class.java,
-            RxJavaActivity::class.java
+            RxJavaActivity::class.java,
+            CoroutineActivity::class.java,
 
         )
         val sections: List<Section> = activities.map {
