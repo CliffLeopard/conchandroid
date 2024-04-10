@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId   = "com.cliff.conch"
-        minSdk          = libs.versions.minSdk16.get().toInt()
+        minSdk          = libs.versions.minSdk19.get().toInt()
         targetSdk       = libs.versions.targetSdk.get().toInt()
         versionCode     = libs.versions.versionCode.get().toInt()
         versionName     = libs.versions.versionName.get()
@@ -107,9 +107,9 @@ android {
             dimension = "minSdk"
             minSdk = libs.versions.minSdk28.get().toInt()
         }
-        register("minSdk16") {
+        register("minSdk19") {
             dimension = "minSdk"
-            minSdk = libs.versions.minSdk16.get().toInt()
+            minSdk = libs.versions.minSdk19.get().toInt()
         }
     }
     sourceSets {
