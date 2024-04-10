@@ -9,9 +9,9 @@ plugins {
 }
 
 // 读取签名
-val keystorePropertiesFile = rootProject.file("keystore.properties")
+val propertyFile = rootProject.file("keystore.properties")
 val keystoreProperties = Properties()
-keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+keystoreProperties.load(FileInputStream(propertyFile))
 
 android {
     namespace = "com.cliff.conch"

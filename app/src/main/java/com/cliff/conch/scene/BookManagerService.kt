@@ -56,7 +56,7 @@ class BookManagerService : Service() {
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
-        Logger.d("onUnbind")
+        Logger.d("onUnbind:$baseContext")
         return super.onUnbind(intent)
     }
 

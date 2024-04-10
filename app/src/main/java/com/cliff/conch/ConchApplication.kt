@@ -18,7 +18,7 @@ import top.canyie.pine.callback.MethodHook
 
 class ConchApplication : MultiDexApplication() {
     override fun attachBaseContext(base: Context?) {
-//        hook()
+//        hook2()
         super.attachBaseContext(base)
         under28Init()
     }
@@ -64,7 +64,7 @@ private fun hook() {
 
 }
 
-class Hooker(val methodName: String) : MethodHook() {
+class Hooker(private val methodName: String) : MethodHook() {
     override fun beforeCall(callFrame: CallFrame) {
         Logger.i("Before " + callFrame.thisObject + " $methodName()")
     }

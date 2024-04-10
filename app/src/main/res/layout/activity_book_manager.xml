@@ -31,5 +31,14 @@
         android:onClick="clickStartActivity"
         />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:text="UnbindService"
+        android:id="@+id/unbindService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/newActivity"
+        android:onClick="clickUnbindService"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

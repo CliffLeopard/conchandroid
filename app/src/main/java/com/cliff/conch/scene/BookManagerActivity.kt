@@ -16,11 +16,20 @@ import com.orhanobut.logger.Logger
 
 class BookManagerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBookManagerBinding
-    private lateinit var bookManager: IBookManager
+    private var bookManager: IBookManager? = null
 
-    private val recipient by lazy {
+    private val recipient: DeathRecipient by lazy {
         DeathRecipient {
             Logger.d("DeathRecipient")
+            if (bookManager != null) {
+                bookManager?.asBinder()?.unlinkToDeath(recipient, 0)
+                bookManager = null
+                bindService(
+                    Intent(this, BookManagerService::class.java),
+                    connection,
+                    Context.BIND_AUTO_CREATE
+                )
+            }
         }
     }
 
@@ -29,7 +38,7 @@ class BookManagerActivity : AppCompatActivity() {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
                 Logger.d("onServiceConnected")
                 bookManager = IBookManager.Stub.asInterface(service)
-                bookManager.asBinder().linkToDeath(recipient, 0)
+                bookManager?.asBinder()?.linkToDeath(recipient, 0)
             }
 
             override fun onServiceDisconnected(name: ComponentName?) {
@@ -52,9 +61,14 @@ class BookManagerActivity : AppCompatActivity() {
         )
     }
 
+    fun clickUnbindService(view: View) {
+        unbindService(connection)
+    }
+
     fun clickAddBook(view: View) {
         Logger.d("Begin AddBook")
-        bookManager.addBook(Book(10, "物理"))
+        Logger.i(baseContext.toString())
+        bookManager?.addBook(Book(10, "物理"))
         Logger.d("Finish AddBook")
     }
 
