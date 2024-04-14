@@ -1,6 +1,7 @@
 package com.cliff.conch.bean
 
 import android.app.NativeActivity
+import com.cliff.conch.R
 import com.cliff.conch.scene.ANRActivity
 import com.cliff.conch.scene.ANRSummaryActivity
 import com.cliff.conch.scene.BookManagerActivity
@@ -13,12 +14,15 @@ import com.cliff.conch.scene.ReflectActivity
 import com.cliff.conch.scene.RetrofitActivity
 import com.cliff.conch.scene.RxJavaActivity
 import com.cliff.conch.scene.SelfDefineViewActivity
+import com.cliff.conch.scene.SimpleCasesActivity
+import com.cliff.conch.scene.TextureViewActivity
 import com.cliff.conch.scene.provider.ProviderActivity
 import com.cliff.nativelib.FoodActivity
 
 data class Section(val title: String, val activity: Class<*>) {
     companion object {
         private val activities = listOf(
+            SimpleCasesActivity::class.java,
             EventBusActivity::class.java,
             BookManagerActivity::class.java,
             RetrofitActivity::class.java,
@@ -33,10 +37,16 @@ data class Section(val title: String, val activity: Class<*>) {
             CoroutineActivity::class.java,
             EventActivity::class.java,
             LeakActivity::class.java,
-            ANRSummaryActivity::class.java
+            ANRSummaryActivity::class.java,
+            TextureViewActivity::class.java
         )
         val sections: List<Section> = activities.map {
             Section(it.simpleName, it)
+        }
+
+        private val id = when (R.layout.activity_book_manager) {
+            0 -> 0
+            else -> 1
         }
     }
 }

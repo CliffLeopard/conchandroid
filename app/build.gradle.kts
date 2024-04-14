@@ -120,6 +120,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.androidlibrary)
     implementation(libs.rxandroid)
     implementation(libs.rxjava)
     implementation(libs.androidx.work.runtime)

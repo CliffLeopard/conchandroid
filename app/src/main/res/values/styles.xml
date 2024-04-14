@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HDRSurfaceView">
+        <attr name="mIsHardwareAccel" format="boolean" />
+    </declare-styleable>
+
+    <style name="HDRSurfaceView">
+        <item name="mIsHardwareAccel">false</item>
+    </style>
+</resources>
