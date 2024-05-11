@@ -5,6 +5,7 @@ core = "0.2.7"
 gson = "2.10.1"
 rxandroid = "3.0.2"
 rxjava = "3.1.8"
+swiperefreshlayout = "1.1.0"
 targetSdk = "34"
 minSdk19 = "19"
 minSdk28 = "28"
@@ -35,7 +36,8 @@ pine-core = "0.2.9"
 pine-xposed = "0.0.9"
 pine-enhances = "0.0.3"
 workRuntime = "2.9.0"
-
+activity = "1.8.0"
+webkit = "1.11.0"
 
 [libraries]
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
@@ -43,6 +45,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-multidex = { group = "androidx.multidex", name = "multidex", version.ref = "androidxMultidex" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraintlayout" }
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 androidx-vectordrawable = { group = "androidx.vectordrawable", name = "vectordrawable", version.ref = "androidxVectordrawable" }
 androidx-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidxLifecycle" }
 androidx-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
@@ -64,6 +67,8 @@ slice-builders = { group = "androidx.slice", name = "slice-builders", version.re
 pine-core = { module = "top.canyie.pine:core", version.ref = "pine-core" }
 pine-xposed = { module = "top.canyie.pine:xposed", version.ref = "pine-xposed" }
 pine-enhances = { module = "top.canyie.pine:enhances", version.ref = "pine-enhances" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-webkit = {group = "androidx.webkit", name = "webkit", version.ref = "webkit"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

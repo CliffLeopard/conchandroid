@@ -16,6 +16,7 @@ import com.cliff.conch.scene.RxJavaActivity
 import com.cliff.conch.scene.SelfDefineViewActivity
 import com.cliff.conch.scene.SimpleCasesActivity
 import com.cliff.conch.scene.TextureViewActivity
+import com.cliff.conch.scene.WebViewScreenShotActivity
 import com.cliff.conch.scene.provider.ProviderActivity
 import com.cliff.nativelib.FoodActivity
 
@@ -38,7 +39,8 @@ data class Section(val title: String, val activity: Class<*>) {
             EventActivity::class.java,
             LeakActivity::class.java,
             ANRSummaryActivity::class.java,
-            TextureViewActivity::class.java
+            TextureViewActivity::class.java,
+            WebViewScreenShotActivity::class.java
         )
         val sections: List<Section> = activities.map {
             Section(it.simpleName, it)

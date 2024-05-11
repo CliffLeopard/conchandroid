@@ -1,6 +1,7 @@
 package com.cliff.conch.scene
 
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cliff.conch.R
 import com.cliff.conch.databinding.ActivitySimpleCasesBinding
 import com.cliff.conch.databinding.SectionItemBinding
+import com.orhanobut.logger.Logger
 
 class SimpleCasesActivity : AppCompatActivity() {
     lateinit var binding: ActivitySimpleCasesBinding
@@ -20,6 +22,22 @@ class SimpleCasesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySimpleCasesBinding.inflate(layoutInflater)
+        binding.root.setOnSystemUiVisibilityChangeListener { visibility ->
+            when (visibility) {
+                View.GONE ->
+                    Logger.i("GONE")
+
+                View.VISIBLE ->
+                    Logger.i("VISIBLE")
+
+                View.INVISIBLE ->
+                    Logger.i("INVISIABLE")
+
+                else ->
+                    Logger.i("Nothing")
+
+            }
+        }
         setContentView(binding.root)
         prepareRecycleView()
     }
@@ -63,17 +81,21 @@ class SimpleCasesActivity : AppCompatActivity() {
                 val item = getItem(position)
                 title.text = item.name
                 this.root.setOnClickListener {
-                    item.action()
+                    Logger.i("Click:${item.name}")
+                    item.action(it)
                 }
             }
         }
     }
 
-    class Case(val name: String, val action: () -> Unit) {
+    class Case(val name: String, val action: (View) -> Unit) {
         companion object {
             val cases: List<Case> = listOf(
                 Case("R属性final问题") {
 
+                },
+                Case("透明Activity,View监控可见状态问题") {
+                    Logger.i("ClickMe")
                 }
             )
         }

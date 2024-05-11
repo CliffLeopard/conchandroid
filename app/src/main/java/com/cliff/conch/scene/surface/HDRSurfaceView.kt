@@ -12,7 +12,7 @@ import android.view.SurfaceView
 import com.cliff.conch.R
 import com.orhanobut.logger.Logger
 
-class HDRSurfaceView(private val context: Context, attrs: AttributeSet? = null) :
+class HDRSurfaceView(context: Context, attrs: AttributeSet? = null) :
     SurfaceView(context, attrs),
     SurfaceHolder.Callback2 {
     private var mIsHardwareAccel: Boolean = false

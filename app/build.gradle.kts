@@ -129,6 +129,8 @@ dependencies {
     implementation(libs.eventbus)
     implementation(libs.annotation)
     implementation(libs.slice.builders)
+    implementation(libs.androidx.activity)
+//    implementation(libs.androidx.ui.graphics.android)
     kapt(libs.eventbus.annotation)
     implementation(libs.logger)
     implementation(libs.androidx.multidex)
@@ -141,6 +143,8 @@ dependencies {
     implementation(libs.androidx.viewmodel)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
+    implementation(libs.androidx.webkit)
+    implementation(libs.androidx.swiperefreshlayout)
 
     implementation(libs.pine.core)
     implementation(libs.pine.enhances)

@@ -11,7 +11,6 @@ class TextureViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTextureViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val surfaceView = binding.hdrSurface
     }
 }
