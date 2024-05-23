@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.cliff.conch.databinding.ActivityCoroutineBinding
+import com.cliff.conch.scene.coroutine.CoroutineCase
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
@@ -112,7 +113,7 @@ class CoroutineActivity : AppCompatActivity() {
         return withContext(Dispatchers.IO) {
             Logger.i("$k ${Thread.currentThread().name}")
             Thread.sleep(10000)
-            10
+            CoroutineCase.case1()
         }
     }
 

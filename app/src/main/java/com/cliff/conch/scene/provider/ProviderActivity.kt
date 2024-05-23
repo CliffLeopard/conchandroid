@@ -3,11 +3,11 @@ package com.cliff.conch.scene.provider
 import android.content.ContentValues
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.cliff.conch.databinding.ActivityProviderBinding
 import com.cliff.conch.scene.aidl.Book
+import com.orhanobut.logger.Logger
 
 
 class ProviderActivity : AppCompatActivity() {
@@ -31,7 +31,7 @@ class ProviderActivity : AppCompatActivity() {
         val bookCursor = contentResolver.query(uri, arrayOf("_id", "name"), null, null, null)
         while (bookCursor!!.moveToNext()) {
             val book = Book(bookCursor.getInt(0), bookCursor.getString(1))
-            Log.d("TAG", "bookID $book")
+            Logger.d("TAG", "bookID $book")
         }
         bookCursor.close()
     }
@@ -52,7 +52,7 @@ class ProviderActivity : AppCompatActivity() {
         while (bookCursor2!!.moveToNext()) {
             val user =
                 User(bookCursor2.getInt(0), bookCursor2.getString(1), bookCursor2.getInt(2))
-            Log.d("TAG", "bookID $user")
+            Logger.d("TAG", "bookID $user")
         }
         bookCursor2.close()
     }

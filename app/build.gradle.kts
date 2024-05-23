@@ -120,6 +120,8 @@ android {
 }
 
 dependencies {
+    // 访问 hidden api
+    implementation(libs.hiddenapibypass)
     implementation(projects.androidlibrary)
     implementation(libs.rxandroid)
     implementation(libs.rxjava)
@@ -133,7 +135,6 @@ dependencies {
 //    implementation(libs.androidx.ui.graphics.android)
     kapt(libs.eventbus.annotation)
     implementation(libs.logger)
-    implementation(libs.androidx.multidex)
     implementation(libs.androidx.multidex)
     implementation(libs.androidx.appcompat)
     implementation(libs.google.material)

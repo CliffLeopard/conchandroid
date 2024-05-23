@@ -3,6 +3,7 @@ androidGradlePlugin = "8.2.0"
 compileSdk = "34"
 core = "0.2.7"
 gson = "2.10.1"
+hiddenapibypass = "4.3"
 rxandroid = "3.0.2"
 rxjava = "3.1.8"
 swiperefreshlayout = "1.1.0"
@@ -54,6 +55,7 @@ androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-
 androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+hiddenapibypass = { module = "org.lsposed.hiddenapibypass:hiddenapibypass", version.ref = "hiddenapibypass" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 androidx-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
