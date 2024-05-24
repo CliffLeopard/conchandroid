@@ -1,7 +1,10 @@
 package com.cliff.conch.bean
 
 import android.app.NativeActivity
+import android.content.Intent
+import android.view.View
 import com.cliff.conch.R
+import com.cliff.conch.box.EgoActivity
 import com.cliff.conch.scene.ANRActivity
 import com.cliff.conch.scene.ANRSummaryActivity
 import com.cliff.conch.scene.BookManagerActivity
@@ -22,9 +25,15 @@ import com.cliff.conch.scene.bp.BinderProviderActivity
 import com.cliff.conch.scene.provider.ProviderActivity
 import com.cliff.nativelib.FoodActivity
 
-data class Section(val title: String, val activity: Class<*>) {
+data class Section(
+    val title: String, val activity: Class<*> = Int::class.java, val action: (View) -> Unit = {
+        val intent = Intent(it.context, activity)
+        it.context.startActivity(intent)
+    }
+) {
     companion object {
         private val activities = listOf(
+            EgoActivity::class.java,
             SimpleCasesActivity::class.java,
             EventBusActivity::class.java,
             BookManagerActivity::class.java,
@@ -47,7 +56,10 @@ data class Section(val title: String, val activity: Class<*>) {
             HiddenApiActivity::class.java,
         )
         val sections: List<Section> = activities.map {
-            Section(it.simpleName, it)
+            if (it == EgoActivity::class.java)
+                Section("沙盒先验技术", it)
+            else
+                Section(it.simpleName, it)
         }
 
         private val id = when (R.layout.activity_book_manager) {

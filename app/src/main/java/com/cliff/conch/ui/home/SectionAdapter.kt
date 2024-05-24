@@ -29,8 +29,7 @@ class SectionAdapter(private val context: Context) :
             val section = getItem(position)
             this.title.text = section.title
             this.title.setOnClickListener {
-                val intent = Intent(context, section.activity)
-                context.startActivity(intent)
+                section.action(it)
             }
         }
     }

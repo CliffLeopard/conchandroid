@@ -30,3 +30,4 @@
     <init>(java.lang.Throwable);
 }
 -keep class org.greenrobot.eventbus.android.AndroidComponentsImpl
+-keep class com.cliff.conch.box.scene.* {*;}
