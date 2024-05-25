@@ -12,6 +12,7 @@ public class Book implements Parcelable {
     public Book() {
 
     }
+
     public Book(int bookId, String bookName) {
         this.bookId = bookId;
         this.bookName = bookName;
@@ -40,7 +41,6 @@ public class Book implements Parcelable {
             return new Book[size];
         }
     };
-
 
 
     @NonNull
