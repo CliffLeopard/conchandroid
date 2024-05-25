@@ -24,8 +24,7 @@ class CoroutineActivity : AppCompatActivity() {
         binding.list.adapter = adapter
         binding.list.addItemDecoration(
             DividerItemDecoration(
-                this@CoroutineActivity,
-                DividerItemDecoration.VERTICAL
+                this@CoroutineActivity, DividerItemDecoration.VERTICAL
             )
         )
         viewModel.sections.observe(this) {

@@ -1,6 +1,7 @@
 package com.cliff.conch.scene.coroutine
 
 import kotlinx.coroutines.delay
+import kotlin.concurrent.thread
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -8,6 +9,7 @@ import kotlin.coroutines.RestrictsSuspension
 import kotlin.coroutines.createCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.startCoroutine
+import kotlin.coroutines.suspendCoroutine
 
 object CoroutineCase {
     fun basicCreate() {
@@ -77,4 +79,11 @@ object CoroutineCase {
             println("endDelay: $this")
         }
     }
+
+    suspend fun suspendFunction02(a:String,b:String)  =
+        suspendCoroutine { continuation ->
+            thread {
+                continuation.resumeWith(Result.success(5))
+            }
+        }
 }

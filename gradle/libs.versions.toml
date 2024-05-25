@@ -4,6 +4,7 @@ compileSdk = "34"
 core = "0.2.7"
 gson = "2.10.1"
 hiddenapibypass = "4.3"
+retrofit = "2.11.0"
 rxandroid = "3.0.2"
 rxjava = "3.1.8"
 swiperefreshlayout = "1.1.0"
@@ -53,6 +54,7 @@ androidx-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidxNavigation" }
 androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidxNavigation" }
 androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
+retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hiddenapibypass = { module = "org.lsposed.hiddenapibypass:hiddenapibypass", version.ref = "hiddenapibypass" }
@@ -63,6 +65,7 @@ eventbus = { group = "org.greenrobot", name = "eventbus", version.ref = "eventbu
 eventbus-annotation = { group = "org.greenrobot", name = "eventbus-annotation-processor", version.ref = "eventbus" }
 logger = { group = "com.orhanobut", name = "logger", version.ref = "logger" }
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
 rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
 slice-builders = { group = "androidx.slice", name = "slice-builders", version.ref = "slice-builders" }
