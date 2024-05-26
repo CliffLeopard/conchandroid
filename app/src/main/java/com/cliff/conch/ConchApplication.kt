@@ -17,10 +17,15 @@ import top.canyie.pine.callback.MethodHook
 
 
 class ConchApplication : MultiDexApplication() {
-    override fun attachBaseContext(base: Context?) {
+    companion object {
+        lateinit var context: Context
+    }
+
+    override fun attachBaseContext(base: Context) {
 //        hook2()
         super.attachBaseContext(base)
         under28Init()
+        context = base
     }
 
     override fun onCreate() {

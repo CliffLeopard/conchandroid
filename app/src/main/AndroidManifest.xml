@@ -123,10 +123,7 @@
             <meta-data
                 android:name="com.cliff.conch.start.CliffWorkManagerInitializer"
                 android:value="androidx.startup" />
-        </provider>
-
-
-        <!--   使用ContentProvider在进程之间传递Binder     -->
+        </provider> <!-- 使用ContentProvider在进程之间传递Binder -->
         <provider
             android:name=".scene.bp.BinderProvider"
             android:authorities="com.cliff.binder.provider.auth"
@@ -138,7 +135,15 @@
             android:authorities="com.cliff.binder.provider.auth2"
             android:enabled="true"
             android:exported="false"
-            android:process=":bindProvider2"
+            android:process=":bindProvider2" />
+
+        <!--    运行在Server进程，模拟SystemServer进程    -->
+        <provider
+            android:name=".box.service.FakeSystemServerProvider"
+            android:authorities="com.cliff.conch.box.system_server"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":box.server"
             />
     </application>
 
