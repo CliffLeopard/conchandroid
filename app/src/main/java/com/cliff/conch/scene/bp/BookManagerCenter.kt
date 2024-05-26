@@ -4,6 +4,7 @@ import android.os.RemoteCallbackList
 import com.cliff.conch.scene.aidl.Book
 import com.cliff.conch.scene.aidl.IOnNewBookArrivedListener
 import com.cliff.conch.scene.aidl.ProviderBookManager
+import com.orhanobut.logger.Logger
 import java.util.concurrent.CopyOnWriteArrayList
 
 
@@ -23,6 +24,8 @@ class BookManagerCenter : ProviderBookManager.Stub() {
 
     override fun registerListener(listener: IOnNewBookArrivedListener?) {
         listener?.let(mListenerList::register)
+        listener?.refreshBookCount(mBookList.size)
+        Logger.d("Server端成功注册Listener")
     }
 
     override fun unregisterListener(listener: IOnNewBookArrivedListener?) {

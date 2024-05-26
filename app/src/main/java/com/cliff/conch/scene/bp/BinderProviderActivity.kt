@@ -1,6 +1,5 @@
 package com.cliff.conch.scene.bp
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -14,19 +13,21 @@ import com.cliff.conch.scene.aidl.ProviderBookManager
 class BinderProviderActivity : AppCompatActivity() {
     lateinit var binding: ActivityBinderProviderBinding
     private var manager: ProviderBookManager? = null
-
     private val listener by lazy {
         object : IOnNewBookArrivedListener.Stub() {
             override fun onNewBookArrived(newBook: Book?) {
                 binding.root.post {
-                    manager?.let {
-                        binding.button2.text = "图书保有量:${it.bookList.size}本"
-                    }
                     Toast.makeText(
                         this@BinderProviderActivity,
                         "新书来临:" + newBook?.bookName,
                         LENGTH_SHORT
                     ).show()
+                }
+            }
+
+            override fun refreshBookCount(cout: Int) {
+                binding.root.post {
+                    binding.button2.text = "图书保有量:$cout 本"
                 }
             }
         }
@@ -38,24 +39,12 @@ class BinderProviderActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    fun binderProvider(view: View) {
-        val cursor = contentResolver.query(
-            Uri.parse("content://com.cliff.binder.provider.auth"),
-            null,
-            null,
-            null
-        )
-        try {
-            manager = BinderProvider.getProviderBookManager(cursor)
-            manager?.registerListener(listener)
-            manager?.let {
-                binding.button2.text = "图书保有量:${it.bookList.size}本"
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            cursor?.close()
-        }
+    fun bindProvider(view: View) {
+        manager = BinderProvider.getProviderBookManager(contentResolver, listener)
+    }
+
+    fun bindProvider2(view: View) {
+        manager = BinderProvider2.getProviderBookManager(contentResolver, listener)
     }
 
     fun addBook(view: View) {
