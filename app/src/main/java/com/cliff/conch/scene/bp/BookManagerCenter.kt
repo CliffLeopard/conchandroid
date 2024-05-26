@@ -1,5 +1,6 @@
 package com.cliff.conch.scene.bp
 
+import android.os.IInterface
 import android.os.RemoteCallbackList
 import com.cliff.conch.scene.aidl.Book
 import com.cliff.conch.scene.aidl.IOnNewBookArrivedListener
@@ -9,7 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 
 
 class BookManagerCenter : ProviderBookManager.Stub() {
-    override fun getBookList(): MutableList<Book> {
+    override fun getBookList(): CopyOnWriteArrayList<Book> {
         return mBookList
     }
 
@@ -17,7 +18,10 @@ class BookManagerCenter : ProviderBookManager.Stub() {
         book?.let(mBookList::add)
         val n = mListenerList.beginBroadcast()
         for (i in 0..<n) {
-            mListenerList.getBroadcastItem(i).onNewBookArrived(book)
+            mListenerList.getBroadcastItem(i).apply {
+                onNewBookArrived(book)
+                refreshBookCount(mBookList.size)
+            }
         }
         mListenerList.finishBroadcast()
     }
@@ -30,6 +34,7 @@ class BookManagerCenter : ProviderBookManager.Stub() {
 
     override fun unregisterListener(listener: IOnNewBookArrivedListener?) {
         listener?.let(mListenerList::unregister)
+        Logger.d("Server端成功解除Listener注册")
     }
 
     companion object {
@@ -39,6 +44,15 @@ class BookManagerCenter : ProviderBookManager.Stub() {
             add(Book(3, "英语"))
             add(Book(4, "化学"))
         }
-        private val mListenerList = RemoteCallbackList<IOnNewBookArrivedListener>()
+        private val mListenerList = MyCallBackList<IOnNewBookArrivedListener> {
+            Logger.d("在Server端注册的listener:Listener Died")
+        }
+    }
+
+    internal class MyCallBackList<E>(private val block: (E) -> Unit) :
+        RemoteCallbackList<E>() where E : IInterface {
+        override fun onCallbackDied(callback: E) {
+            block(callback)
+        }
     }
 }
