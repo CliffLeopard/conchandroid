@@ -10,6 +10,18 @@ import com.cliff.conch.scene.aidl.Book
 import com.cliff.conch.scene.aidl.IOnNewBookArrivedListener
 import com.cliff.conch.scene.aidl.ProviderBookManager
 
+/**
+ * 由下面的测试可以知道，通过call的方式更加高效:
+ * 因为通过query的方式，需要先通过ContentProvider拿到Binder,在通过Binder注册Listener,这里是两次三次进程通讯；
+ * Main --> BindProvider     申请Binder
+ * Main <-- BinderProvider   返回Binder
+ * Main --> BinderProvider   注册 Listener
+ *
+ * 通过call的方式，只需要两次进程通讯
+ * Main --> BinderProvider2  申请Binder,同时携带着Listener,BinderProvider2收到申请后注册Listener
+ * Main <-- BinderProvider2  并返回Manager
+ */
+
 class BinderProviderActivity : AppCompatActivity() {
     lateinit var binding: ActivityBinderProviderBinding
     private var manager: ProviderBookManager? = null
