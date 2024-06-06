@@ -13,7 +13,6 @@ import java.lang.reflect.Method;
 
 @SuppressLint("DiscouragedPrivateApi,PrivateApi")
 public class MirrorCases {
-
     // 对于RefObject等存在的包，要在混淆中添加配置，因为这些类很多只是通过反射调用，所以编译时可能经过优化而没有被打进apk包中。
     public static void testMirror() {
         try {

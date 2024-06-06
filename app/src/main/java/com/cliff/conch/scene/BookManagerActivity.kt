@@ -37,7 +37,9 @@ class BookManagerActivity : AppCompatActivity() {
         object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
                 Logger.d("onServiceConnected")
+                Logger.d("serviceClass:${service?.javaClass?.name}")
                 bookManager = IBookManager.Stub.asInterface(service)
+                Logger.d("serviceInterfaceClass:${bookManager?.javaClass?.name}")
                 bookManager?.asBinder()?.linkToDeath(recipient, 0)
             }
 

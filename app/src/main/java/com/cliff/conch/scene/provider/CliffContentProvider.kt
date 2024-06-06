@@ -104,7 +104,7 @@ class CliffContentProvider : ContentProvider() {
     companion object {
         private const val AUTHORITY = "com.cliff.conch.provider"
 
-//        val BOOK_CONTENT_URI = Uri.parse("content://$AUTHORITY/book")
+        //        val BOOK_CONTENT_URI = Uri.parse("content://$AUTHORITY/book")
 //        val USER_CONTENT_URI = Uri.parse("content://$AUTHORITY/user")
         const val BOOK_URI_CODE = 0
         const val USER_URI_CODE = 1

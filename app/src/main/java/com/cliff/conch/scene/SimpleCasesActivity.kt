@@ -1,5 +1,6 @@
 package com.cliff.conch.scene
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Looper
 import android.view.LayoutInflater
@@ -96,6 +97,9 @@ class SimpleCasesActivity : AppCompatActivity() {
                 },
                 Case("透明Activity,View监控可见状态问题") {
                     Logger.i("ClickMe")
+                },
+                Case("onStartCommand参数问题") {
+                    it.context.startService(Intent(it.context,SimpleService::class.java))
                 }
             )
         }

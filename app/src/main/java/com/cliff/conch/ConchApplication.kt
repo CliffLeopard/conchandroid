@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.multidex.MultiDexApplication
 import com.cliff.eventbuskotlin.MyEventBusIndex
 import com.orhanobut.logger.AndroidLogAdapter
@@ -17,6 +16,7 @@ import top.canyie.pine.callback.MethodHook
 
 
 class ConchApplication : MultiDexApplication() {
+    @SuppressLint("StaticFieldLeak")
     companion object {
         lateinit var context: Context
     }
@@ -36,9 +36,10 @@ class ConchApplication : MultiDexApplication() {
 }
 
 @SuppressLint("PrivateApi", "SoonBlockedPrivateApi")
+@SuppressWarnings("unused")
 private fun hook() {
-    PineConfig.debug = true; // 是否debug，true会输出较详细log
-    PineConfig.debuggable = BuildConfig.DEBUG; // 该应用是否可调试，建议和配置文件中的值保持一致，否则会出现问题
+    PineConfig.debug = true // 是否debug，true会输出较详细log
+    PineConfig.debuggable = BuildConfig.DEBUG // 该应用是否可调试，建议和配置文件中的值保持一致，否则会出现问题
     Pine.hook(
         Activity::class.java.getDeclaredMethod("onCreate", Bundle::class.java),
         Hooker("onCreate")
@@ -47,16 +48,16 @@ private fun hook() {
     val clz = Class.forName("android.view.ViewRootImpl")
     val methodPerformMeasure =
         clz.getDeclaredMethod("performMeasure", Int::class.java, Int::class.java)
-    val methodPerformLayout = clz.getDeclaredMethod(
-        "performLayout",
-        WindowManager.LayoutParams::class.java,
-        Int::class.java,
-        Int::class.java
-    )
-    val methodPerformDraw = clz.getDeclaredMethod("performDraw")
+//    val methodPerformLayout = clz.getDeclaredMethod(
+//        "performLayout",
+//        WindowManager.LayoutParams::class.java,
+//        Int::class.java,
+//        Int::class.java
+//    )
+//    val methodPerformDraw = clz.getDeclaredMethod("performDraw")
     val methodPerformTraversals = clz.getDeclaredMethod("performTraversals")
-    val methodScheduleTraversals = clz.getDeclaredMethod("scheduleTraversals")
-    val methodDoTraversal = clz.getDeclaredMethod("doTraversal")
+//    val methodScheduleTraversals = clz.getDeclaredMethod("scheduleTraversals")
+//    val methodDoTraversal = clz.getDeclaredMethod("doTraversal")
 
 
 //    Pine.hook(methodScheduleTraversals, Hooker("scheduleTraversals"))

@@ -2,7 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--  读取应用列表权限，这个权限无法在Google应用商店上架   -->
+    <queries android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
         android:name=".ConchApplication"
@@ -16,6 +22,11 @@
         android:theme="@style/Theme.Conchandroid"
         tools:targetApi="31">
 
+        <service
+            android:name=".scene.SimpleService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":.simple_service" />
 
         <activity
             android:name=".box.EgoActivity"
@@ -136,14 +147,19 @@
             android:enabled="true"
             android:exported="false"
             android:process=":bindProvider2" />
-
-        <!--    运行在Server进程，模拟SystemServer进程    -->
+        <!-- 运行在Server进程，模拟SystemServer进程 -->
         <provider
-            android:name=".box.service.FakeSystemServerProvider"
-            android:authorities="com.cliff.conch.box.system_server"
+            android:name=".box.service.ProxyServiceProvider"
+            android:authorities="com.cliff.conch.box.system_server_proxy"
             android:enabled="true"
             android:exported="false"
-            android:process=":box.server"
+            android:process=":box.server_proxy" />
+        <service
+            android:name=".box.service.ProxyService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"
+            android:process=":box.server_proxy"
             />
     </application>
 

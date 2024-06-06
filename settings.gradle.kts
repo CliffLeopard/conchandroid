@@ -32,3 +32,5 @@ project(":common").projectDir = file("ndkbinder/common")
 project(":nativebinder-service").projectDir = file("ndkbinder/nativebinder-service")
 
 include(":androidlibrary")
+include(":hidden")
+include(":compile-part")

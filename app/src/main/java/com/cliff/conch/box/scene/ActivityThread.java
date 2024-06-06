@@ -2,6 +2,7 @@ package com.cliff.conch.box.scene;
 
 import com.cliff.conch.box.reflect.RefClass;
 import com.cliff.conch.box.reflect.RefMethod;
+import com.cliff.conch.box.reflect.RefObject;
 import com.cliff.conch.box.reflect.RefStaticMethod;
 
 public class ActivityThread {
@@ -11,4 +12,5 @@ public class ActivityThread {
     public static Class<?> TYPE = RefClass.load(ActivityThread.class, "android.app.ActivityThread");
     public static RefStaticMethod<?> currentActivityThread;
     public static RefMethod<String> getProcessName;
+    public static RefObject<?> mAppThread;
 }

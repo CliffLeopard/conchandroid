@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.cliff.conch.databinding.ActivityHiddenApiBinding
-import org.lsposed.hiddenapibypass.HiddenApiBypass
+import com.cliff.hidden.HiddenApiBypass
 
 
 class HiddenApiActivity : AppCompatActivity() {

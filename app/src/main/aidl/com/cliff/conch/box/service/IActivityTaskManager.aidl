@@ -15,11 +15,10 @@
  */
 
 package com.cliff.conch.box.service;
-//package android.app;
 
 //import android.app.ActivityManager;
 //import android.app.ActivityTaskManager;
-//import android.app.ApplicationErrorReport;
+import android.app.ApplicationErrorReport;
 //import android.app.ContentProviderHolder;
 //import android.app.GrantedUriPermission;
 //import android.app.IApplicationThread;
@@ -79,8 +78,8 @@ import android.os.IBinder;
 //import android.window.SplashScreenView;
 //import com.android.internal.app.IVoiceInteractor;
 //import com.android.internal.os.IResultReceiver;
-//
-//import java.util.List;
+
+import java.util.List;
 
 /**
  * System private API for talking with the activity task manager that handles how activities are
@@ -94,17 +93,17 @@ import android.os.IBinder;
 // TODO(b/174041603): Create a builder interface for things like startActivityXXX(...) to reduce
 // interface duplication.
 interface IActivityTaskManager {
-//    int startActivity(in IApplicationThread caller, in String callingPackage,
-//            in String callingFeatureId, in Intent intent, in String resolvedType,
-//            in IBinder resultTo, in String resultWho, int requestCode,
-//            int flags, in ProfilerInfo profilerInfo, in Bundle options);
-//    int startActivities(in IApplicationThread caller, in String callingPackage,
-//            in String callingFeatureId, in Intent[] intents, in String[] resolvedTypes,
-//            in IBinder resultTo, in Bundle options, int userId);
-//    int startActivityAsUser(in IApplicationThread caller, in String callingPackage,
-//            in String callingFeatureId, in Intent intent, in String resolvedType,
-//            in IBinder resultTo, in String resultWho, int requestCode, int flags,
-//            in ProfilerInfo profilerInfo, in Bundle options, int userId);
+    int startActivity(in String callingPackage,
+            in String callingFeatureId, in Intent intent, in String resolvedType,
+            in IBinder resultTo, in String resultWho, int requestCode,
+            int flags, in Bundle options);
+    int startActivities( in String callingPackage,
+            in String callingFeatureId, in Intent[] intents, in String[] resolvedTypes,
+            in IBinder resultTo, in Bundle options, int userId);
+    int startActivityAsUser( in String callingPackage,
+            in String callingFeatureId, in Intent intent, in String resolvedType,
+            in IBinder resultTo, in String resultWho, int requestCode, int flags,
+            in Bundle options, int userId);
     boolean startNextMatchingActivity(in IBinder callingActivity,
             in Intent intent, in Bundle options);
 
@@ -114,7 +113,7 @@ interface IActivityTaskManager {
 //    *  it is not declared in the application's manifest and cannot be parsed. startDreamActivity
 //    *  creates the activity and starts it without reaching out to the PackageParser.
 //    */
-//    boolean startDreamActivity(in Intent intent);
+    boolean startDreamActivity(in Intent intent);
 //    int startActivityIntentSender(in IApplicationThread caller,
 //            in IIntentSender target, in IBinder whitelistToken, in Intent fillInIntent,
 //            in String resolvedType, in IBinder resultTo, in String resultWho, int requestCode,
@@ -313,7 +312,7 @@ interface IActivityTaskManager {
 //    void setPersistentVrThread(int tid);
 //    void stopAppSwitches();
 //    void resumeAppSwitches();
-//    void setActivityController(in IActivityController watcher, boolean imAMonkey);
+////    void setActivityController(in IActivityController watcher, boolean imAMonkey);
 //    void setVoiceKeepAwake(in IVoiceInteractionSession session, boolean keepAwake);
 //
 //    int getPackageScreenCompatMode(in String packageName);

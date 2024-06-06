@@ -1,12 +1,12 @@
 package com.cliff.conch.box
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cliff.conch.bean.Section
 import com.cliff.conch.box.dp.DynamicProxyCase
-import com.cliff.conch.box.service.FakeActivityTaskManager
+import com.cliff.conch.box.scene.ServiceManager
+import com.cliff.conch.box.service.SystemServerInterceptor
 import com.orhanobut.logger.Logger
 
 class EgoViewModel : ViewModel() {
@@ -21,9 +21,15 @@ class EgoViewModel : ViewModel() {
             Section("动态代理实现") {
                 DynamicProxyCase.testDynamicProxy()
             },
-            Section("虚拟SystemService实现-替换ActivityTaskManager和ActivityTaskManagerService") {
-                Logger.i("获取ActivityTaskMangerService")
-                FakeActivityTaskManager.getService().startNextMatchingActivity(null, null, null)
+            Section("查看系统都注册了哪些服务") {
+                val map = ServiceManager.sCache.get()
+                for (section in map) {
+                    Logger.i("服务: name:${section.key}  value:${section.value.javaClass.name}")
+                }
+                Logger.i("服务总数: ${map.size}");
+            },
+            Section("创建ProxyServer，代理系统SystemServer") {
+                SystemServerInterceptor.interceptATMS()
             }
         )
     }
