@@ -11,6 +11,7 @@ import com.cliff.conch.scene.BookManagerActivity
 import com.cliff.conch.scene.CoroutineActivity
 import com.cliff.conch.scene.EventActivity
 import com.cliff.conch.scene.EventBusActivity
+import com.cliff.conch.scene.FilePathActivity
 import com.cliff.conch.scene.HiddenApiActivity
 import com.cliff.conch.scene.LeakActivity
 import com.cliff.conch.scene.PineActivity
@@ -54,8 +55,8 @@ data class Section(
             Section("TextureView研究", TextureViewActivity::class.java),
             Section("WebView截图研究", WebViewScreenShotActivity::class.java),
             Section("HiddenApi研究", HiddenApiActivity::class.java),
+            Section("各种文件路径", FilePathActivity::class.java),
         )
-
 
         private val id = when (R.layout.activity_book_manager) {
             0 -> 0
