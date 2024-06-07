@@ -32,35 +32,30 @@ data class Section(
     }
 ) {
     companion object {
-        private val activities = listOf(
-            EgoActivity::class.java,
-            SimpleCasesActivity::class.java,
-            EventBusActivity::class.java,
-            BookManagerActivity::class.java,
-            RetrofitActivity::class.java,
-            ReflectActivity::class.java,
-            FoodActivity::class.java,
-            NativeActivity::class.java,
-            SelfDefineViewActivity::class.java,
-            PineActivity::class.java,
-            ANRActivity::class.java,
-            ProviderActivity::class.java,
-            BinderProviderActivity::class.java,
-            RxJavaActivity::class.java,
-            CoroutineActivity::class.java,
-            EventActivity::class.java,
-            LeakActivity::class.java,
-            ANRSummaryActivity::class.java,
-            TextureViewActivity::class.java,
-            WebViewScreenShotActivity::class.java,
-            HiddenApiActivity::class.java,
+        val sections: List<Section> = listOf(
+            Section("沙盒先验技术", EgoActivity::class.java),
+            Section("简单案例验证", SimpleCasesActivity::class.java),
+            Section("EventBus验证", EventBusActivity::class.java),
+            Section("Service-AIDL文件", BookManagerActivity::class.java),
+            Section("Service-AIDL文件2", FoodActivity::class.java),
+            Section("Retrofit源码", RetrofitActivity::class.java),
+            Section("反射研究", ReflectActivity::class.java),
+            Section("NativeActivity生成", NativeActivity::class.java),
+            Section("自定义View", SelfDefineViewActivity::class.java),
+            Section("Pine研究", PineActivity::class.java),
+            Section("ANR研究", ANRActivity::class.java),
+            Section("ANR研究2", ANRSummaryActivity::class.java),
+            Section("ContentProvider研究", ProviderActivity::class.java),
+            Section("Provider传递Binder", BinderProviderActivity::class.java),
+            Section("RxJava研究", RxJavaActivity::class.java),
+            Section("协程研究", CoroutineActivity::class.java),
+            Section("事件传递研究", EventActivity::class.java),
+            Section("一种内存泄漏研究", LeakActivity::class.java),
+            Section("TextureView研究", TextureViewActivity::class.java),
+            Section("WebView截图研究", WebViewScreenShotActivity::class.java),
+            Section("HiddenApi研究", HiddenApiActivity::class.java),
         )
-        val sections: List<Section> = activities.map {
-            if (it == EgoActivity::class.java)
-                Section("沙盒先验技术", it)
-            else
-                Section(it.simpleName, it)
-        }
+
 
         private val id = when (R.layout.activity_book_manager) {
             0 -> 0

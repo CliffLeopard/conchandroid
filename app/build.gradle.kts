@@ -120,6 +120,8 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.glide)
     implementation(projects.hidden)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
@@ -149,6 +151,10 @@ dependencies {
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.webkit)
     implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx.v240)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx.v240)
 
     implementation(libs.pine.core)
     implementation(libs.pine.enhances)

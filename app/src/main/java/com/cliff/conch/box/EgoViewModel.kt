@@ -7,6 +7,7 @@ import com.cliff.conch.bean.Section
 import com.cliff.conch.box.dp.DynamicProxyCase
 import com.cliff.conch.box.scene.ServiceManager
 import com.cliff.conch.box.service.SystemServerInterceptor
+import com.cliff.conch.scene.install.InstallPackageActivity
 import com.orhanobut.logger.Logger
 
 class EgoViewModel : ViewModel() {
@@ -26,11 +27,12 @@ class EgoViewModel : ViewModel() {
                 for (section in map) {
                     Logger.i("服务: name:${section.key}  value:${section.value.javaClass.name}")
                 }
-                Logger.i("服务总数: ${map.size}");
+                Logger.i("服务总数: ${map.size}")
             },
             Section("创建ProxyServer，代理系统SystemServer") {
                 SystemServerInterceptor.interceptATMS()
-            }
+            },
+            Section("安装应用", InstallPackageActivity::class.java)
         )
     }
 }
