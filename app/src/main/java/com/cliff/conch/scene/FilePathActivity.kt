@@ -1,7 +1,9 @@
 package com.cliff.conch.scene
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.Environment.DIRECTORY_DOWNLOADS
@@ -10,12 +12,62 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.cliff.conch.ConchApplication
 import com.cliff.conch.databinding.ActivityFilePathBinding
+import com.orhanobut.logger.Logger
 import java.io.File
 
 class FilePathActivity : AppCompatActivity() {
     lateinit var binding: ActivityFilePathBinding
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                Logger.i("权限已授权")
+                granted()
+
+            } else {
+                Logger.i("没有授权")
+                denied()
+            }
+        }
+
+    private fun granted() {
+        val content = ConchApplication.context
+        val appInfo = content.applicationInfo
+        val appInfos = packageManager.getInstalledApplications(0)
+        val blackInfo = packageManager.getApplicationInfo("top.niunaijun.blackboxa64_beta", 0)
+        Logger.i("appInfos:${appInfos.size}")
+        Logger.i("blackInfo:${blackInfo.sourceDir}")
+        Logger.i("blackInfo:${blackInfo.dataDir}")
+        Logger.i("blackInfo:${blackInfo.isVirtualPreload}")
+
+        addCase("appinfo.sourceDir", blackInfo.sourceDir)
+        addCase("appinfo.publicSourceDir", blackInfo.publicSourceDir)
+        addCase("appinfo.splitNames", blackInfo.splitNames?.contentToString() ?: "null")
+        addCase("appinfo.splitSourceDirs", blackInfo.splitSourceDirs?.contentToString() ?: "null")
+        addCase(
+            "appinfo.splitPublicSourceDirs",
+            blackInfo.splitPublicSourceDirs?.contentToString() ?: "null"
+        )
+        addCase(
+            "appinfo.sharedLibraryFiles",
+            blackInfo.sharedLibraryFiles?.contentToString() ?: "null"
+        )
+        addCase("appinfo.dataDir", blackInfo.dataDir)
+        addCase("appinfo.deviceProtectedDataDir", blackInfo.deviceProtectedDataDir)
+        addCase("appinfo.nativeLibraryDir", blackInfo.nativeLibraryDir)
+        addCase("appinfo.uid", blackInfo.uid.toString())
+        addCase("appinfo.appComponentFactory", blackInfo.appComponentFactory)
+    }
+
+    private fun denied() {
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFilePathBinding.inflate(layoutInflater)
@@ -102,6 +154,12 @@ class FilePathActivity : AppCompatActivity() {
             Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS).absolutePath
         )
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            Logger.i("发起授权申请")
+            requestPermissionLauncher.launch(Manifest.permission.QUERY_ALL_PACKAGES)
+        } else {
+            granted()
+        }
         // APK安装
         // File apkFile;
         //Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -111,9 +169,9 @@ class FilePathActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    fun addCase(title: String, content: String) {
+    fun addCase(title: String, content: String?) {
         val textView = TextView(this)
-        textView.text = "$title\n$content"
+        textView.text = "$title\n${content ?: ""}"
         textView.setSingleLine(false)
         textView.maxLines = 10
 
