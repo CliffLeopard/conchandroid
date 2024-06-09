@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.cliff.conch.databinding.ActivityFilePathBinding
+import java.io.File
 
 class FilePathActivity : AppCompatActivity() {
     lateinit var binding: ActivityFilePathBinding
@@ -20,7 +21,36 @@ class FilePathActivity : AppCompatActivity() {
         binding = ActivityFilePathBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 系统目录
+        addCase("系统应用安装目录", "/system/app/appName")
+
+        // pm package list | grep -i packageName
+        // pm path packageName
+
+        // 存储有base.apk,lib; release应用会存在oat目录，debug文件则没有。oat目录中存储着arm64/base.odex  arm64/base.vdex
+        // 自己的apk目录也可以直接读取，不需要读取其它权限
+        addCase("用户apk安装的文件夹", "/data/app/~~随机数==/packageName-随机数==")
+        val file =
+            File("/data/app/~~uoHJO8f8t9N_14eqve-T6Q==/com.cliff.conch-8MmnN__cpB7xpJWrsft4Hw==")
+        addCase("用户apk安装的文件夹", file.absolutePath)
+        addCase(
+            "用户apk安装的文件夹内文件",
+            file.listFiles()?.joinToString { it.absolutePath + ";" } ?: "null")
+
+        // 安装 add("application/vnd.android.package-archive", "apk");
+
+//        /system/framwork：保存的是资源型的应用程序，它们用来打包资源文件。
+//        /system/app ：系统自带的应用程序，获得adb root权限才能删除
+//        /data/app-private：保存受DRM保护的私有应用程序。
+//        /vendor/app：保存设备厂商提供的应用程序。
+//        /data/app ：用户程序安装的文件夹。安装时把apk文件复制到此文件夹
+//        /data/data ：存放应用程序的数据
+//        /data/dalvik-cache：将apk中的dex文件安装到dalvik-cache文件夹下(dex文件是dalvik虚拟机的可运行文件,当然，ART–Android Runtime的可运行文件格式为oat。启用ART时，系统会运行dex文件转换至oat文件)
+//        /data/system ：该文件夹下的packages.xml文件。相似于Windows的注冊表，这个文件是在解析apk时由writeLP()创建的。里面记录了系统的permissions，以及每一个apk的name,codePath,flags,ts,version,uesrid等信息。这些信息主要通apk的AndroidManifest.xml解析获取，解析完apk后将更新信息写入这个文件并保存到flash，下次开机直接从里面读取相关信息加入到内存相关列表中。当有apk升级，安装或删除时会更新这个文件。
+
+
         // 内部存储，私有数据目录 -- 无需权限申请
+        // /data/user/0/com.cliff.conch 等价于 /data/data/com.cliff.conch
         addCase("=========================", "内部存储-私有数据-无需权限申请-外部不可访问")
         addCase(
             "context.getDir(\"Hello\",MODE_APPEND):",
@@ -71,6 +101,13 @@ class FilePathActivity : AppCompatActivity() {
             "Environment.getExternalStoragePublicDirectory().getAbsolutePath():",
             Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS).absolutePath
         )
+
+        // APK安装
+        // File apkFile;
+        //Intent intent = new Intent(Intent.ACTION_VIEW);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
+        //context.startActivity(intent);
     }
 
     @SuppressLint("SetTextI18n")

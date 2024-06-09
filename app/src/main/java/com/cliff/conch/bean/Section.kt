@@ -18,6 +18,7 @@ import com.cliff.conch.scene.ReflectActivity
 import com.cliff.conch.scene.RetrofitActivity
 import com.cliff.conch.scene.RxJavaActivity
 import com.cliff.conch.scene.SelfDefineViewActivity
+import com.cliff.conch.scene.ShellActivity
 import com.cliff.conch.scene.SimpleCasesActivity
 import com.cliff.conch.scene.TextureViewActivity
 import com.cliff.conch.scene.WebViewScreenShotActivity
@@ -36,6 +37,7 @@ data class Section(
             Section("沙盒先验技术", EgoActivity::class.java),
             Section("简单案例验证", SimpleCasesActivity::class.java),
             Section("各种文件路径", FilePathActivity::class.java),
+            Section("执行Shell命令并获取结果", ShellActivity::class.java),
             Section("EventBus验证", EventBusActivity::class.java),
             Section("Service-AIDL文件", BookManagerActivity::class.java),
             Section("Service-AIDL文件2", FoodActivity::class.java),
