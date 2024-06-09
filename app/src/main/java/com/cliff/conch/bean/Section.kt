@@ -3,7 +3,6 @@ package com.cliff.conch.bean
 import android.app.NativeActivity
 import android.content.Intent
 import android.view.View
-import com.cliff.conch.R
 import com.cliff.conch.box.EgoActivity
 import com.cliff.conch.scene.ANRActivity
 import com.cliff.conch.scene.ANRSummaryActivity
@@ -36,6 +35,7 @@ data class Section(
         val sections: List<Section> = listOf(
             Section("沙盒先验技术", EgoActivity::class.java),
             Section("简单案例验证", SimpleCasesActivity::class.java),
+            Section("各种文件路径", FilePathActivity::class.java),
             Section("EventBus验证", EventBusActivity::class.java),
             Section("Service-AIDL文件", BookManagerActivity::class.java),
             Section("Service-AIDL文件2", FoodActivity::class.java),
@@ -55,12 +55,6 @@ data class Section(
             Section("TextureView研究", TextureViewActivity::class.java),
             Section("WebView截图研究", WebViewScreenShotActivity::class.java),
             Section("HiddenApi研究", HiddenApiActivity::class.java),
-            Section("各种文件路径", FilePathActivity::class.java),
         )
-
-        private val id = when (R.layout.activity_book_manager) {
-            0 -> 0
-            else -> 1
-        }
     }
 }
