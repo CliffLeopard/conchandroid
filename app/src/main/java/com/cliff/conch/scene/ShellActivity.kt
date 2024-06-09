@@ -62,19 +62,10 @@ class ShellActivity : AppCompatActivity() {
                 val apkPath = result.toString().removePrefix("package:").trim()
                 val apkFile = File(apkPath)
                 val newApkFile = File(context.getExternalFilesDir("apk"), apkFile.name)
-                val len = 1024 * 10
-                val buffer = CharArray(len + 1)
-                var number = 0
-                BufferedReader(InputStreamReader(FileInputStream(apkFile))).use { bufferReader ->
-                    OutputStreamWriter(FileOutputStream(newApkFile)).use { streamWriter ->
-                        while (true) {
-                            number = bufferReader.read(buffer, 0, len)
-                            if (number == -1) {
-                                break
-                            } else {
-                                streamWriter.write(buffer, 0, number)
-                            }
-                        }
+
+                FileInputStream(apkFile).use { inputStream ->
+                    newApkFile.outputStream().buffered().use { bufferOutputStream ->
+                        inputStream.copyTo(bufferOutputStream)
                     }
                 }
 

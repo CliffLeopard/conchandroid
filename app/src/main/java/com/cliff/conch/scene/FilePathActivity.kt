@@ -2,6 +2,7 @@ package com.cliff.conch.scene
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -27,42 +28,13 @@ class FilePathActivity : AppCompatActivity() {
         ) { isGranted: Boolean ->
             if (isGranted) {
                 Logger.i("权限已授权")
-                granted()
+                getApplicationIfo()
 
             } else {
                 Logger.i("没有授权")
                 denied()
             }
         }
-
-    private fun granted() {
-        val content = ConchApplication.context
-        val appInfo = content.applicationInfo
-        val appInfos = packageManager.getInstalledApplications(0)
-        val blackInfo = packageManager.getApplicationInfo("top.niunaijun.blackboxa64_beta", 0)
-        Logger.i("appInfos:${appInfos.size}")
-        Logger.i("blackInfo:${blackInfo.sourceDir}")
-        Logger.i("blackInfo:${blackInfo.dataDir}")
-        Logger.i("blackInfo:${blackInfo.isVirtualPreload}")
-
-        addCase("appinfo.sourceDir", blackInfo.sourceDir)
-        addCase("appinfo.publicSourceDir", blackInfo.publicSourceDir)
-        addCase("appinfo.splitNames", blackInfo.splitNames?.contentToString() ?: "null")
-        addCase("appinfo.splitSourceDirs", blackInfo.splitSourceDirs?.contentToString() ?: "null")
-        addCase(
-            "appinfo.splitPublicSourceDirs",
-            blackInfo.splitPublicSourceDirs?.contentToString() ?: "null"
-        )
-        addCase(
-            "appinfo.sharedLibraryFiles",
-            blackInfo.sharedLibraryFiles?.contentToString() ?: "null"
-        )
-        addCase("appinfo.dataDir", blackInfo.dataDir)
-        addCase("appinfo.deviceProtectedDataDir", blackInfo.deviceProtectedDataDir)
-        addCase("appinfo.nativeLibraryDir", blackInfo.nativeLibraryDir)
-        addCase("appinfo.uid", blackInfo.uid.toString())
-        addCase("appinfo.appComponentFactory", blackInfo.appComponentFactory)
-    }
 
     private fun denied() {
 
@@ -115,6 +87,8 @@ class FilePathActivity : AppCompatActivity() {
 
 
         // 外部存储私有数据目录 -- 无需权限申请
+        //  /storage/emulated/0/Android/data/com.cliff.conch
+        //  /sdcard/Android/data/com.cliff.conch
         addCase(
             "=========================",
             "外部存储-私有数据-无需权限申请-外部通过FileProvider访问"
@@ -158,14 +132,61 @@ class FilePathActivity : AppCompatActivity() {
             Logger.i("发起授权申请")
             requestPermissionLauncher.launch(Manifest.permission.QUERY_ALL_PACKAGES)
         } else {
-            granted()
+            getApplicationIfo()
         }
+
+        getPkgInfo()
+
         // APK安装
         // File apkFile;
         //Intent intent = new Intent(Intent.ACTION_VIEW);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
         //context.startActivity(intent);
+    }
+
+    private fun getApplicationIfo() {
+        val content = ConchApplication.context
+        val appInfo = content.applicationInfo
+        val appInfos = packageManager.getInstalledApplications(0)
+        val blackInfo = packageManager.getApplicationInfo("top.niunaijun.blackboxa64_beta", 0)
+        Logger.i("appInfos:${appInfos.size}")
+        Logger.i("blackInfo:${blackInfo.sourceDir}")
+        Logger.i("blackInfo:${blackInfo.dataDir}")
+        Logger.i("blackInfo:${blackInfo.isVirtualPreload}")
+
+        addCase("appinfo.sourceDir", blackInfo.sourceDir)
+        addCase("appinfo.publicSourceDir", blackInfo.publicSourceDir)
+        addCase("appinfo.splitNames", blackInfo.splitNames?.contentToString() ?: "null")
+        addCase("appinfo.splitSourceDirs", blackInfo.splitSourceDirs?.contentToString() ?: "null")
+        addCase(
+            "appinfo.splitPublicSourceDirs",
+            blackInfo.splitPublicSourceDirs?.contentToString() ?: "null"
+        )
+        addCase(
+            "appinfo.sharedLibraryFiles",
+            blackInfo.sharedLibraryFiles?.contentToString() ?: "null"
+        )
+        addCase("appinfo.dataDir", blackInfo.dataDir)
+        addCase("appinfo.deviceProtectedDataDir", blackInfo.deviceProtectedDataDir)
+        addCase("appinfo.nativeLibraryDir", blackInfo.nativeLibraryDir)
+        addCase("appinfo.uid", blackInfo.uid.toString())
+        addCase("appinfo.appComponentFactory", blackInfo.appComponentFactory)
+    }
+
+    private fun getPkgInfo() {
+        val context = ConchApplication.context
+        // ShellActivity里执行了将 /data/app/随机数/packageName-随机数/base.apk 文件存储到了 /sdcard/Android/data/com.cliff.conch/files/apk/
+        val apkFile = File(context.getExternalFilesDir("apk"), "base.apk")
+        val pkgInfo = context.packageManager.getPackageArchiveInfo(
+            apkFile.absolutePath,
+            PackageManager.GET_ACTIVITIES
+        )
+        if (pkgInfo != null) {
+            Logger.i(pkgInfo.activities.joinToString { it.name })
+        } else {
+            Logger.i("pkgInfo is null")
+        }
     }
 
     @SuppressLint("SetTextI18n")
