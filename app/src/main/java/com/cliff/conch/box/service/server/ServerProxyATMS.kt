@@ -3,20 +3,14 @@ package com.cliff.conch.box.service.server
 import android.content.Intent
 import android.os.Bundle
 import android.os.IBinder
-import com.cliff.conch.box.scene.ActivityThread
-import com.cliff.conch.box.service.IActivityTaskManager
-import com.cliff.conch.box.service.OriginServerManager.getOriginATMS
+import com.cliff.wrapper.service.PIAT
+import com.cliff.wrapper.service.PProfilerInfo
 import com.orhanobut.logger.Logger
-import org.lsposed.hiddenapibypass.HiddenApiBypass
-
 
 // ProxyServer端创建的代理，在ProxyServer进程执行
-class ServerProxyATMS : IActivityTaskManager.Stub() {
-    private val originATMS by lazy {
-        getOriginATMS()
-    }
-
+class ServerProxyATMS : OriginATMS() {
     override fun startActivity(
+        caller: PIAT?,
         callingPackage: String?,
         callingFeatureId: String?,
         intent: Intent?,
@@ -25,14 +19,12 @@ class ServerProxyATMS : IActivityTaskManager.Stub() {
         resultWho: String?,
         requestCode: Int,
         flags: Int,
+        pProfilerInfo: PProfilerInfo?,
         options: Bundle?
     ): Int {
         Logger.i("ProxyActivityTaskManager:startActivity")
-        val activityThread = ActivityThread.currentActivityThread.call()
-        val applicationThread = ActivityThread.mAppThread[activityThread]
-        return HiddenApiBypass.invoke(
-            originATMS.javaClass, originATMS, "startActivity",
-            applicationThread,
+        return super.startActivity(
+            caller,
             callingPackage,
             callingFeatureId,
             intent,
@@ -41,12 +33,13 @@ class ServerProxyATMS : IActivityTaskManager.Stub() {
             resultWho,
             requestCode,
             flags,
-            null,
+            pProfilerInfo,
             options
-        ) as Int
+        )
     }
 
     override fun startActivities(
+        caller: PIAT?,
         callingPackage: String?,
         callingFeatureId: String?,
         intents: Array<out Intent>?,
@@ -56,10 +49,20 @@ class ServerProxyATMS : IActivityTaskManager.Stub() {
         userId: Int
     ): Int {
         Logger.i("ProxyActivityTaskManager:startActivities")
-        return 0
+        return super.startActivities(
+            caller,
+            callingPackage,
+            callingFeatureId,
+            intents,
+            resolvedTypes,
+            resultTo,
+            options,
+            userId
+        )
     }
 
     override fun startActivityAsUser(
+        caller: PIAT?,
         callingPackage: String?,
         callingFeatureId: String?,
         intent: Intent?,
@@ -68,11 +71,25 @@ class ServerProxyATMS : IActivityTaskManager.Stub() {
         resultWho: String?,
         requestCode: Int,
         flags: Int,
+        pProfilerInfo: PProfilerInfo?,
         options: Bundle?,
         userId: Int
     ): Int {
         Logger.i("ProxyActivityTaskManager:startActivityAsUser")
-        return 0
+        return super.startActivityAsUser(
+            caller,
+            callingPackage,
+            callingFeatureId,
+            intent,
+            resolvedType,
+            resultTo,
+            resultWho,
+            requestCode,
+            flags,
+            pProfilerInfo,
+            options,
+            userId
+        )
     }
 
     override fun startNextMatchingActivity(
@@ -81,11 +98,11 @@ class ServerProxyATMS : IActivityTaskManager.Stub() {
         options: Bundle?
     ): Boolean {
         Logger.i("ProxyActivityTaskManager:startNextMatchingActivity")
-        return false
+        return super.startNextMatchingActivity(callingActivity, intent, options)
     }
 
     override fun startDreamActivity(intent: Intent?): Boolean {
         Logger.i("ProxyActivityTaskManager:startDreamActivity")
-        return false
+        return super.startDreamActivity(intent)
     }
 }

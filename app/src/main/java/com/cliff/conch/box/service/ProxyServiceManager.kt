@@ -2,6 +2,8 @@ package com.cliff.conch.box.service
 
 import android.net.Uri
 import com.cliff.conch.ConchApplication
+import com.cliff.wrapper.service.IActivityTaskManager
+import com.cliff.wrapper.service.IPackageManager
 import com.orhanobut.logger.Logger
 
 object ProxyServiceManager {

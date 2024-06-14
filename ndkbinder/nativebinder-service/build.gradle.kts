@@ -10,7 +10,8 @@ android {
 
     defaultConfig {
         applicationId = "com.cliff.binder.service"
-        minSdk = 21
+        minSdk          = libs.versions.minSdk21.get().toInt()
+        ndkVersion      = libs.versions.ndkVersion.get()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
@@ -41,11 +42,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
 }
 

@@ -3,9 +3,10 @@ import java.util.Properties
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.com.android.application)
     alias(libs.plugins.kotlin.android)
-    id("org.jetbrains.kotlin.kapt")
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
 }
 
 // 读取签名
@@ -19,18 +20,19 @@ android {
 
     defaultConfig {
         applicationId   = "com.cliff.conch"
-        minSdk          = libs.versions.minSdk19.get().toInt()
+        minSdk          = libs.versions.minSdk21.get().toInt()
+        ndkVersion      = libs.versions.ndkVersion.get()
         targetSdk       = libs.versions.targetSdk.get().toInt()
         versionCode     = libs.versions.versionCode.get().toInt()
         versionName     = libs.versions.versionName.get()
         resourceConfigurations.addAll(listOf("cn", "en")) // 语言配置
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        externalNativeBuild {
-            cmake {
-                cppFlags("")
-            }
-        }
+//        externalNativeBuild {
+//            cmake {
+//                cppFlags("")
+//            }
+//        }
     }
     externalNativeBuild {
         cmake {
@@ -66,18 +68,17 @@ android {
     }
 
     buildTypes {
-        getByName("debug") {
-            isMinifyEnabled = true
-            isShrinkResources = true
+        debug {
+            isMinifyEnabled = false
+            isShrinkResources = false
             signingConfig = signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-
         }
 
-        getByName("release") {
+        release {
             isMinifyEnabled = true
             isShrinkResources = true
             signingConfig = signingConfigs.getByName("release")
@@ -89,11 +90,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
     buildFeatures {
         viewBinding = true
@@ -107,9 +108,9 @@ android {
             dimension = "minSdk"
             minSdk = libs.versions.minSdk28.get().toInt()
         }
-        register("minSdk19") {
+        register("minSdk21") {
             dimension = "minSdk"
-            minSdk = libs.versions.minSdk19.get().toInt()
+            minSdk = libs.versions.minSdk21.get().toInt()
         }
     }
     sourceSets {
@@ -120,19 +121,21 @@ android {
 }
 
 dependencies {
+    implementation(projects.wrapper)
+    implementation(projects.androidlibrary)
+    implementation(projects.nativelib)
+    implementation(projects.reflectionCommon)
+    ksp(projects.reflectionProcessor)
 
     implementation(libs.glide)
-    implementation(projects.hidden)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     // 访问 hidden api
     implementation(libs.hiddenapibypass)
-    implementation(projects.androidlibrary)
     implementation(libs.rxandroid)
     implementation(libs.rxjava)
     implementation(libs.androidx.work.runtime)
     implementation(libs.androidx.startup)
-    implementation(projects.nativelib)
     implementation(libs.eventbus)
     implementation(libs.annotation)
     implementation(libs.slice.builders)

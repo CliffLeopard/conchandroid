@@ -1,6 +1,20 @@
 [versions]
 androidGradlePlugin = "8.2.0"
 compileSdk = "34"
+targetSdk = "34"
+minSdk21 = "21"
+minSdk28 = "28"
+ndkVersion = "26.1.10909125"
+cmakeVersion = "3.22.1"
+jvmTarget = "17"
+versionCode = "1"
+versionName = "1.0"
+kotlin = "2.0.0"
+kspVersion = "2.0.0-1.0.22"
+kotlinpoet = "1.14.2"
+proguardGradle = "7.5.0"
+junit = "4.13.2"
+
 core = "0.2.7"
 glide = "4.16.0"
 gson = "2.10.1"
@@ -12,15 +26,7 @@ retrofit = "2.11.0"
 rxandroid = "3.0.2"
 rxjava = "3.1.8"
 swiperefreshlayout = "1.1.0"
-targetSdk = "34"
-minSdk19 = "19"
-minSdk28 = "28"
-cmakeVersion = "3.22.1"
-jvmTarget = "1.8"
-versionCode = "1"
-versionName = "1.0"
-kotlin = "1.9.0"
-junit = "4.13.2"
+symbolProcessingApi = "2.0.0-1.0.22"
 eventbus = "3.3.1"
 logger = "2.2.0"
 
@@ -38,6 +44,7 @@ androidxJunit = "1.1.5"
 androidxEspresso = "3.5.1"
 annotation = "1.7.1"
 slice-builders = "1.0.0"
+
 pine-core = "0.2.9"
 pine-xposed = "0.0.9"
 pine-enhances = "0.0.3"
@@ -63,6 +70,8 @@ androidx-navigation-fragment = { group = "androidx.navigation", name = "navigati
 androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidxNavigation" }
 androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
+proguard-gradle = { module = "com.guardsquare:proguard-gradle", version.ref = "proguardGradle" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
@@ -82,10 +91,13 @@ pine-core = { module = "top.canyie.pine:core", version.ref = "pine-core" }
 pine-xposed = { module = "top.canyie.pine:xposed", version.ref = "pine-xposed" }
 pine-enhances = { module = "top.canyie.pine:enhances", version.ref = "pine-enhances" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
-androidx-webkit = {group = "androidx.webkit", name = "webkit", version.ref = "webkit"}
+androidx-webkit = { group = "androidx.webkit", name = "webkit", version.ref = "webkit" }
+symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "symbolProcessingApi" }
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+com-android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 com-android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }

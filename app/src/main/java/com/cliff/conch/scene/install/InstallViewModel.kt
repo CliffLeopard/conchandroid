@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cliff.conch.ConchApplication
+import com.orhanobut.logger.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -38,11 +39,12 @@ class InstallViewModel : ViewModel() {
                 }
             }
             val apkUri = FileProvider.getUriForFile(context, fileAuthor, nowApk)
+            Logger.i("apkUri:${apkUri}")
             val intent = Intent(Intent.ACTION_VIEW)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
-            context.startActivity(intent);
+            context.startActivity(intent)
         }
     }
 }

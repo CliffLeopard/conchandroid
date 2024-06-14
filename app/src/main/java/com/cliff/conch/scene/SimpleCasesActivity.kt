@@ -2,7 +2,6 @@ package com.cliff.conch.scene
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import com.cliff.conch.R
 import com.cliff.conch.databinding.ActivitySimpleCasesBinding
 import com.cliff.conch.databinding.SectionItemBinding
 import com.orhanobut.logger.Logger
+
 
 class SimpleCasesActivity : AppCompatActivity() {
     lateinit var binding: ActivitySimpleCasesBinding
@@ -99,9 +99,16 @@ class SimpleCasesActivity : AppCompatActivity() {
                     Logger.i("ClickMe")
                 },
                 Case("onStartCommand参数问题") {
-                    it.context.startService(Intent(it.context,SimpleService::class.java))
+                    it.context.startService(Intent(it.context, SimpleService::class.java))
+                },
+                Case("Java运行时编译") {
+                    compileInMemory()
                 }
             )
+
+            private fun compileInMemory() {
+
+            }
         }
     }
 }

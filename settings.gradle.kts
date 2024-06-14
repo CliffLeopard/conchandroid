@@ -26,11 +26,12 @@ rootProject.name = "conch-android"
 
 include(":app")
 include(":nativelib")
-include(":common")
-include(":nativebinder-service")
-project(":common").projectDir = file("ndkbinder/common")
-project(":nativebinder-service").projectDir = file("ndkbinder/nativebinder-service")
-
 include(":androidlibrary")
-include(":hidden")
-include(":compile-part")
+include(":wrapper")
+
+//include(":nativebinder-service")
+//include(":common")
+//project(":common").projectDir = file("ndkbinder/common")
+//project(":nativebinder-service").projectDir = file("ndkbinder/nativebinder-service")
+include(":reflection-processor")
+include(":reflection-common")
