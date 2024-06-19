@@ -1,0 +1,114 @@
+package com.cliff.reflection.common
+
+import com.cliff.reflection.common.hidden.HiddenApi
+import java.lang.ref.WeakReference
+import java.lang.reflect.Constructor
+import java.lang.reflect.Field
+import java.lang.reflect.Method
+
+abstract class ProxyBaseImpl(originCls: String) {
+    private val clz: Class<*> by lazy {
+        Class.forName(originCls)
+    }
+    private val fields = HashMap<String, WeakReference<Field>>()
+    private val methods = HashMap<String, WeakReference<Method>>()
+    private val constructors = HashMap<String, WeakReference<Constructor<*>>>()
+
+    fun setFiled(
+        target: Any?,
+        fieldName: String,
+        `value`: Any?,
+        type: String,
+        isStatic: Boolean = false
+    ) {
+        if (`value` != null && !Class.forName(type).isInstance(`value`)) {
+            throw ReflectException("File value type error")
+        }
+        try {
+            findField(fieldName).set(target, `value`)
+        } catch (exp: Exception) {
+            findHiddenField(fieldName, isStatic)?.set(target, `value`)
+        }
+    }
+
+    fun <T> getFiled(target: Any?, fieldName: String, type: String, isStatic: Boolean = false): T? {
+        val `value` = try {
+            findField(fieldName).get(target)
+        } catch (exp: Exception) {
+            findHiddenField(fieldName, isStatic)?.get(target)
+        }
+        return if (`value` == null) {
+            null
+        } else if (Class.forName(type).isInstance(`value`)) {
+            value as T
+        } else {
+            throw ReflectException("File return type error")
+        }
+    }
+
+    fun <T> invokeMethod(target: Any?, methodName: String, vararg sections: Section): T {
+        val parameters = sections.map { it.data }.toTypedArray()
+        val parameterTypes = sections.map { it.type }.toTypedArray()
+        val methodKey = methodKey(methodName, *parameterTypes)
+        return try {
+            if (methods[methodKey] == null || methods[methodKey]?.get() == null) {
+                val method = clz.getDeclaredMethod(methodName, *parameterTypes)
+                method.isAccessible = true
+                val result = method.invoke(target, *parameters)
+                methods[methodKey] = WeakReference(method)
+                result as T
+            } else {
+                methods[methodKey]!!.get()!!.invoke(target, *parameters) as T
+            }
+        } catch (exp: Exception) {
+            HiddenApi.invoke(clz, target, methodName, *parameters) as T
+        }
+    }
+
+    fun <T> invokeConstructor(classType: String, vararg sections: Section): T {
+        val clsType = Class.forName(classType)
+        val parameters = sections.map { it.data }.toTypedArray()
+        val parameterTypes = sections.map { it.type }.toTypedArray()
+        val key = methodKey("constructor", *parameterTypes)
+        return try {
+            if (constructors[key] == null || constructors[key]?.get() == null) {
+                val constructor = clsType.getDeclaredConstructor(*parameterTypes)
+                constructor.isAccessible = true
+                val value = constructor.newInstance(*parameters)
+                constructors[key] = WeakReference<Constructor<*>>(constructor)
+                value as T
+            } else {
+                constructors[key]!!.get()!!.newInstance(*parameters) as T
+            }
+        } catch (exp: Exception) {
+            HiddenApi.newInstance(clsType, *parameters) as T
+        }
+    }
+
+    private fun findField(fieldName: String): Field {
+        if (fields[fieldName] == null || fields[fieldName]?.get() == null) {
+            val filed = clz.getDeclaredField(fieldName)
+            filed.isAccessible = true
+            fields[fieldName] = WeakReference(filed)
+        }
+        return fields[fieldName]!!.get()!!
+    }
+
+    private fun findHiddenField(fieldName: String, isStatic: Boolean = false): Field? {
+        val field = if (isStatic) {
+            HiddenApi.getStaticFiled(fieldName, clz)
+        } else {
+            HiddenApi.getInstanceFiled(fieldName, clz)
+        }
+        if (field != null) {
+            fields[fieldName] = WeakReference(field)
+        }
+        return field
+    }
+
+    private fun methodKey(methodName: String, vararg parameterTypes: Class<*>): String {
+        return "$methodName;" + parameterTypes.joinToString {
+            it.canonicalName + ";"
+        }
+    }
+}

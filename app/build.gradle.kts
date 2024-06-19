@@ -122,7 +122,6 @@ android {
 
 dependencies {
     implementation(projects.wrapper)
-    implementation(projects.androidlibrary)
     implementation(projects.nativelib)
     implementation(projects.reflectionCommon)
     ksp(projects.reflectionProcessor)
@@ -130,8 +129,6 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
-    // 访问 hidden api
-    implementation(libs.hiddenapibypass)
     implementation(libs.rxandroid)
     implementation(libs.rxjava)
     implementation(libs.androidx.work.runtime)
@@ -140,7 +137,6 @@ dependencies {
     implementation(libs.annotation)
     implementation(libs.slice.builders)
     implementation(libs.androidx.activity)
-//    implementation(libs.androidx.ui.graphics.android)
     kapt(libs.eventbus.annotation)
     implementation(libs.logger)
     implementation(libs.androidx.multidex)

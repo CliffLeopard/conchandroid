@@ -11,7 +11,7 @@ versionCode = "1"
 versionName = "1.0"
 kotlin = "2.0.0"
 kspVersion = "2.0.0-1.0.22"
-kotlinpoet = "1.14.2"
+kotlinpoet = "1.17.0"
 proguardGradle = "7.5.0"
 junit = "4.13.2"
 
@@ -71,6 +71,7 @@ androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-
 androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
+kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinpoet" }
 proguard-gradle = { module = "com.guardsquare:proguard-gradle", version.ref = "proguardGradle" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }

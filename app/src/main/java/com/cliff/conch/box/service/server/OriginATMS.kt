@@ -14,10 +14,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
 import com.cliff.conch.box.scene.ActivityThread
+import com.cliff.reflection.common.hidden.HiddenApi
 import com.cliff.wrapper.service.IActivityTaskManager
 import com.cliff.wrapper.service.PIAT
 import com.cliff.wrapper.service.PProfilerInfo
-import org.lsposed.hiddenapibypass.HiddenApiBypass
 
 open class OriginATMS : IActivityTaskManager.Stub() {
     private val originATMS by lazy {
@@ -43,7 +43,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
         pProfilerInfo: PProfilerInfo?,
         options: Bundle?
     ): Int {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass, originATMS, "startActivity",
             applicationThread,
             callingPackage,
@@ -69,7 +69,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
         options: Bundle?,
         userId: Int
     ): Int {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -90,7 +90,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
         options: Bundle?,
         userId: Int
     ): Int {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -102,7 +102,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
         intent: Intent?,
         options: Bundle?
     ): Boolean {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -110,7 +110,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun startDreamActivity(intent: Intent?): Boolean {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -131,7 +131,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
         options: Bundle?,
         userId: Int
     ): Int {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -139,7 +139,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun getVoiceInteractorPackageName(callingVoiceInteractor: IBinder?): String {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -156,7 +156,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
         options: Bundle?,
         userId: Int
     ): Int {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -164,7 +164,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun startActivityFromRecents(taskId: Int, options: Bundle?): Int {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -185,7 +185,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
         ignoreTargetSecurity: Boolean,
         userId: Int
     ): Int {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -198,7 +198,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
         resolvedType: String?,
         userId: Int
     ): Boolean {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -206,7 +206,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun unhandledBack() {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -214,7 +214,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun getFrontActivityScreenCompatMode(): Int {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -222,7 +222,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun setFrontActivityScreenCompatMode(mode: Int) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -230,7 +230,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun setFocusedTask(taskId: Int) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -238,7 +238,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun removeTask(taskId: Int): Boolean {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -246,7 +246,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun removeAllVisibleRecentTasks() {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -260,7 +260,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
         flags: Int,
         options: Bundle?
     ) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -268,7 +268,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun isTopActivityImmersive(): Boolean {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -282,7 +282,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
         content: AssistContent?,
         referrer: Uri?
     ) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -290,7 +290,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun setFocusedRootTask(taskId: Int) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -298,7 +298,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun getTaskBounds(taskId: Int): Rect {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -306,7 +306,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun cancelRecentsAnimation(restoreHomeRootTaskPosition: Boolean) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -314,7 +314,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun updateLockTaskPackages(userId: Int, packages: Array<out String>?) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -322,7 +322,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun isInLockTaskMode(): Boolean {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -330,7 +330,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun getLockTaskModeState(): Int {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -338,7 +338,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun getAppTasks(callingPackage: String?): MutableList<IBinder>? {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -346,7 +346,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun startSystemLockTaskMode(taskId: Int) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -354,7 +354,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun stopSystemLockTaskMode() {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -362,7 +362,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun getAppTaskThumbnailSize(): Point {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -370,7 +370,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun releaseSomeActivities(app: PIAT?) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -378,7 +378,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun getTaskDescriptionIcon(filename: String?, userId: Int): Bitmap {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -386,7 +386,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun setTaskResizeable(taskId: Int, resizeableMode: Int) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -394,7 +394,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun resizeTask(taskId: Int, bounds: Rect?, resizeMode: Int): Boolean {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -402,7 +402,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun moveRootTaskToDisplay(taskId: Int, displayId: Int) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -410,7 +410,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun moveTaskToRootTask(taskId: Int, rootTaskId: Int, toTop: Boolean) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -418,7 +418,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun removeRootTasksInWindowingModes(windowingModes: IntArray?) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -426,7 +426,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun removeRootTasksWithActivityTypes(activityTypes: IntArray?) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -434,7 +434,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun setLockScreenShown(showingKeyguard: Boolean, showingAod: Boolean) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -442,7 +442,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun getAssistContextExtras(requestType: Int): Bundle {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -450,7 +450,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun isAssistDataAllowedOnCurrentActivity(): Boolean {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -458,7 +458,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun keyguardGoingAway(flags: Int) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -466,7 +466,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun suppressResizeConfigChanges(suppress: Boolean) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -474,7 +474,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun setSplitScreenResizing(resizing: Boolean) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -482,7 +482,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun supportsLocalVoiceInteraction(): Boolean {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -490,7 +490,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun getDeviceConfigurationInfo(): ConfigurationInfo {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -498,7 +498,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun cancelTaskWindowTransition(taskId: Int) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -506,7 +506,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun getLastResumedActivityUserId(): Int {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -514,7 +514,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun updateConfiguration(values: Configuration?): Boolean {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -522,7 +522,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun updateLockTaskFeatures(userId: Int, flags: Int) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -530,7 +530,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun alwaysShowUnsupportedCompileSdkWarning(activity: ComponentName?) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -538,7 +538,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun setVrThread(tid: Int) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -546,7 +546,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun setPersistentVrThread(tid: Int) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -554,7 +554,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun stopAppSwitches() {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -562,7 +562,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun resumeAppSwitches() {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -570,7 +570,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun getPackageScreenCompatMode(packageName: String?): Int {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -578,7 +578,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun setPackageScreenCompatMode(packageName: String?, mode: Int) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -586,7 +586,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun getPackageAskScreenCompat(packageName: String?): Boolean {
-        return HiddenApiBypass.invoke(
+        return HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -594,7 +594,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun setPackageAskScreenCompat(packageName: String?, ask: Boolean) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -602,7 +602,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun clearLaunchParamsForPackages(packageNames: MutableList<String>?) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -610,7 +610,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun onPictureInPictureStateChanged(pipState: PictureInPictureUiState?) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -618,7 +618,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun detachNavigationBarFromApp(transition: IBinder?) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""
@@ -626,7 +626,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
     }
 
     override fun setRunningRemoteTransitionDelegate(caller: PIAT?) {
-        HiddenApiBypass.invoke(
+        HiddenApi.invoke(
             originATMS.javaClass,
             originATMS,
             ""

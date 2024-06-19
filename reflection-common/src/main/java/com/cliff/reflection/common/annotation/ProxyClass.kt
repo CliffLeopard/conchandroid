@@ -1,5 +1,5 @@
 package com.cliff.reflection.common.annotation
 
-@Retention(AnnotationRetention.RUNTIME)
+@Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.CLASS)
 annotation class ProxyClass(val value:String)

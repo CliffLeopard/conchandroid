@@ -32,3 +32,4 @@
 -keep class org.greenrobot.eventbus.android.AndroidComponentsImpl
 -keep class com.cliff.conch.box.reflect.* {*;}
 -keep class com.cliff.conch.box.scene.* {*;}
+-keep class com.cliff.conch.scene.reflect.*{*;}

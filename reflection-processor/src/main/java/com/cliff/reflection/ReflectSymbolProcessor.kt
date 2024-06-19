@@ -6,6 +6,8 @@ import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
+import com.google.devtools.ksp.symbol.KSClassDeclaration
+import com.google.devtools.ksp.validate
 
 class ReflectSymbolProcessor(
     private val codeGenerator: CodeGenerator,
@@ -13,9 +15,15 @@ class ReflectSymbolProcessor(
     private val logger: KSPLogger
 ) : SymbolProcessor {
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        resolver.getSymbolsWithAnnotation(ProxyClass::class.java.name).forEach {
-            logger.warn("GGL:" + it.javaClass.name, it)
-        }
-        return emptyList()
+        val symbols = resolver.getSymbolsWithAnnotation(ProxyClass::class.java.name)
+        val result = symbols.filter { !it.validate() }.toList()
+        symbols
+            .filter {
+                it is KSClassDeclaration && it.validate()
+            }
+            .forEach { annotation ->
+                annotation.accept(ReflectKSVisitor(logger, codeGenerator), Unit)
+            }
+        return result
     }
 }

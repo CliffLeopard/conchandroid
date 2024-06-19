@@ -4,9 +4,10 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.reflectionCommon)
     implementation(libs.symbol.processing.api)
     implementation(libs.kotlinpoet)
-    implementation(projects.reflectionCommon)
+    implementation(libs.kotlinpoet.ksp)
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_17

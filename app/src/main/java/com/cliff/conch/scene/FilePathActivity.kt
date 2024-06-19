@@ -15,10 +15,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.cliff.conch.ConchApplication
 import com.cliff.conch.databinding.ActivityFilePathBinding
 import com.orhanobut.logger.Logger
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
+import java.io.FileInputStream
 
 class FilePathActivity : AppCompatActivity() {
     lateinit var binding: ActivityFilePathBinding
@@ -83,6 +88,8 @@ class FilePathActivity : AppCompatActivity() {
         addCase("context.getCacheDir():", cacheDir.absolutePath)
         addCase("context.getFilesDir():", filesDir.absolutePath)
         addCase("context.getDataDir():", dataDir.absolutePath)
+        addCase("context.getCodeCacheDir():", codeCacheDir.absolutePath)
+        addCase("context.getDir(null):", getDir(null, MODE_PRIVATE).absolutePath)
         addCase("context.fileList():", fileList().contentToString())
 
 
@@ -135,7 +142,10 @@ class FilePathActivity : AppCompatActivity() {
             getApplicationIfo()
         }
 
-        getPkgInfo()
+        lifecycleScope.launch {
+            getPkgInfo()
+        }
+
 
         // APK安装
         // File apkFile;
@@ -174,18 +184,28 @@ class FilePathActivity : AppCompatActivity() {
         addCase("appinfo.appComponentFactory", blackInfo.appComponentFactory)
     }
 
-    private fun getPkgInfo() {
-        val context = ConchApplication.context
-        // ShellActivity里执行了将 /data/app/随机数/packageName-随机数/base.apk 文件存储到了 /sdcard/Android/data/com.cliff.conch/files/apk/
-        val apkFile = File(context.getExternalFilesDir("apk"), "base.apk")
-        val pkgInfo = context.packageManager.getPackageArchiveInfo(
-            apkFile.absolutePath,
-            PackageManager.GET_ACTIVITIES
-        )
-        if (pkgInfo != null) {
-            Logger.i(pkgInfo.activities.joinToString { it.name })
-        } else {
-            Logger.i("pkgInfo is null")
+    private suspend fun getPkgInfo() {
+        withContext(Dispatchers.IO) {
+            val context = ConchApplication.context
+            // ShellActivity里执行了将 /data/app/随机数/packageName-随机数/base.apk 文件存储到了 /sdcard/Android/data/com.cliff.conch/files/apk/
+            val apkFile = File(context.getExternalFilesDir("apk"), "base.apk")
+            if (!apkFile.exists()) {
+                val baseApkDir = context.applicationInfo.sourceDir
+                FileInputStream(baseApkDir).use { inputStream ->
+                    apkFile.outputStream().buffered().use { bufferOutputStream ->
+                        inputStream.copyTo(bufferOutputStream)
+                    }
+                }
+            }
+            val pkgInfo = context.packageManager.getPackageArchiveInfo(
+                apkFile.absolutePath,
+                PackageManager.GET_ACTIVITIES
+            )
+            if (pkgInfo != null) {
+                Logger.i(pkgInfo.activities.joinToString { it.name })
+            } else {
+                Logger.i("pkgInfo is null")
+            }
         }
     }
 

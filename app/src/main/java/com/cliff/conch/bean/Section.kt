@@ -36,6 +36,7 @@ data class Section(
     companion object {
         val sections: List<Section> = listOf(
             Section("沙盒先验技术", EgoActivity::class.java),
+            Section("反射研究", ReflectActivity::class.java),
             Section("简单案例验证", SimpleCasesActivity::class.java),
             Section("各种文件路径", FilePathActivity::class.java),
             Section("执行Shell命令并获取结果", ShellActivity::class.java),
@@ -44,7 +45,6 @@ data class Section(
             Section("Service-AIDL文件", BookManagerActivity::class.java),
             Section("Service-AIDL文件2", FoodActivity::class.java),
             Section("Retrofit源码", RetrofitActivity::class.java),
-            Section("反射研究", ReflectActivity::class.java),
             Section("NativeActivity生成", NativeActivity::class.java),
             Section("自定义View", SelfDefineViewActivity::class.java),
             Section("Pine研究", PineActivity::class.java),

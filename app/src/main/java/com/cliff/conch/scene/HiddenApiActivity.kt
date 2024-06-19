@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.cliff.conch.databinding.ActivityHiddenApiBinding
-import org.lsposed.hiddenapibypass.HiddenApiBypass
+import com.cliff.reflection.common.hidden.HiddenApi
 
 
 class HiddenApiActivity : AppCompatActivity() {
@@ -20,11 +20,11 @@ class HiddenApiActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         addCase("Invoke a restricted method:") {
-            HiddenApiBypass.invoke(ApplicationInfo::class.java, ApplicationInfo(), "usesNonSdkApi")
+            HiddenApi.invoke(ApplicationInfo::class.java, ApplicationInfo(), "usesNonSdkApi")
         }
         addCase("Invoke restricted constructor") {
             val instance =
-                HiddenApiBypass.newInstance(Class.forName("android.app.IActivityManager\$Default") /*, args*/)
+                HiddenApi.newInstance(Class.forName("android.app.IActivityManager\$Default") /*, args*/)
         }
         addCase("Get all methods including restricted ones from a class") {
 
@@ -36,14 +36,14 @@ class HiddenApiActivity : AppCompatActivity() {
 
         }
         addCase("Get specific class method or class constructor") {
-            val ctor = HiddenApiBypass.getDeclaredConstructor(ClipDrawable::class.java /*, args */)
-            val method = HiddenApiBypass.getDeclaredMethod(
+            val ctor = HiddenApi.getDeclaredConstructor(ClipDrawable::class.java /*, args */)
+            val method = HiddenApi.getDeclaredMethod(
                 ApplicationInfo::class.java,
                 "getHiddenApiEnforcementPolicy" /*, args */
             )
         }
         addCase("Add a class to exemption list:") {
-            HiddenApiBypass.addHiddenApiExemptions(
+            HiddenApi.addHiddenApiExemptions(
                 "Landroid/content/pm/ApplicationInfo;", // one specific class
                 "Ldalvik/system", // all classes in packages dalvik.system
                 "Lx" // all classes whose full name is started with x

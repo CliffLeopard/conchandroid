@@ -9,7 +9,6 @@ import com.cliff.conch.box.scene.ServiceManager
 import com.cliff.conch.box.service.SystemServerInterceptor
 import com.cliff.conch.reflect.PActivityThreadImpl
 import com.cliff.conch.scene.install.InstallPackageActivity
-import com.cliff.reflection.common.createProxy
 import com.orhanobut.logger.Logger
 
 class EgoViewModel : ViewModel() {
@@ -36,13 +35,9 @@ class EgoViewModel : ViewModel() {
             },
             Section("安装应用", InstallPackageActivity::class.java),
             Section("反射调用系统API") {
-                Logger.i("反射调用系统API")
-                val impl: PActivityThreadImpl = createProxy()
-                Logger.i("反射调用系统API2")
-                val activityThread = impl.currentActivityThread()
-                Logger.i("反射调用系统API2: activityThread:${activityThread::class.java.name}")
-                Logger.i("反射调用系统API3")
-                val processName = impl.getProcessName(activityThread)
+                Logger.i("GGL:反射调用系统API")
+                val activityThread = PActivityThreadImpl.currentActivityThread()!!
+                val processName = PActivityThreadImpl.getProcessName(activityThread)
                 Logger.i("GGL:$processName")
             }
         )
