@@ -17,6 +17,9 @@ interface PActivityThread {
     @PMethod
     fun getProcessName(): String?
 
+    @PMethod("android.app.ActivityThread\$ApplicationThread")
+    fun getApplicationThread():Any
+
     @PStaticMethod
     fun currentActivityThread(): Any?
 }

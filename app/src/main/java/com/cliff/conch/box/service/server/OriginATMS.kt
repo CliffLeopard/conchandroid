@@ -28,7 +28,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
         PActivityThreadImpl.currentActivityThread()
     }
     private val applicationThread by lazy {
-        PActivityThreadImpl.mAppThread_o_get_(activityThread!!)
+        PActivityThreadImpl.getApplicationThread(activityThread!!)
     }
 
     override fun startActivity(
@@ -47,7 +47,7 @@ open class OriginATMS : IActivityTaskManager.Stub() {
         Logger.i("OriginATMS:startActivity")
         Logger.i("originATMS:originATMS:${originATMS.javaClass.canonicalName}")
         return HiddenApi.invoke(
-            Class.forName("android.app.IActivityTaskManager"),
+            originATMS::class.java,
             originATMS,
             "startActivity",
             applicationThread,
