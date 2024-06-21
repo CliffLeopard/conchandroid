@@ -1,4 +1,4 @@
-package com.cliff.conch.scene.install
+package com.cliff.conch.install
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

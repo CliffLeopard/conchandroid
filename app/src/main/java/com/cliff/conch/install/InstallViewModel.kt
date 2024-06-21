@@ -1,4 +1,4 @@
-package com.cliff.conch.scene.install
+package com.cliff.conch.install
 
 import android.annotation.SuppressLint
 import android.app.AppOpsManager
@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cliff.conch.ConchApplication
+import com.cliff.conch.box.util.FileUtil
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,18 +35,29 @@ class InstallViewModel : ViewModel() {
 
     private suspend fun scheduleApk() {
         withContext(Dispatchers.IO) {
-            val apkPath = context.getExternalFilesDir("apk")
-            val nowApk = File(apkPath, "Now.apk")
-            if (!nowApk.exists()) {
+            val cacheApk = FileUtil.childCache()
+            if (!cacheApk.exists()) {
                 context.assets.open("Now.apk").use { inputStream ->
-                    FileOutputStream(nowApk).use { outputStream ->
+                    FileOutputStream(cacheApk).use { outputStream ->
                         inputStream.copyTo(outputStream)
                     }
                 }
             }
-            val apkUri = FileProvider.getUriForFile(context, fileAuthor, nowApk)
-            installApk(apkUri,nowApk)
-//            openInstallApkActivity(apkUri)
+            installApk(cacheApk)
+        }
+    }
+
+    private suspend fun apkProviderUri(): Uri {
+        return withContext(Dispatchers.IO) {
+            val externalCacheApk = FileUtil.childrenAppExternalCache()
+            if (!externalCacheApk.exists()) {
+                context.assets.open("Now.apk").use { inputStream ->
+                    FileOutputStream(externalCacheApk).use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+                }
+            }
+            FileProvider.getUriForFile(context, fileAuthor, externalCacheApk)
         }
     }
 
@@ -61,7 +73,7 @@ class InstallViewModel : ViewModel() {
         }
     }
 
-    private suspend fun installApk(packageUri: Uri, apk:File) {
+    private suspend fun installApk(apk: File) {
         withContext(Dispatchers.IO) {
             //PackageManager
             val mPm = context.packageManager
@@ -79,8 +91,8 @@ class InstallViewModel : ViewModel() {
 //                PackageManager.GET_PERMISSIONS or PackageManager.MATCH_UNINSTALLED_PACKAGES
 //            )
 
-            val mPkgInfo = mPm.getPackageArchiveInfo(apk.absolutePath,0)
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
+            val mPkgInfo = mPm.getPackageArchiveInfo(apk.absolutePath, 0)
+            Logger.i(mPkgInfo?.packageName ?: "NULL")
         }
     }
 

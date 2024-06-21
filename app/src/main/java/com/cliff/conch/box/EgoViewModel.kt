@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.cliff.conch.bean.Section
 import com.cliff.conch.box.dp.DynamicProxyCase
 import com.cliff.conch.box.service.SystemServerInterceptor
-import com.cliff.conch.scene.install.InstallPackageActivity
+import com.cliff.conch.install.InstallPackageActivity
 import com.orhanobut.logger.Logger
 import reflect.android.app.ActivityThreadReImpl
 import reflect.android.os.EnvironmentReImpl

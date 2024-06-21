@@ -1,4 +1,4 @@
-package com.cliff.conch.scene.install
+package com.cliff.conch.install
 
 import android.os.Bundle
 import androidx.activity.viewModels

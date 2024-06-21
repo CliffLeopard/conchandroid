@@ -39,7 +39,7 @@
             android:name=".scene.FilePathActivity"
             android:exported="false" />
         <activity
-            android:name=".scene.install.InstallPackageActivity"
+            android:name=".install.InstallPackageActivity"
             android:exported="false" />
 
         <service
