@@ -1,5 +1,6 @@
 package com.cliff.conch.scene.reflect
 
+import android.os.IBinder
 import com.cliff.reflection.common.annotation.PConstructor
 import com.cliff.reflection.common.annotation.PField
 import com.cliff.reflection.common.annotation.PMethod
@@ -15,6 +16,9 @@ interface PReflectCase {
 
     @PField
     val jp: JavaParameter?
+
+    @PField
+    val sCache: Map<String, IBinder>?
 
     @PField
     val rt: ReflectCaseReturn?

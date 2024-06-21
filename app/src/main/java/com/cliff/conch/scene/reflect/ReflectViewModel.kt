@@ -1,10 +1,13 @@
 package com.cliff.conch.scene.reflect
 
+import android.os.Binder
+import android.os.IBinder
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cliff.conch.bean.Section
+import com.cliff.conch.reflect.PActivityThreadImpl
 import com.cliff.reflection.common.hidden.HiddenApi
 import com.orhanobut.logger.Logger
 
@@ -14,6 +17,41 @@ class ReflectViewModel : ViewModel() {
 
     companion object {
         val egos = listOf(
+            Section("测试隐藏API") {
+                val clz = Class.forName("android.app.ActivityThread")
+                val obj = HiddenApi.invoke(clz, null, "getPermissionManager")
+                Log.i("GGL", obj?.javaClass?.name ?: "KKK")
+
+            },
+            Section("测试复杂类型"){
+                val case = ReflectCase("Leopard23", 123)
+                val map = PReflectCaseImpl.sCache_o_get_(case)
+                if(map == null) {
+                    Logger.i("GGL:ReflectCase.sCache == null ")
+                } else {
+                    Logger.i("GGL:ReflectCase.sCache.size == ${map.size} ")
+                    map.forEach { (str, _) ->
+                        Logger.i("GGL:ReflectCase.map.key = $str")
+                    }
+                }
+
+                val newMap:Map<String,IBinder> = HashMap()
+                val zz = newMap.plus(Pair<String,IBinder>("ABC",Binder()))
+                Logger.i("GGL:ReflectCase.reMap.size == ${newMap.size} ")
+                Logger.i("GGL:ReflectCase.reMap.size == ${zz.size} ")
+                PReflectCaseImpl.sCache_o_set_(case,zz)
+
+                val reMap = PReflectCaseImpl.sCache_o_get_(case)
+                if(reMap == null) {
+                    Logger.i("GGL:ReflectCase.reMap == null ")
+                } else {
+                    Logger.i("GGL:ReflectCase.reMap.size == ${reMap.size} ")
+                    reMap.forEach { (str, _) ->
+                        Logger.i("GGL:ReflectCase.reMap.key = $str")
+                    }
+                }
+
+            },
             Section("测试反射Filed") {
                 val case = ReflectCase("Leopard23", 123)
                 val name = PReflectCaseImpl.name_o_get_(case)
@@ -30,7 +68,6 @@ class ReflectViewModel : ViewModel() {
                 rt.name = "lisi"
                 PReflectCaseImpl.rt_o_set_(case, rt)
                 Logger.i("GGL:测试反射setFiled:$case")
-
 
                 val getRt2 = PReflectCaseImpl.rt2_o_get_(case)
                 Logger.i("GGL:测试反射getFiled,注解类型:$getRt2")
@@ -54,12 +91,6 @@ class ReflectViewModel : ViewModel() {
                 newSrt.name = "wangwu"
                 PReflectCaseImpl.srt_s_set_(newSrt)
                 Logger.i("GGL:测试反射setStaticFiled2:${ReflectCase.srt}")
-
-            },
-            Section("测试隐藏API") {
-                val clz = Class.forName("android.app.ActivityThread")
-                val obj = HiddenApi.invoke(clz, null, "getPermissionManager")
-                Log.i("GGL", obj?.javaClass?.name ?: "KKK")
 
             },
             Section("测试反射Method") {

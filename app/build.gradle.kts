@@ -69,8 +69,8 @@ android {
 
     buildTypes {
         debug {
-            isMinifyEnabled = false
-            isShrinkResources = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             signingConfig = signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -121,11 +121,17 @@ android {
 }
 
 dependencies {
-    implementation(projects.wrapper)
+    api(projects.wrapper)
     implementation(projects.nativelib)
     implementation(projects.reflectionCommon)
     ksp(projects.reflectionProcessor)
+    kapt(libs.eventbus.annotation)
 
+    implementation(libs.pine.core)
+    implementation(libs.pine.enhances)
+    implementation(libs.pine.xposed)
+
+    implementation(libs.gson)
     implementation(libs.glide)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
@@ -134,10 +140,10 @@ dependencies {
     implementation(libs.androidx.work.runtime)
     implementation(libs.androidx.startup)
     implementation(libs.eventbus)
+
     implementation(libs.annotation)
     implementation(libs.slice.builders)
     implementation(libs.androidx.activity)
-    kapt(libs.eventbus.annotation)
     implementation(libs.logger)
     implementation(libs.androidx.multidex)
     implementation(libs.androidx.appcompat)
@@ -152,12 +158,6 @@ dependencies {
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.lifecycle.extensions)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-
-    implementation(libs.pine.core)
-    implementation(libs.pine.enhances)
-    implementation(libs.pine.xposed)
-
-    implementation(libs.gson)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

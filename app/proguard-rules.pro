@@ -33,3 +33,5 @@
 -keep class com.cliff.conch.box.reflect.* {*;}
 -keep class com.cliff.conch.box.scene.* {*;}
 -keep class com.cliff.conch.scene.reflect.*{*;}
+-keep class com.cliff.wrapper.service.* {*;}
+-keep class com.cliff.reflection.common.hidden.* {*;}

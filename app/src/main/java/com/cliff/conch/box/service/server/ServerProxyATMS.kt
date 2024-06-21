@@ -9,6 +9,10 @@ import com.orhanobut.logger.Logger
 
 // ProxyServer端创建的代理，在ProxyServer进程执行
 class ServerProxyATMS : OriginATMS() {
+    init {
+        Logger.i("ServerProxyATMS:init")
+    }
+
     override fun startActivity(
         caller: PIAT?,
         callingPackage: String?,
@@ -91,18 +95,17 @@ class ServerProxyATMS : OriginATMS() {
             userId
         )
     }
-
-    override fun startNextMatchingActivity(
-        callingActivity: IBinder?,
-        intent: Intent?,
-        options: Bundle?
-    ): Boolean {
-        Logger.i("ProxyActivityTaskManager:startNextMatchingActivity")
-        return super.startNextMatchingActivity(callingActivity, intent, options)
-    }
-
-    override fun startDreamActivity(intent: Intent?): Boolean {
-        Logger.i("ProxyActivityTaskManager:startDreamActivity")
-        return super.startDreamActivity(intent)
-    }
+//    override fun startNextMatchingActivity(
+//        callingActivity: IBinder?,
+//        intent: Intent?,
+//        options: Bundle?
+//    ): Boolean {
+//        Logger.i("ProxyActivityTaskManager:startNextMatchingActivity")
+//        return super.startNextMatchingActivity(callingActivity, intent, options)
+//    }
+//
+//    override fun startDreamActivity(intent: Intent?): Boolean {
+//        Logger.i("ProxyActivityTaskManager:startDreamActivity")
+//        return super.startDreamActivity(intent)
+//    }
 }

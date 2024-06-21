@@ -21,12 +21,16 @@ abstract class ProxyBaseImpl(originCls: String) {
         type: String,
         isStatic: Boolean = false
     ) {
-        if (`value` != null && !Class.forName(type).isInstance(`value`)) {
+        val typeName = extractType(type)
+        if (`value` != null
+            && !typeName.contains("kotlin")
+            && !Class.forName(typeName).isInstance(`value`)
+        ) {
             throw ReflectException("File value type error")
         }
         try {
             findField(fieldName).set(target, `value`)
-        } catch (exp: Exception) {
+        } catch (exp: NoSuchFieldException) {
             findHiddenField(fieldName, isStatic)?.set(target, `value`)
         }
     }
@@ -34,16 +38,17 @@ abstract class ProxyBaseImpl(originCls: String) {
     fun <T> getFiled(target: Any?, fieldName: String, type: String, isStatic: Boolean = false): T? {
         val `value` = try {
             findField(fieldName).get(target)
-        } catch (exp: Exception) {
+        } catch (exp: NoSuchFieldException) {
             findHiddenField(fieldName, isStatic)?.get(target)
         }
-        return if (`value` == null) {
+        val typeName = extractType(type)
+        return if (`value` == null)
             null
-        } else if (Class.forName(type).isInstance(`value`)) {
+        else if (typeName.contains("kotlin") || Class.forName(extractType(type)).isInstance(`value`))
             value as T
-        } else {
+        else
             throw ReflectException("File return type error")
-        }
+
     }
 
     fun <T> invokeMethod(target: Any?, methodName: String, vararg sections: Section): T {
@@ -51,6 +56,7 @@ abstract class ProxyBaseImpl(originCls: String) {
         val parameterTypes = sections.map { it.type }.toTypedArray()
         val methodKey = methodKey(methodName, *parameterTypes)
         return try {
+            println("invokeMethod:$methodName")
             if (methods[methodKey] == null || methods[methodKey]?.get() == null) {
                 val method = clz.getDeclaredMethod(methodName, *parameterTypes)
                 method.isAccessible = true
@@ -60,7 +66,10 @@ abstract class ProxyBaseImpl(originCls: String) {
             } else {
                 methods[methodKey]!!.get()!!.invoke(target, *parameters) as T
             }
-        } catch (exp: Exception) {
+
+        } catch (exp: NoSuchMethodException) {
+            println(exp.localizedMessage)
+            println("invokeMethod2 hidden:$methodName")
             HiddenApi.invoke(clz, target, methodName, *parameters) as T
         }
     }
@@ -80,7 +89,7 @@ abstract class ProxyBaseImpl(originCls: String) {
             } else {
                 constructors[key]!!.get()!!.newInstance(*parameters) as T
             }
-        } catch (exp: Exception) {
+        } catch (exp: NoSuchMethodException) {
             HiddenApi.newInstance(clsType, *parameters) as T
         }
     }

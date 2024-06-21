@@ -148,8 +148,8 @@ object HiddenApi {
         InvocationTargetException::class,
         IllegalAccessException::class
     )
-    fun invoke(clazz: Class<*>, thiz: Any?, methodName: String, vararg args: Any?): Any? {
-        require(!(thiz != null && !clazz.isInstance(thiz))) { "this object is not an instance of the given class" }
+    fun invoke(clazz: Class<*>, obj: Any?, methodName: String, vararg args: Any?): Any? {
+        require(!(obj != null && !clazz.isInstance(obj))) { "this object is not an instance of the given class" }
         val stub = InvokeStub::class.java.getDeclaredMethod("invoke", Array<Any>::class.java)
         stub.isAccessible = true
         val methods = unsafe.getLong(clazz, methodsOffset)
@@ -160,7 +160,7 @@ object HiddenApi {
             unsafe.putLong(stub, methodOffset, method)
             if (methodName == stub.name) {
                 val params = stub.parameterTypes
-                if (checkArgsForInvokeMethod(params, args)) return stub.invoke(thiz, *args)
+                if (checkArgsForInvokeMethod(params, args)) return stub.invoke(obj, *args)
             }
         }
         throw NoSuchMethodException("Cannot find matching method")

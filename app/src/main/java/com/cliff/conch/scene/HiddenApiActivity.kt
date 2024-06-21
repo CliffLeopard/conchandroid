@@ -55,7 +55,7 @@ class HiddenApiActivity : AppCompatActivity() {
         val parameter = LinearLayout.LayoutParams(MATCH_PARENT, 300)
         val button = Button(this@HiddenApiActivity)
         button.text = title
-        button.setTextColor(resources.getColor(android.R.color.black))
+        button.setTextColor(resources.getColor(android.R.color.black,null))
         button.gravity = Gravity.CENTER
         button.setOnClickListener { action() }
         binding.caseContainer.addView(button, parameter)

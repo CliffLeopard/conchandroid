@@ -1,6 +1,11 @@
 package com.cliff.conch.scene.reflect;
 
+import android.os.IBinder;
+
 import androidx.annotation.NonNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReflectCase {
     public static String logo = "LOGO-ReflectCase";
@@ -11,6 +16,8 @@ public class ReflectCase {
     private JavaParameter jp;
     private ReflectCaseReturn rt = new ReflectCaseReturn();
     private ReflectCaseReturn rt2 = new ReflectCaseReturn();
+
+    private Map<String, IBinder> sCache = new HashMap<>();
 
     public ReflectCase(String name) {
         this.name = name;

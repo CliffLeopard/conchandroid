@@ -3,7 +3,7 @@ package com.cliff.conch.box;
 import android.annotation.SuppressLint;
 import android.app.Application;
 
-import com.cliff.conch.box.scene.ActivityThread;
+import com.cliff.conch.reflect.PActivityThreadImpl;
 import com.orhanobut.logger.Logger;
 
 import java.lang.reflect.Field;
@@ -27,13 +27,13 @@ public class MirrorCases {
     }
 
     private static void refTest() {
-        if (ActivityThread.currentActivityThread == null) {
+        if (PActivityThreadImpl.INSTANCE.currentActivityThread() == null) {
             Logger.e("currentActivityThread 是NUll");
         } else {
             Logger.d("currentActivityThread不是NUll");
         }
-        Object mainThread = ActivityThread.currentActivityThread.call();
-        Object processName = ActivityThread.getProcessName.call(mainThread);
+        Object mainThread = PActivityThreadImpl.INSTANCE.currentActivityThread();
+        Object processName = PActivityThreadImpl.INSTANCE.getProcessName(mainThread);
         Logger.d("processName:" + processName);
     }
 

@@ -8,7 +8,7 @@ import com.cliff.reflection.common.annotation.ProxyClass
 
 @ProxyClass("android.app.ActivityThread")
 interface PActivityThread {
-    @PField("android.app.ActivityThread")
+    @PField("android.app.ActivityThread\$ApplicationThread")
     val mAppThread: Any?
 
     @PStaticField("android.content.pm.IPackageManager")

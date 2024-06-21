@@ -82,24 +82,6 @@ class InstallViewModel : ViewModel() {
 
             val mPkgInfo = mPm.getPackageArchiveInfo(apk.absolutePath,0)
             Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
-            Logger.i(mPkgInfo?.packageName ?:"NULL")
         }
     }
 

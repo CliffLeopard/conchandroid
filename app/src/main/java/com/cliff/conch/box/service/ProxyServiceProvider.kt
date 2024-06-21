@@ -1,6 +1,7 @@
 package com.cliff.conch.box.service
 
 import android.os.Bundle
+import android.os.Debug.waitForDebugger
 import android.os.IBinder
 import android.util.ArrayMap
 import com.cliff.conch.box.service.ServerConst.BUNDLE_BACK_KEY
@@ -79,6 +80,7 @@ class ProxyServiceProvider : SProvider() {
 
     private fun prepareSystemServer() {
         if (proxyStub.isNotEmpty()) return
+        Logger.i("SystemServerProxyProvider:prepareSystemServer")
         proxyStub[NAME_ATMS] = ServerProxyATMS()
     }
 

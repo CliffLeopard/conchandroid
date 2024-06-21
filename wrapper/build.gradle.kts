@@ -10,13 +10,20 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdk21.get().toInt()
         ndkVersion = libs.versions.ndkVersion.get()
+        aidlPackagedList = mutableListOf(
+            "com/cliff/wrapper/service/IActivityTaskManager.aidl",
+            "com/cliff/wrapper/service/IPackageManager.aidl",
+            "com/cliff/wrapper/service/PIAT.aidl",
+            "com/cliff/wrapper/service/PParceledListSlice.aidl",
+            "com/cliff/wrapper/service/PProfilerInfo.aidl",
+        )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
         debug {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

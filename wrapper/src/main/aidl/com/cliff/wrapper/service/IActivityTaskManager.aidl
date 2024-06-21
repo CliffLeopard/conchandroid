@@ -18,85 +18,34 @@ package com.cliff.wrapper.service;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-//import android.app.ActivityManager;
-//import android.app.ActivityTaskManager;
 import android.app.ApplicationErrorReport;
-//import android.app.ContentProviderHolder;
-//import android.app.GrantedUriPermission;
-//import android.app.PIAT;
 import com.cliff.wrapper.service.PIAT;
-//import android.app.IActivityClientController;
-//import android.app.IActivityController;
-//import android.app.IAppTask;
-//import android.app.IAssistDataReceiver;
-//import android.app.IInstrumentationWatcher;
-//import android.app.IProcessObserver;
-//import android.app.IServiceConnection;
-//import android.app.IStopUserCallback;
-//import android.app.ITaskStackListener;
-//import android.app.IUiAutomationConnection;
-//import android.app.IUidObserver;
-//import android.app.IUserSwitchObserver;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.PictureInPictureUiState;
-//import android.app.PProfilerInfo;
 import com.cliff.wrapper.service.PProfilerInfo;
-//import android.app.WaitResult;
 import android.app.assist.AssistContent;
 import android.app.assist.AssistStructure;
 import android.content.ComponentName;
-//import android.content.IIntentReceiver;
-//import android.content.IIntentSender;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ConfigurationInfo;
-//import android.content.pm.IPackageDataObserver;
-//import android.content.pm.ParceledListSlice;
 import android.content.pm.ProviderInfo;
 import android.content.pm.UserInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-//import android.graphics.GraphicBuffer;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-//import android.os.Debug;
 import android.os.IBinder;
-//import android.os.IProgressListener;
 import android.os.ParcelFileDescriptor;
-//import android.os.StrictMode;
 import android.os.WorkSource;
-//import android.service.voice.IVoiceInteractionSession;
-//import android.view.IRecentsAnimationRunner;
-//import android.view.IRemoteAnimationRunner;
-//import android.view.IWindowFocusObserver;
-//import android.view.RemoteAnimationDefinition;
-//import android.view.RemoteAnimationAdapter;
-//import android.window.BackAnimationAdaptor;
-//import android.window.IWindowOrganizerController;
 import android.window.BackNavigationInfo;
-//import android.window.SplashScreenView;
-//import com.android.internal.app.IVoiceInteractor;
-//import com.android.internal.os.IResultReceiver;
-
 import java.util.List;
 
-/**
- * System private API for talking with the activity task manager that handles how activities are
- * managed on screen.
- *
- * {@hide}
- */
-// TODO(b/174040395): Make this interface private to ActivityTaskManager.java and have external
-// caller go through that call instead. This would help us better separate and control the API
-// surface exposed.
-// TODO(b/174041603): Create a builder interface for things like startActivityXXX(...) to reduce
-// interface duplication.
 interface IActivityTaskManager {
     int startActivity(in PIAT caller, in String callingPackage,
             in String callingFeatureId, in Intent intent, in String resolvedType,
@@ -109,16 +58,123 @@ interface IActivityTaskManager {
             in String callingFeatureId, in Intent intent, in String resolvedType,
             in IBinder resultTo, in String resultWho, int requestCode, int flags,
             in PProfilerInfo pProfilerInfo, in Bundle options, int userId);
-    boolean startNextMatchingActivity(in IBinder callingActivity,
-            in Intent intent, in Bundle options);
+//    boolean startNextMatchingActivity(in IBinder callingActivity,
+//            in Intent intent, in Bundle options);
+//    boolean startDreamActivity(in Intent intent);
+//    int startActivityWithConfig(in PIAT caller, in String callingPackage,
+//            in String callingFeatureId, in Intent intent, in String resolvedType,
+//            in IBinder resultTo, in String resultWho, int requestCode, int startFlags,
+//            in Configuration newConfig, in Bundle options, int userId);
+//    String getVoiceInteractorPackageName(in IBinder callingVoiceInteractor);
+//    int startAssistantActivity(in String callingPackage, in String callingFeatureId, int callingPid,
+//            int callingUid, in Intent intent, in String resolvedType, in Bundle options, int userId);
+//    int startActivityFromRecents(int taskId, in Bundle options);
+//    int startActivityAsCaller(in PIAT caller, in String callingPackage,
+//            in Intent intent, in String resolvedType, in IBinder resultTo, in String resultWho,
+//            int requestCode, int flags, in PProfilerInfo pProfilerInfo, in Bundle options,
+//            boolean ignoreTargetSecurity, int userId);
+//    boolean isActivityStartAllowedOnDisplay(int displayId, in Intent intent, in String resolvedType,
+//            int userId);
+//    void unhandledBack();
+//    int getFrontActivityScreenCompatMode();
+//    void setFrontActivityScreenCompatMode(int mode);
+//    void setFocusedTask(int taskId);
+//    boolean removeTask(int taskId);
+//    void removeAllVisibleRecentTasks();
+//    void moveTaskToFront(in PIAT app, in String callingPackage, int task,
+//            int flags, in Bundle options);
+//    boolean isTopActivityImmersive();
+//    void reportAssistContextExtras(in IBinder assistToken, in Bundle extras,
+//            in AssistStructure structure, in AssistContent content, in Uri referrer);
+//    void setFocusedRootTask(int taskId);
+//    Rect getTaskBounds(int taskId);
+//    void cancelRecentsAnimation(boolean restoreHomeRootTaskPosition);
+//    void updateLockTaskPackages(int userId, in String[] packages);
+//    boolean isInLockTaskMode();
+//    int getLockTaskModeState();
+//    List<IBinder> getAppTasks(in String callingPackage);
+//    void startSystemLockTaskMode(int taskId);
+//    void stopSystemLockTaskMode();
+//    Point getAppTaskThumbnailSize();
+//
+//    oneway void releaseSomeActivities(in PIAT app);
+//    Bitmap getTaskDescriptionIcon(in String filename, int userId);
+//    void setTaskResizeable(int taskId, int resizeableMode);
+//
+//    boolean resizeTask(int taskId, in Rect bounds, int resizeMode);
+//    void moveRootTaskToDisplay(int taskId, int displayId);
+//    void moveTaskToRootTask(int taskId, int rootTaskId, boolean toTop);
+//    void removeRootTasksInWindowingModes(in int[] windowingModes);
+//    void removeRootTasksWithActivityTypes(in int[] activityTypes);
+//    void setLockScreenShown(boolean showingKeyguard, boolean showingAod);
+//    Bundle getAssistContextExtras(int requestType);
+//    boolean isAssistDataAllowedOnCurrentActivity();
+//    void keyguardGoingAway(int flags);
+//    void suppressResizeConfigChanges(boolean suppress);
+//    void setSplitScreenResizing(boolean resizing);
+//    boolean supportsLocalVoiceInteraction();
+//    ConfigurationInfo getDeviceConfigurationInfo();
+//    void cancelTaskWindowTransition(int taskId);
+//    int getLastResumedActivityUserId();
+//
+//    boolean updateConfiguration(in Configuration values);
+//    void updateLockTaskFeatures(int userId, int flags);
+//    void alwaysShowUnsupportedCompileSdkWarning(in ComponentName activity);
+//
+//    void setVrThread(int tid);
+//    void setPersistentVrThread(int tid);
+//    void stopAppSwitches();
+//    void resumeAppSwitches();
+//
+//    int getPackageScreenCompatMode(in String packageName);
+//    void setPackageScreenCompatMode(in String packageName, int mode);
+//    boolean getPackageAskScreenCompat(in String packageName);
+//    void setPackageAskScreenCompat(in String packageName, boolean ask);
+//    void clearLaunchParamsForPackages(in List<String> packageNames);
+//    void onPictureInPictureStateChanged(in PictureInPictureUiState pipState);
+//    void detachNavigationBarFromApp(in IBinder transition);
+//    void setRunningRemoteTransitionDelegate(in PIAT caller);
 
-    /**
-    *  The DreamActivity has to be started in a special way that does not involve the PackageParser.
-    *  The DreamActivity is a framework component inserted in the dream application process. Hence,
-    *  it is not declared in the application's manifest and cannot be parsed. startDreamActivity
-    *  creates the activity and starts it without reaching out to the PackageParser.
-    */
-    boolean startDreamActivity(in Intent intent);
+
+
+//import android.app.ActivityManager;
+//import android.app.ActivityTaskManager;
+//import android.app.ContentProviderHolder;
+//import android.app.GrantedUriPermission;
+//import android.app.IActivityClientController;
+//import android.app.IActivityController;
+//import android.app.IAppTask;
+//import android.app.IAssistDataReceiver;
+//import android.app.IInstrumentationWatcher;
+//import android.app.IProcessObserver;
+//import android.app.IServiceConnection;
+//import android.app.IStopUserCallback;
+//import android.app.ITaskStackListener;
+//import android.app.IUiAutomationConnection;
+//import android.app.IUidObserver;
+//import android.app.IUserSwitchObserver;
+//import android.app.PProfilerInfo;
+//import android.app.WaitResult;
+//import android.content.IIntentReceiver;
+//import android.content.IIntentSender;
+//import android.content.pm.IPackageDataObserver;
+//import android.content.pm.ParceledListSlice;
+//import android.graphics.GraphicBuffer;
+//import android.os.Debug;
+//import android.os.IProgressListener;
+//import android.os.StrictMode;
+//import android.service.voice.IVoiceInteractionSession;
+//import android.view.IRecentsAnimationRunner;
+//import android.view.IRemoteAnimationRunner;
+//import android.view.IWindowFocusObserver;
+//import android.view.RemoteAnimationDefinition;
+//import android.view.RemoteAnimationAdapter;
+//import android.window.BackAnimationAdaptor;
+//import android.window.IWindowOrganizerController;
+//import android.window.SplashScreenView;
+//import com.android.internal.app.IVoiceInteractor;
+//import com.android.internal.os.IResultReceiver;
+
 //    int startActivityIntentSender(in PIAT caller,
 //            in IIntentSender target, in IBinder whitelistToken, in Intent fillInIntent,
 //            in String resolvedType, in IBinder resultTo, in String resultWho, int requestCode,
@@ -127,156 +183,56 @@ interface IActivityTaskManager {
 //            in String callingFeatureId, in Intent intent, in String resolvedType,
 //            in IBinder resultTo, in String resultWho, int requestCode, int flags,
 //            in PProfilerInfo PProfilerInfo, in Bundle options, int userId);
-    int startActivityWithConfig(in PIAT caller, in String callingPackage,
-            in String callingFeatureId, in Intent intent, in String resolvedType,
-            in IBinder resultTo, in String resultWho, int requestCode, int startFlags,
-            in Configuration newConfig, in Bundle options, int userId);
 //    int startVoiceActivity(in String callingPackage, in String callingFeatureId, int callingPid,
 //            int callingUid, in Intent intent, in String resolvedType,
 //            in IVoiceInteractionSession session, in IVoiceInteractor interactor, int flags,
 //            in PProfilerInfo PProfilerInfo, in Bundle options, int userId);
-    String getVoiceInteractorPackageName(in IBinder callingVoiceInteractor);
-    int startAssistantActivity(in String callingPackage, in String callingFeatureId, int callingPid,
-            int callingUid, in Intent intent, in String resolvedType, in Bundle options, int userId);
 //    @JavaPassthrough(annotation="@android.annotation.RequiresPermission(android.Manifest.permission.MANAGE_GAME_ACTIVITY)")
 //    int startActivityFromGameSession(PIAT caller, in String callingPackage,
 //            in String callingFeatureId, int callingPid, int callingUid, in Intent intent,
 //            int taskId, int userId);
 //    void startRecentsActivity(in Intent intent, in long eventTime,
 //            in IRecentsAnimationRunner recentsAnimationRunner);
-    int startActivityFromRecents(int taskId, in Bundle options);
-    int startActivityAsCaller(in PIAT caller, in String callingPackage,
-            in Intent intent, in String resolvedType, in IBinder resultTo, in String resultWho,
-            int requestCode, int flags, in PProfilerInfo pProfilerInfo, in Bundle options,
-            boolean ignoreTargetSecurity, int userId);
-
-    boolean isActivityStartAllowedOnDisplay(int displayId, in Intent intent, in String resolvedType,
-            int userId);
-
-    void unhandledBack();
-
-    /** Returns an interface to control the activity related operations. */
+/** Returns an interface to control the activity related operations. */
 //    IActivityClientController getActivityClientController();
-
-    int getFrontActivityScreenCompatMode();
-    void setFrontActivityScreenCompatMode(int mode);
-    void setFocusedTask(int taskId);
-    boolean removeTask(int taskId);
-    void removeAllVisibleRecentTasks();
 //    List<ActivityManager.RunningTaskInfo> getTasks(int maxNum, boolean filterOnlyVisibleRecents,
 //            boolean keepIntentExtra, int displayId);
-    void moveTaskToFront(in PIAT app, in String callingPackage, int task,
-            int flags, in Bundle options);
 //    ParceledListSlice<ActivityManager.RecentTaskInfo> getRecentTasks(int maxNum, int flags,
 //            int userId);
-    boolean isTopActivityImmersive();
+
 //    ActivityManager.TaskDescription getTaskDescription(int taskId);
-    void reportAssistContextExtras(in IBinder assistToken, in Bundle extras,
-            in AssistStructure structure, in AssistContent content, in Uri referrer);
-
-    void setFocusedRootTask(int taskId);
 //    ActivityTaskManager.RootTaskInfo getFocusedRootTaskInfo();
-    Rect getTaskBounds(int taskId);
-
-    void cancelRecentsAnimation(boolean restoreHomeRootTaskPosition);
-    void updateLockTaskPackages(int userId, in String[] packages);
-    boolean isInLockTaskMode();
-    int getLockTaskModeState();
-    List<IBinder> getAppTasks(in String callingPackage);
-    void startSystemLockTaskMode(int taskId);
-    void stopSystemLockTaskMode();
 //    void finishVoiceTask(in IVoiceInteractionSession session);
 //    int addAppTask(in IBinder activityToken, in Intent intent,
 //            in ActivityManager.TaskDescription description, in Bitmap thumbnail);
-    Point getAppTaskThumbnailSize();
-
-    oneway void releaseSomeActivities(in PIAT app);
-    Bitmap getTaskDescriptionIcon(in String filename, int userId);
 //    void registerTaskStackListener(in ITaskStackListener listener);
 //    void unregisterTaskStackListener(in ITaskStackListener listener);
-    void setTaskResizeable(int taskId, int resizeableMode);
-
-
-    boolean resizeTask(int taskId, in Rect bounds, int resizeMode);
-    void moveRootTaskToDisplay(int taskId, int displayId);
-    void moveTaskToRootTask(int taskId, int rootTaskId, boolean toTop);
-    void removeRootTasksInWindowingModes(in int[] windowingModes);
-    void removeRootTasksWithActivityTypes(in int[] activityTypes);
-
 //    List<ActivityTaskManager.RootTaskInfo> getAllRootTaskInfos();
 //    ActivityTaskManager.RootTaskInfo getRootTaskInfo(int windowingMode, int activityType);
 //    List<ActivityTaskManager.RootTaskInfo> getAllRootTaskInfosOnDisplay(int displayId);
 //    ActivityTaskManager.RootTaskInfo getRootTaskInfoOnDisplay(int windowingMode, int activityType, int displayId);
-
-
-    void setLockScreenShown(boolean showingKeyguard, boolean showingAod);
-    Bundle getAssistContextExtras(int requestType);
 //    boolean requestAssistContextExtras(int requestType, in IAssistDataReceiver receiver,
 //            in Bundle receiverExtras, in IBinder activityToken,
 //            boolean focused, boolean newSessionId);
 //    boolean requestAutofillData(in IAssistDataReceiver receiver, in Bundle receiverExtras,
 //            in IBinder activityToken, int flags);
-    boolean isAssistDataAllowedOnCurrentActivity();
+
 //    boolean requestAssistDataForTask(in IAssistDataReceiver receiver, int taskId,
 //            in String callingPackageName);
 
-
-    void keyguardGoingAway(int flags);
-
-    void suppressResizeConfigChanges(boolean suppress);
-
 //    IWindowOrganizerController getWindowOrganizerController();
-
-    void setSplitScreenResizing(boolean resizing);
-    boolean supportsLocalVoiceInteraction();
-
-    ConfigurationInfo getDeviceConfigurationInfo();
-
-    void cancelTaskWindowTransition(int taskId);
-
-
 //    android.window.TaskSnapshot getTaskSnapshot(
 //            int taskId, boolean isLowResolution, boolean takeSnapshotIfNeeded);
 
 //    android.window.TaskSnapshot takeTaskSnapshot(int taskId);
-
-    int getLastResumedActivityUserId();
-
-    boolean updateConfiguration(in Configuration values);
-    void updateLockTaskFeatures(int userId, int flags);
-
-
 //    void registerRemoteAnimationForNextActivityStart(in String packageName,
 //            in RemoteAnimationAdapter adapter, in IBinder launchCookie);
-
-
 //    void registerRemoteAnimationsForDisplay(int displayId, in RemoteAnimationDefinition definition);
 
-    void alwaysShowUnsupportedCompileSdkWarning(in ComponentName activity);
-
-    void setVrThread(int tid);
-    void setPersistentVrThread(int tid);
-    void stopAppSwitches();
-    void resumeAppSwitches();
 //    void setActivityController(in IActivityController watcher, boolean imAMonkey);
 //    void setVoiceKeepAwake(in IVoiceInteractionSession session, boolean keepAwake);
-
-    int getPackageScreenCompatMode(in String packageName);
-    void setPackageScreenCompatMode(in String packageName, int mode);
-    boolean getPackageAskScreenCompat(in String packageName);
-    void setPackageAskScreenCompat(in String packageName, boolean ask);
-
-
-    void clearLaunchParamsForPackages(in List<String> packageNames);
-
 //    void onSplashScreenViewCopyFinished(int taskId,
 //            in SplashScreenView.SplashScreenViewParcelable material);
-
-    void onPictureInPictureStateChanged(in PictureInPictureUiState pipState);
-
-    void detachNavigationBarFromApp(in IBinder transition);
-
-    void setRunningRemoteTransitionDelegate(in PIAT caller);
 
 //    android.window.BackNavigationInfo startBackNavigation(in boolean requestAnimation,
 //            in IWindowFocusObserver focusObserver, in BackAnimationAdaptor adaptor);
