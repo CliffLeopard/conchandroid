@@ -3,7 +3,7 @@ package com.cliff.conch.box.service.client
 import android.content.Intent
 import android.os.Bundle
 import android.os.IBinder
-import com.cliff.wrapper.service.IActivityTaskManager
+import wrapper.android.app.IActivityTaskManager
 import com.orhanobut.logger.Logger
 import java.lang.reflect.Method
 

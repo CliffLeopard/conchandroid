@@ -26,7 +26,7 @@ rootProject.name = "conch-android"
 
 include(":app")
 include(":nativelib")
-include(":wrapper")
+//include(":wrapper")
 
 //include(":nativebinder-service")
 //include(":common")

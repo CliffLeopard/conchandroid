@@ -1,6 +1,5 @@
 // IActivityTaskManager.aidl
-package com.cliff.wrapper.service;
-
+package wrapper.android.app;
 // Declare any non-default types here with import statements
 
 /*
@@ -19,11 +18,11 @@ package com.cliff.wrapper.service;
  * limitations under the License.
  */
 import android.app.ApplicationErrorReport;
-import com.cliff.wrapper.service.PIAT;
+import wrapper.replace.PIAT;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.PictureInPictureUiState;
-import com.cliff.wrapper.service.PProfilerInfo;
+import wrapper.replace.PProfilerInfo;
 import android.app.assist.AssistContent;
 import android.app.assist.AssistStructure;
 import android.content.ComponentName;

@@ -37,9 +37,13 @@ android {
     kotlinOptions {
         jvmTarget = libs.versions.jvmTarget.get()
     }
+    buildFeatures {
+        aidl = true
+    }
 }
 
 dependencies {
+//    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
     ksp(projects.reflectionProcessor)
     implementation(projects.reflectionCommon)
     implementation(libs.androidx.core.ktx)

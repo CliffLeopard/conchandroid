@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.serialization.builtins.main
+
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.kotlin.android)
@@ -9,16 +11,14 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.minSdk21.get().toInt()
-        ndkVersion = libs.versions.ndkVersion.get()
-        aidlPackagedList = mutableListOf(
-            "com/cliff/wrapper/service/IActivityTaskManager.aidl",
-            "com/cliff/wrapper/service/IPackageManager.aidl",
-            "com/cliff/wrapper/service/PIAT.aidl",
-            "com/cliff/wrapper/service/PParceledListSlice.aidl",
-            "com/cliff/wrapper/service/PProfilerInfo.aidl",
-        )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+    }
+
+    sourceSets {
+        getByName("main") {
+            java.srcDir("build/generated/aidl_source_output_dir/debug")
+        }
     }
 
     buildTypes {

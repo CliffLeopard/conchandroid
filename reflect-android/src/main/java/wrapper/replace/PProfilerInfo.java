@@ -1,11 +1,10 @@
-package com.cliff.wrapper.service;
+package wrapper.replace;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-// Pretend to be android.app.ProfilerInfo
 public class PProfilerInfo implements Parcelable {
     protected PProfilerInfo(Parcel in) {
     }

@@ -121,7 +121,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.wrapper)
+//    implementation(projects.wrapper)
     implementation(projects.reflectAndroid)
     implementation(projects.nativelib)
     implementation(projects.reflectionCommon)

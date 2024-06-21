@@ -1,5 +1,5 @@
 // IPackageManager.aidl
-package com.cliff.wrapper.service;
+package wrapper.android.content.pm;
 
 /*
 **
@@ -43,7 +43,7 @@ import android.content.pm.PackageInfo;
 //import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.ComponentEnabledSetting;
 //import android.content.pm.ParceledListSlice;
-import com.cliff.wrapper.service.PParceledListSlice;
+import wrapper.replace.PParceledListSlice;
 import android.content.pm.ProviderInfo;
 import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;

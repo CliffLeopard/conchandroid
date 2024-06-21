@@ -1,5 +1,5 @@
-// ParceledListSlice.aidl
-package com.cliff.wrapper.service;
+// PParceledListSlice.aidl
+package wrapper.replace;
 
 // Declare any non-default types here with import statements
 
