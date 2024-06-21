@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import com.cliff.conch.bean.Section
 import com.cliff.conch.box.dp.DynamicProxyCase
 import com.cliff.conch.box.service.SystemServerInterceptor
-import com.cliff.conch.reflect.PActivityThreadImpl
-import com.cliff.conch.reflect.PEnvironmentImpl
-import com.cliff.conch.reflect.PServiceManagerImpl
-import com.cliff.conch.reflect.PUserHandlerImpl
 import com.cliff.conch.scene.install.InstallPackageActivity
 import com.orhanobut.logger.Logger
+import reflect.android.app.ActivityThreadReImpl
+import reflect.android.os.EnvironmentReImpl
+import reflect.android.os.ServiceManagerReImpl
+import reflect.android.os.UserHandleReImpl
 
 class EgoViewModel : ViewModel() {
     private val _sections = MutableLiveData(egos)
@@ -26,7 +26,7 @@ class EgoViewModel : ViewModel() {
                 DynamicProxyCase.testDynamicProxy()
             },
             Section("查看系统都注册了哪些服务") {
-                val map = PServiceManagerImpl.sCache_s_get_()
+                val map = ServiceManagerReImpl.sCache_s_get_()
                 for (section in map) {
                     Logger.i("服务: name:${section.key}  value:${section.value.javaClass.name}")
                 }
@@ -39,13 +39,13 @@ class EgoViewModel : ViewModel() {
             Section("安装应用", InstallPackageActivity::class.java),
             Section("反射调用系统API") {
                 Logger.i("GGL:反射调用系统API")
-                val activityThread = PActivityThreadImpl.currentActivityThread()!!
-                val processName = PActivityThreadImpl.getProcessName(activityThread)
+                val activityThread = ActivityThreadReImpl.currentActivityThread()!!
+                val processName = ActivityThreadReImpl.getProcessName(activityThread)
                 Logger.i("GGL:$processName")
             },
             Section("获取当前用户文件配置") {
-                val userId = PUserHandlerImpl.myUserId()
-                val env = PEnvironmentImpl.getUserConfigDirectory(userId)
+                val userId = UserHandleReImpl.myUserId()
+                val env = EnvironmentReImpl.getUserConfigDirectory(userId)
                 Logger.i("GGL:userId:$userId envConfig: ${env.absolutePath}")
             }
         )

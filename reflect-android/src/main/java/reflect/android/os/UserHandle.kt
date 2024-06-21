@@ -1,11 +1,10 @@
-package com.cliff.conch.reflect
+package reflect.android.os
 
 import com.cliff.reflection.common.annotation.PStaticMethod
 import com.cliff.reflection.common.annotation.ProxyClass
 
 @ProxyClass("android.os.UserHandle")
-interface PUserHandler {
+interface UserHandle {
     @PStaticMethod
     fun myUserId(): Int
-
 }

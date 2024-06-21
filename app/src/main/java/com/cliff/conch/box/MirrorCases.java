@@ -3,12 +3,13 @@ package com.cliff.conch.box;
 import android.annotation.SuppressLint;
 import android.app.Application;
 
-import com.cliff.conch.reflect.PActivityThreadImpl;
 import com.orhanobut.logger.Logger;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import reflect.android.app.ActivityThreadReImpl;
 
 
 @SuppressLint("DiscouragedPrivateApi,PrivateApi")
@@ -27,13 +28,13 @@ public class MirrorCases {
     }
 
     private static void refTest() {
-        if (PActivityThreadImpl.INSTANCE.currentActivityThread() == null) {
+        if (ActivityThreadReImpl.INSTANCE.currentActivityThread() == null) {
             Logger.e("currentActivityThread 是NUll");
         } else {
             Logger.d("currentActivityThread不是NUll");
         }
-        Object mainThread = PActivityThreadImpl.INSTANCE.currentActivityThread();
-        Object processName = PActivityThreadImpl.INSTANCE.getProcessName(mainThread);
+        Object mainThread = ActivityThreadReImpl.INSTANCE.currentActivityThread();
+        Object processName = ActivityThreadReImpl.INSTANCE.getProcessName(mainThread);
         Logger.d("processName:" + processName);
     }
 

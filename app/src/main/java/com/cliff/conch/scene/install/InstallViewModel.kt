@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.AppOpsManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.UserManager
 import androidx.core.content.FileProvider
@@ -12,11 +11,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cliff.conch.ConchApplication
-import com.cliff.conch.reflect.PActivityThreadImpl
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import reflect.android.app.ActivityThreadReImpl
 import java.io.File
 import java.io.FileOutputStream
 
@@ -67,7 +66,7 @@ class InstallViewModel : ViewModel() {
             //PackageManager
             val mPm = context.packageManager
             //IPackageManager
-            val mIpm = PActivityThreadImpl.sPackageManager_s_get_()
+            val mIpm = ActivityThreadReImpl.sPackageManager_s_get_()
             // AppOpsManager
             val mAppOpsManager = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
             // PackageInstaller

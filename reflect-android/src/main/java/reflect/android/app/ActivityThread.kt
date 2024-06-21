@@ -1,4 +1,4 @@
-package com.cliff.conch.reflect
+package reflect.android.app
 
 import com.cliff.reflection.common.annotation.PField
 import com.cliff.reflection.common.annotation.PMethod
@@ -7,7 +7,7 @@ import com.cliff.reflection.common.annotation.PStaticMethod
 import com.cliff.reflection.common.annotation.ProxyClass
 
 @ProxyClass("android.app.ActivityThread")
-interface PActivityThread {
+interface ActivityThread {
     @PField("android.app.ActivityThread\$ApplicationThread")
     val mAppThread: Any?
 
@@ -23,6 +23,3 @@ interface PActivityThread {
     @PStaticMethod
     fun currentActivityThread(): Any?
 }
-
-
-//static volatile IPackageManager sPackageManager

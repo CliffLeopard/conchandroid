@@ -121,7 +121,8 @@ android {
 }
 
 dependencies {
-    api(projects.wrapper)
+    implementation(projects.wrapper)
+    implementation(projects.reflectAndroid)
     implementation(projects.nativelib)
     implementation(projects.reflectionCommon)
     ksp(projects.reflectionProcessor)

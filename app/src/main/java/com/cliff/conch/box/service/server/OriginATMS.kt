@@ -13,22 +13,22 @@ package com.cliff.conch.box.service.server
 import android.content.Intent
 import android.os.Bundle
 import android.os.IBinder
-import com.cliff.conch.reflect.PActivityThreadImpl
 import com.cliff.reflection.common.hidden.HiddenApi
 import com.cliff.wrapper.service.IActivityTaskManager
 import com.cliff.wrapper.service.PIAT
 import com.cliff.wrapper.service.PProfilerInfo
 import com.orhanobut.logger.Logger
+import reflect.android.app.ActivityThreadReImpl
 
 open class OriginATMS : IActivityTaskManager.Stub() {
     private val originATMS by lazy {
         OriginServerManager.getOriginATMS()
     }
     private val activityThread by lazy {
-        PActivityThreadImpl.currentActivityThread()
+        ActivityThreadReImpl.currentActivityThread()
     }
     private val applicationThread by lazy {
-        PActivityThreadImpl.getApplicationThread(activityThread!!)
+        ActivityThreadReImpl.getApplicationThread(activityThread!!)
     }
 
     override fun startActivity(

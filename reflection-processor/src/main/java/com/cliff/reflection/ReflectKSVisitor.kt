@@ -30,6 +30,7 @@ import com.squareup.kotlinpoet.ksp.writeTo
 
 class ReflectKSVisitor(private val logger: KSPLogger, private val codeGenerator: CodeGenerator) :
     KSVisitorVoid() {
+        private val implFileSuffix = "ReImpl"
     override fun visitClassDeclaration(classDeclaration: KSClassDeclaration, data: Unit) {
         val clzAno = classDeclaration.annotations.first {
             it.annotationType.resolve().declaration.qualifiedName?.asString() == ProxyClass::class.java.name
@@ -51,8 +52,8 @@ class ReflectKSVisitor(private val logger: KSPLogger, private val codeGenerator:
 //            logger.warn("GGL:superType:${superType.toClassName().canonicalName}")
 //        }
 
-        val implFile = FileSpec.builder(proxyClz.packageName,  "${proxyClz.simpleName}Impl.kt")
-        val implClass = TypeSpec.objectBuilder("${proxyClz.simpleName}Impl")
+        val implFile = FileSpec.builder(proxyClz.packageName,  "${proxyClz.simpleName}${implFileSuffix}.kt")
+        val implClass = TypeSpec.objectBuilder("${proxyClz.simpleName}${implFileSuffix}")
             .superclass(ProxyBaseImpl::class)
             .addSuperclassConstructorParameter(CodeBlock.of("%S",originClz.canonicalName))
 

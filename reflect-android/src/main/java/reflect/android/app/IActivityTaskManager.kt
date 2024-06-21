@@ -1,10 +1,10 @@
-package com.cliff.conch.reflect
+package reflect.android.app
 
 import com.cliff.reflection.common.annotation.PStaticMethod
 import com.cliff.reflection.common.annotation.ProxyClass
 
 @ProxyClass("android.app.IActivityTaskManager")
-interface PIActivityTaskManager {
+interface IActivityTaskManager {
     @ProxyClass("android.app.IActivityTaskManager\$Stub")
     interface Stub {
         @PStaticMethod("com.cliff.wrapper.service.IActivityTaskManager")
