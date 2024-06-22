@@ -5,7 +5,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cliff.conch.databinding.ActivityInstallPackageBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class InstallPackageActivity : AppCompatActivity() {
     lateinit var binding: ActivityInstallPackageBinding
     private val viewModel: InstallViewModel by viewModels()

@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 // 读取签名
@@ -122,9 +123,13 @@ android {
 
 dependencies {
 //    implementation(projects.wrapper)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
     implementation(projects.reflectAndroid)
     implementation(projects.nativelib)
     implementation(projects.reflectionCommon)
+    implementation(projects.data)
     ksp(projects.reflectionProcessor)
     kapt(libs.eventbus.annotation)
 
@@ -169,4 +174,5 @@ kapt {
     arguments {
         arg("eventBusIndex", "com.cliff.eventbuskotlin.MyEventBusIndex")
     }
+    correctErrorTypes = true
 }

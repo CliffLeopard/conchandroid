@@ -8,13 +8,14 @@ import androidx.multidex.MultiDexApplication
 import com.cliff.eventbuskotlin.MyEventBusIndex
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import dagger.hilt.android.HiltAndroidApp
 import org.greenrobot.eventbus.EventBus
 import top.canyie.pine.Pine
 import top.canyie.pine.Pine.CallFrame
 import top.canyie.pine.PineConfig
 import top.canyie.pine.callback.MethodHook
 
-
+@HiltAndroidApp
 class ConchApplication : MultiDexApplication() {
     @SuppressLint("StaticFieldLeak")
     companion object {

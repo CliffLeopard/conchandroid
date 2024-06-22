@@ -13,6 +13,7 @@ import androidx.lifecycle.viewModelScope
 import com.cliff.conch.ConchApplication
 import com.cliff.conch.box.util.FileUtil
 import com.orhanobut.logger.Logger
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,7 +21,7 @@ import reflect.android.app.ActivityThreadReImpl
 import java.io.File
 import java.io.FileOutputStream
 
-
+@HiltViewModel
 class InstallViewModel : ViewModel() {
     val apps: LiveData<MutableList<AppItem>> get() = AppItem.installedApps
     private val fileAuthor = "com.cliff.conch.fileprovider"

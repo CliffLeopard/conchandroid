@@ -25,13 +25,17 @@ dependencyResolutionManagement {
 rootProject.name = "conch-android"
 
 include(":app")
+include(":reflection-processor")
+include(":reflection-common")
+include(":reflect-android")
+include(":data")
+include(":datastore")
+include(":datastore-proto")
+
 include(":nativelib")
 //include(":wrapper")
-
 //include(":nativebinder-service")
 //include(":common")
 //project(":common").projectDir = file("ndkbinder/common")
 //project(":nativebinder-service").projectDir = file("ndkbinder/nativebinder-service")
-include(":reflection-processor")
-include(":reflection-common")
-include(":reflect-android")
+include(":common")
