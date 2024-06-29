@@ -23,6 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import reflect.android.app.ActivityThreadReImpl
+import reflect.android.content.pm.SessionParamsReImpl
 import reflect.android.content.pm.parsing.ApkLiteParseUtilsReImpl
 import reflect.android.content.pm.parsing.result.ParseTypeImplReImpl
 import java.io.File
@@ -97,27 +98,29 @@ class InstallViewModel : ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     private suspend fun normalInstallApk(apk:File,intent: Intent) {
+        withContext(Dispatchers.IO) {
+            val params = PackageInstaller.SessionParams(
+                PackageInstaller.SessionParams.MODE_FULL_INSTALL
+            )
+            val referrerUri: Uri? = intent.getParcelableExtra(Intent.EXTRA_REFERRER)
+            params.setPackageSource(
+                if (referrerUri != null) PackageInstaller.PACKAGE_SOURCE_DOWNLOADED_FILE
+                else PackageInstaller.PACKAGE_SOURCE_LOCAL_FILE
+            )
+            SessionParamsReImpl.setInstallAsInstantApp(params,false)
+            //        params.setInstallAsInstantApp(false)
+            params.setReferrerUri(referrerUri)
+            params.setOriginatingUri(intent.getParcelableExtra(Intent.EXTRA_ORIGINATING_URI))
+            params.setOriginatingUid(intent.getIntExtra("android.intent.extra.ORIGINATING_UID",-1))
+            params.setInstallerPackageName(intent.getStringExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME))
+            params.setInstallReason(PackageManager.INSTALL_REASON_USER)
 
-        val params = PackageInstaller.SessionParams(
-            PackageInstaller.SessionParams.MODE_FULL_INSTALL
-        )
-        val referrerUri: Uri? = Uri.fromFile(apk)  //getIntent().getParcelableExtra(Intent.EXTRA_REFERRER)
-        params.setPackageSource(
-            if (referrerUri != null) PackageInstaller.PACKAGE_SOURCE_DOWNLOADED_FILE
-            else PackageInstaller.PACKAGE_SOURCE_LOCAL_FILE
-        )
-//        params.setInstallAsInstantApp(false)
-        params.setReferrerUri(referrerUri)
-        params.setOriginatingUri(intent.getParcelableExtra(Intent.EXTRA_ORIGINATING_URI))
-//        params.setOriginatingUid(intent.getIntExtra(Intent.EXTRA_ORIGINATING_UID, UID_UNKNOWN))
-        params.setInstallerPackageName(intent.getStringExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME))
-        params.setInstallReason(PackageManager.INSTALL_REASON_USER)
+            // ParseTypeImpl
+            val input = ParseTypeImplReImpl.forDefaultParsing()
+            // ParseResult<PackageLite>
+            val result = ApkLiteParseUtilsReImpl.parsePackageLite(ParseTypeImplReImpl.reset(input),apk,0)
 
-        // ParseTypeImpl
-        val input = ParseTypeImplReImpl.forDefaultParsing()
-        // ParseResult<PackageLite>
-        val result = ApkLiteParseUtilsReImpl.parsePackageLite(ParseTypeImplReImpl.reset(input),apk,0)
-
+        }
     }
 
     private suspend fun installApk(apk: File) {
@@ -144,8 +147,8 @@ class InstallViewModel : ViewModel() {
     }
 
     companion object {
-        const val nowWindPkgName = "com.google.samples.apps.nowinandroid"
-        const val nowWindActivityName = "com.google.samples.apps.nowinandroid.MainActivity"
+        private const val nowWindPkgName = "com.google.samples.apps.nowinandroid"
+        private const val nowWindActivityName = "com.google.samples.apps.nowinandroid.MainActivity"
         val nowWindComponentName = ComponentName(nowWindPkgName, nowWindActivityName)
     }
 
