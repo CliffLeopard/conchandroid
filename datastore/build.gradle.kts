@@ -39,7 +39,8 @@ android {
 }
 
 dependencies {
-
+    implementation(projects.common)
+    implementation(libs.androidx.dataStore.core)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.google.material)

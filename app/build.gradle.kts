@@ -130,6 +130,8 @@ dependencies {
     implementation(projects.nativelib)
     implementation(projects.reflectionCommon)
     implementation(projects.data)
+    implementation(projects.common)
+
     ksp(projects.reflectionProcessor)
     kapt(libs.eventbus.annotation)
 

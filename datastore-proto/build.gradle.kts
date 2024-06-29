@@ -68,6 +68,7 @@ androidComponents.beforeVariants {
 
 
 dependencies {
+    implementation(projects.common)
     api(libs.protobuf.kotlin.lite)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

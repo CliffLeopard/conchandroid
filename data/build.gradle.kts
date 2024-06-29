@@ -34,6 +34,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.datastore)
+    implementation(projects.common)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.core.ktx)

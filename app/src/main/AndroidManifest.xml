@@ -32,6 +32,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Conchandroid"
         tools:targetApi="31">
+        <!--    非debug版本也可使用shell进行性能分析    -->
+        <profileable android:shell="true" tools:targetApi="q" />
         <activity
             android:name=".scene.ShellActivity"
             android:exported="false" />
