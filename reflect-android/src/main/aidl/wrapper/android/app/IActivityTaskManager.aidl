@@ -57,82 +57,82 @@ interface IActivityTaskManager {
             in String callingFeatureId, in Intent intent, in String resolvedType,
             in IBinder resultTo, in String resultWho, int requestCode, int flags,
             in PProfilerInfo pProfilerInfo, in Bundle options, int userId);
-//    boolean startNextMatchingActivity(in IBinder callingActivity,
-//            in Intent intent, in Bundle options);
-//    boolean startDreamActivity(in Intent intent);
-//    int startActivityWithConfig(in PIAT caller, in String callingPackage,
-//            in String callingFeatureId, in Intent intent, in String resolvedType,
-//            in IBinder resultTo, in String resultWho, int requestCode, int startFlags,
-//            in Configuration newConfig, in Bundle options, int userId);
-//    String getVoiceInteractorPackageName(in IBinder callingVoiceInteractor);
-//    int startAssistantActivity(in String callingPackage, in String callingFeatureId, int callingPid,
-//            int callingUid, in Intent intent, in String resolvedType, in Bundle options, int userId);
-//    int startActivityFromRecents(int taskId, in Bundle options);
-//    int startActivityAsCaller(in PIAT caller, in String callingPackage,
-//            in Intent intent, in String resolvedType, in IBinder resultTo, in String resultWho,
-//            int requestCode, int flags, in PProfilerInfo pProfilerInfo, in Bundle options,
-//            boolean ignoreTargetSecurity, int userId);
-//    boolean isActivityStartAllowedOnDisplay(int displayId, in Intent intent, in String resolvedType,
-//            int userId);
-//    void unhandledBack();
-//    int getFrontActivityScreenCompatMode();
-//    void setFrontActivityScreenCompatMode(int mode);
-//    void setFocusedTask(int taskId);
-//    boolean removeTask(int taskId);
-//    void removeAllVisibleRecentTasks();
-//    void moveTaskToFront(in PIAT app, in String callingPackage, int task,
-//            int flags, in Bundle options);
-//    boolean isTopActivityImmersive();
-//    void reportAssistContextExtras(in IBinder assistToken, in Bundle extras,
-//            in AssistStructure structure, in AssistContent content, in Uri referrer);
-//    void setFocusedRootTask(int taskId);
-//    Rect getTaskBounds(int taskId);
-//    void cancelRecentsAnimation(boolean restoreHomeRootTaskPosition);
-//    void updateLockTaskPackages(int userId, in String[] packages);
-//    boolean isInLockTaskMode();
-//    int getLockTaskModeState();
-//    List<IBinder> getAppTasks(in String callingPackage);
-//    void startSystemLockTaskMode(int taskId);
-//    void stopSystemLockTaskMode();
-//    Point getAppTaskThumbnailSize();
-//
-//    oneway void releaseSomeActivities(in PIAT app);
-//    Bitmap getTaskDescriptionIcon(in String filename, int userId);
-//    void setTaskResizeable(int taskId, int resizeableMode);
-//
-//    boolean resizeTask(int taskId, in Rect bounds, int resizeMode);
-//    void moveRootTaskToDisplay(int taskId, int displayId);
-//    void moveTaskToRootTask(int taskId, int rootTaskId, boolean toTop);
-//    void removeRootTasksInWindowingModes(in int[] windowingModes);
-//    void removeRootTasksWithActivityTypes(in int[] activityTypes);
-//    void setLockScreenShown(boolean showingKeyguard, boolean showingAod);
-//    Bundle getAssistContextExtras(int requestType);
-//    boolean isAssistDataAllowedOnCurrentActivity();
-//    void keyguardGoingAway(int flags);
-//    void suppressResizeConfigChanges(boolean suppress);
-//    void setSplitScreenResizing(boolean resizing);
-//    boolean supportsLocalVoiceInteraction();
-//    ConfigurationInfo getDeviceConfigurationInfo();
-//    void cancelTaskWindowTransition(int taskId);
-//    int getLastResumedActivityUserId();
-//
-//    boolean updateConfiguration(in Configuration values);
-//    void updateLockTaskFeatures(int userId, int flags);
-//    void alwaysShowUnsupportedCompileSdkWarning(in ComponentName activity);
-//
-//    void setVrThread(int tid);
-//    void setPersistentVrThread(int tid);
-//    void stopAppSwitches();
-//    void resumeAppSwitches();
-//
-//    int getPackageScreenCompatMode(in String packageName);
-//    void setPackageScreenCompatMode(in String packageName, int mode);
-//    boolean getPackageAskScreenCompat(in String packageName);
-//    void setPackageAskScreenCompat(in String packageName, boolean ask);
-//    void clearLaunchParamsForPackages(in List<String> packageNames);
-//    void onPictureInPictureStateChanged(in PictureInPictureUiState pipState);
-//    void detachNavigationBarFromApp(in IBinder transition);
-//    void setRunningRemoteTransitionDelegate(in PIAT caller);
+    boolean startNextMatchingActivity(in IBinder callingActivity,
+            in Intent intent, in Bundle options);
+    boolean startDreamActivity(in Intent intent);
+    int startActivityWithConfig(in PIAT caller, in String callingPackage,
+            in String callingFeatureId, in Intent intent, in String resolvedType,
+            in IBinder resultTo, in String resultWho, int requestCode, int startFlags,
+            in Configuration newConfig, in Bundle options, int userId);
+    String getVoiceInteractorPackageName(in IBinder callingVoiceInteractor);
+    int startAssistantActivity(in String callingPackage, in String callingFeatureId, int callingPid,
+            int callingUid, in Intent intent, in String resolvedType, in Bundle options, int userId);
+    int startActivityFromRecents(int taskId, in Bundle options);
+    int startActivityAsCaller(in PIAT caller, in String callingPackage,
+            in Intent intent, in String resolvedType, in IBinder resultTo, in String resultWho,
+            int requestCode, int flags, in PProfilerInfo pProfilerInfo, in Bundle options,
+            boolean ignoreTargetSecurity, int userId);
+    boolean isActivityStartAllowedOnDisplay(int displayId, in Intent intent, in String resolvedType,
+            int userId);
+    void unhandledBack();
+    int getFrontActivityScreenCompatMode();
+    void setFrontActivityScreenCompatMode(int mode);
+    void setFocusedTask(int taskId);
+    boolean removeTask(int taskId);
+    void removeAllVisibleRecentTasks();
+    void moveTaskToFront(in PIAT app, in String callingPackage, int task,
+            int flags, in Bundle options);
+    boolean isTopActivityImmersive();
+    void reportAssistContextExtras(in IBinder assistToken, in Bundle extras,
+            in AssistStructure structure, in AssistContent content, in Uri referrer);
+    void setFocusedRootTask(int taskId);
+    Rect getTaskBounds(int taskId);
+    void cancelRecentsAnimation(boolean restoreHomeRootTaskPosition);
+    void updateLockTaskPackages(int userId, in String[] packages);
+    boolean isInLockTaskMode();
+    int getLockTaskModeState();
+    List<IBinder> getAppTasks(in String callingPackage);
+    void startSystemLockTaskMode(int taskId);
+    void stopSystemLockTaskMode();
+    Point getAppTaskThumbnailSize();
+
+    oneway void releaseSomeActivities(in PIAT app);
+    Bitmap getTaskDescriptionIcon(in String filename, int userId);
+    void setTaskResizeable(int taskId, int resizeableMode);
+
+    boolean resizeTask(int taskId, in Rect bounds, int resizeMode);
+    void moveRootTaskToDisplay(int taskId, int displayId);
+    void moveTaskToRootTask(int taskId, int rootTaskId, boolean toTop);
+    void removeRootTasksInWindowingModes(in int[] windowingModes);
+    void removeRootTasksWithActivityTypes(in int[] activityTypes);
+    void setLockScreenShown(boolean showingKeyguard, boolean showingAod);
+    Bundle getAssistContextExtras(int requestType);
+    boolean isAssistDataAllowedOnCurrentActivity();
+    void keyguardGoingAway(int flags);
+    void suppressResizeConfigChanges(boolean suppress);
+    void setSplitScreenResizing(boolean resizing);
+    boolean supportsLocalVoiceInteraction();
+    ConfigurationInfo getDeviceConfigurationInfo();
+    void cancelTaskWindowTransition(int taskId);
+    int getLastResumedActivityUserId();
+
+    boolean updateConfiguration(in Configuration values);
+    void updateLockTaskFeatures(int userId, int flags);
+    void alwaysShowUnsupportedCompileSdkWarning(in ComponentName activity);
+
+    void setVrThread(int tid);
+    void setPersistentVrThread(int tid);
+    void stopAppSwitches();
+    void resumeAppSwitches();
+
+    int getPackageScreenCompatMode(in String packageName);
+    void setPackageScreenCompatMode(in String packageName, int mode);
+    boolean getPackageAskScreenCompat(in String packageName);
+    void setPackageAskScreenCompat(in String packageName, boolean ask);
+    void clearLaunchParamsForPackages(in List<String> packageNames);
+    void onPictureInPictureStateChanged(in PictureInPictureUiState pipState);
+    void detachNavigationBarFromApp(in IBinder transition);
+    void setRunningRemoteTransitionDelegate(in PIAT caller);
 
 
 

@@ -2,10 +2,16 @@ package com.cliff.conch.install
 
 import android.annotation.SuppressLint
 import android.app.AppOpsManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.pm.PackageInstaller
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.UserManager
+import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -13,15 +19,16 @@ import androidx.lifecycle.viewModelScope
 import com.cliff.conch.ConchApplication
 import com.cliff.conch.box.util.FileUtil
 import com.orhanobut.logger.Logger
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import reflect.android.app.ActivityThreadReImpl
+import reflect.android.content.pm.parsing.ApkLiteParseUtilsReImpl
+import reflect.android.content.pm.parsing.result.ParseTypeImplReImpl
 import java.io.File
 import java.io.FileOutputStream
 
-@HiltViewModel
+//@HiltViewModel
 class InstallViewModel : ViewModel() {
     val apps: LiveData<MutableList<AppItem>> get() = AppItem.installedApps
     private val fileAuthor = "com.cliff.conch.fileprovider"
@@ -30,7 +37,8 @@ class InstallViewModel : ViewModel() {
     private val context = ConchApplication.context
     fun install() {
         viewModelScope.launch {
-            scheduleApk()
+//            scheduleApk()
+            normalInstallApk()
         }
     }
 
@@ -45,6 +53,13 @@ class InstallViewModel : ViewModel() {
                 }
             }
             installApk(cacheApk)
+        }
+    }
+
+    private suspend fun normalInstallApk() {
+        withContext(Dispatchers.IO) {
+            val uri = apkProviderUri()
+            openInstallApkActivity(uri)
         }
     }
 
@@ -74,6 +89,37 @@ class InstallViewModel : ViewModel() {
         }
     }
 
+    private fun launchInstallerApk(name: ComponentName) {
+        val intent = Intent.makeMainActivity(name)
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    private suspend fun normalInstallApk(apk:File,intent: Intent) {
+
+        val params = PackageInstaller.SessionParams(
+            PackageInstaller.SessionParams.MODE_FULL_INSTALL
+        )
+        val referrerUri: Uri? = Uri.fromFile(apk)  //getIntent().getParcelableExtra(Intent.EXTRA_REFERRER)
+        params.setPackageSource(
+            if (referrerUri != null) PackageInstaller.PACKAGE_SOURCE_DOWNLOADED_FILE
+            else PackageInstaller.PACKAGE_SOURCE_LOCAL_FILE
+        )
+//        params.setInstallAsInstantApp(false)
+        params.setReferrerUri(referrerUri)
+        params.setOriginatingUri(intent.getParcelableExtra(Intent.EXTRA_ORIGINATING_URI))
+//        params.setOriginatingUid(intent.getIntExtra(Intent.EXTRA_ORIGINATING_UID, UID_UNKNOWN))
+        params.setInstallerPackageName(intent.getStringExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME))
+        params.setInstallReason(PackageManager.INSTALL_REASON_USER)
+
+        // ParseTypeImpl
+        val input = ParseTypeImplReImpl.forDefaultParsing()
+        // ParseResult<PackageLite>
+        val result = ApkLiteParseUtilsReImpl.parsePackageLite(ParseTypeImplReImpl.reset(input),apk,0)
+
+    }
+
     private suspend fun installApk(apk: File) {
         withContext(Dispatchers.IO) {
             //PackageManager
@@ -95,6 +141,12 @@ class InstallViewModel : ViewModel() {
             val mPkgInfo = mPm.getPackageArchiveInfo(apk.absolutePath, 0)
             Logger.i(mPkgInfo?.packageName ?: "NULL")
         }
+    }
+
+    companion object {
+        const val nowWindPkgName = "com.google.samples.apps.nowinandroid"
+        const val nowWindActivityName = "com.google.samples.apps.nowinandroid.MainActivity"
+        val nowWindComponentName = ComponentName(nowWindPkgName, nowWindActivityName)
     }
 
 }

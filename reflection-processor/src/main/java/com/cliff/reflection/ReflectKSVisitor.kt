@@ -42,16 +42,6 @@ class ReflectKSVisitor(private val logger: KSPLogger, private val codeGenerator:
             ClassName(clzAv.substring(0, dotIndex), clzAv.substring(dotIndex + 1, clzAv.length))
         val proxyClz = classDeclaration.toClassName()
 
-
-//        val packageName = classDeclaration.packageName.asString()
-//        val proxyClassName = classDeclaration.simpleName.asString()
-//        logger.warn("GGL:class:${classDeclaration.toClassName().canonicalName}")
-//        logger.warn("GGL:packageName:${packageName}")
-//        logger.warn("GGL:proxyClassName:${proxyClassName}")
-//        classDeclaration.getAllSuperTypes().forEach { superType ->
-//            logger.warn("GGL:superType:${superType.toClassName().canonicalName}")
-//        }
-
         val implFile = FileSpec.builder(proxyClz.packageName,  "${proxyClz.simpleName}${implFileSuffix}.kt")
         val implClass = TypeSpec.objectBuilder("${proxyClz.simpleName}${implFileSuffix}")
             .superclass(ProxyBaseImpl::class)
@@ -280,7 +270,8 @@ class ReflectKSVisitor(private val logger: KSPLogger, private val codeGenerator:
                     return invokeMethod(obj,"$funcName", ${
                         fct.parameters.mapIndexed { index, par ->
                             "Section($par," +
-                                    "try { Class.forName(\"${parTypes[index]}\") } catch (exp:ClassNotFoundException) { ${parTypes[index]}::class.java})"
+                                    "try { Class.forName(\"${parTypes[index]}\") } catch (exp:ClassNotFoundException) { " +
+                                     "${ if(parTypes[index].contains("kotlin.")) "${parTypes[index]}::class.java })" else "throw exp })" } "
                         }.joinToString(",")
                     })
                             """.trimIndent(),
@@ -311,7 +302,8 @@ class ReflectKSVisitor(private val logger: KSPLogger, private val codeGenerator:
                     return invokeMethod(null,"$funcName", ${
                         fct.parameters.mapIndexed { index, par ->
                             "Section($par," +
-                                    "try { Class.forName(\"${parTypes[index]}\") } catch (exp:ClassNotFoundException) { ${parTypes[index]}::class.java})"
+                                    "try { Class.forName(\"${parTypes[index]}\") } catch (exp:ClassNotFoundException) { " +
+                                    "${ if(parTypes[index].contains("kotlin.")) "${parTypes[index]}::class.java })" else "throw exp })" } "
                         }.joinToString(",")
                     })
                             """.trimIndent()
@@ -351,7 +343,8 @@ class ReflectKSVisitor(private val logger: KSPLogger, private val codeGenerator:
                     return invokeConstructor($fieldType, ${
                         fct.parameters.mapIndexed { index, par ->
                             "Section($par," +
-                                    "try { Class.forName(\"${parTypes[index]}\") } catch (exp:ClassNotFoundException) { ${parTypes[index]}::class.java})"
+                                    "try { Class.forName(\"${parTypes[index]}\") } catch (exp:ClassNotFoundException) { " +
+                                    "${ if(parTypes[index].contains("kotlin.")) "${parTypes[index]}::class.java })" else "throw exp })" } "
                         }.joinToString(",")
                     })
                             """.trimIndent()

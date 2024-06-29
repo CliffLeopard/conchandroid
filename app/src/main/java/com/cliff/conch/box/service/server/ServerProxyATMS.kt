@@ -26,20 +26,24 @@ class ServerProxyATMS : OriginATMS() {
         pProfilerInfo: PProfilerInfo?,
         options: Bundle?
     ): Int {
-        Logger.i("ProxyActivityTaskManager:startActivity")
-        return super.startActivity(
-            caller,
-            callingPackage,
-            callingFeatureId,
-            intent,
-            resolvedType,
-            resultTo,
-            resultWho,
-            requestCode,
-            flags,
-            pProfilerInfo,
-            options
-        )
+        Logger.i("ProxyActivityTaskManager:startActivity:${intent}")
+        val schedule = ATMSHelper.scheduleStartActivity(intent)
+        return if (schedule != ATMSHelper.NOT_SCHEDULE)
+            schedule
+        else
+            super.startActivity(
+                caller,
+                callingPackage,
+                callingFeatureId,
+                intent,
+                resolvedType,
+                resultTo,
+                resultWho,
+                requestCode,
+                flags,
+                pProfilerInfo,
+                options
+            )
     }
 
     override fun startActivities(

@@ -138,6 +138,11 @@
                 android:value="native-activity" />
         </activity>
 
+        <!--   virtual activities-->
+        <activity
+            android:name="com.google.samples.apps.nowinandroid.MainActivityy"
+            android:exported="false" />
+
         <provider
             android:name=".scene.provider.CliffContentProvider"
             android:authorities="com.cliff.conch.provider"
