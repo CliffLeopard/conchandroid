@@ -8,7 +8,7 @@ object ATMSHelper {
     fun scheduleStartActivity(intent: Intent?): Int {
         if ("application/vnd.android.package-archive" == intent?.type && intent.data != null)
             installApk(intent.data!!)
-        return NOT_SCHEDULE;
+        return NOT_SCHEDULE
     }
 
 

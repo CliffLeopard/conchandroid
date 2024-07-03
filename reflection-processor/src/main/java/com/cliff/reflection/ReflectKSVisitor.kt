@@ -267,7 +267,7 @@ class ReflectKSVisitor(private val logger: KSPLogger, private val codeGenerator:
             .addCode(
                 CodeBlock.of(
                     """
-                    return invokeMethod(obj,"$funcName", ${
+                    return invokeMethod(obj,"$funcName" ${if (fct.parameters.isNotEmpty()) "," else ""} ${
                         fct.parameters.mapIndexed { index, par ->
                             "Section($par," +
                                     "try { Class.forName(\"${parTypes[index]}\") } catch (exp:ClassNotFoundException) { " +
@@ -299,7 +299,7 @@ class ReflectKSVisitor(private val logger: KSPLogger, private val codeGenerator:
             .addCode(
                 CodeBlock.of(
                     """
-                    return invokeMethod(null,"$funcName", ${
+                    return invokeMethod(null, "$funcName" ${if (fct.parameters.isNotEmpty()) "," else ""} ${
                         fct.parameters.mapIndexed { index, par ->
                             "Section($par," +
                                     "try { Class.forName(\"${parTypes[index]}\") } catch (exp:ClassNotFoundException) { " +
@@ -340,7 +340,7 @@ class ReflectKSVisitor(private val logger: KSPLogger, private val codeGenerator:
             .addCode(
                 CodeBlock.of(
                     """
-                    return invokeConstructor($fieldType, ${
+                    return invokeConstructor($fieldType ${if (fct.parameters.isNotEmpty()) "," else ""} ${
                         fct.parameters.mapIndexed { index, par ->
                             "Section($par," +
                                     "try { Class.forName(\"${parTypes[index]}\") } catch (exp:ClassNotFoundException) { " +

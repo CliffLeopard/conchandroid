@@ -6,13 +6,23 @@ import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 
-abstract class ProxyBaseImpl(originCls: String) {
+open class ProxyBaseImpl protected constructor(originCls: String) {
     private val clz: Class<*> by lazy {
         Class.forName(originCls)
     }
     private val fields = HashMap<String, WeakReference<Field>>()
     private val methods = HashMap<String, WeakReference<Method>>()
     private val constructors = HashMap<String, WeakReference<Constructor<*>>>()
+
+    companion object {
+        private val instanceMap = HashMap<String, WeakReference<ProxyBaseImpl>>()
+        fun getInstance(originCls: String): ProxyBaseImpl {
+            if (!instanceMap.contains(originCls) || instanceMap[originCls]!!.get() == null) {
+                instanceMap[originCls] = WeakReference(ProxyBaseImpl(originCls))
+            }
+            return instanceMap[originCls]?.get()!!
+        }
+    }
 
     fun setFiled(
         target: Any?,

@@ -150,6 +150,11 @@ class InstallViewModel : ViewModel() {
         private const val nowWindPkgName = "com.google.samples.apps.nowinandroid"
         private const val nowWindActivityName = "com.google.samples.apps.nowinandroid.MainActivity"
         val nowWindComponentName = ComponentName(nowWindPkgName, nowWindActivityName)
+        const val DOWNLOADS_AUTHORITY: String = "downloads"
     }
+
+
+
+
 
 }
