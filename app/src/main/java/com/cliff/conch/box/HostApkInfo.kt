@@ -1,7 +1,6 @@
 package com.cliff.conch.box
 
 import android.content.pm.ApplicationInfo
-import android.content.pm.PackageInfo
 import android.util.ArrayMap
 import com.cliff.conch.ConchApplication
 import com.orhanobut.logger.Logger
@@ -37,7 +36,6 @@ object HostApkInfo {
 
     private val compatInfo: Any by lazy {
         val displayAdjustments = LoadedApkReImpl.mDisplayAdjustments_o_get_(packageInfo)
-        Logger.i("GET mDisplayAdjustments From LoadedApk")
         DisplayAdjustmentsReImpl.mCompatInfo_o_get_(displayAdjustments)
     }
 
@@ -60,7 +58,6 @@ object HostApkInfo {
             val applicationInfo = packageInfo.applicationInfo
             Logger.i("applicationInfo:${applicationInfo.packageName}")
             val parentClassLoader = HostApkInfo::class.java.classLoader!!.parent!!
-            val mCInfo = compatInfo
             Logger.i("开始创建LoadedApk:${parentClassLoader::class.java.canonicalName}")
             val loadedApk = newLoadedApk(
                 applicationInfo, PathClassLoader(

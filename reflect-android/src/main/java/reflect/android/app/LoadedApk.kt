@@ -14,7 +14,7 @@ interface LoadedApk {
     @PField("android.view.DisplayAdjustments")
     val mDisplayAdjustments: Any
 
-    @PConstructor
+    @PConstructor("android.app.LoadedApk")
     fun newLoadedApk(
         @PMethodParameter("android.app.ActivityThread") activityThread: Any,
         aInfo: ApplicationInfo,

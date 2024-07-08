@@ -228,6 +228,8 @@
             android:process=":plugin_p5"
             android:authorities="com.cliff.conch.box.process5" />
 
+
+
 <!--        <receiver-->
 <!--            android:name=".scene.ApkInstallReceiver"-->
 <!--            android:enabled="true"-->

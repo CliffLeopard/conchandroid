@@ -120,6 +120,7 @@ open class ProxyBaseImpl protected constructor(originCls: String) {
             HiddenApi.getInstanceFiled(fieldName, clz)
         }
         if (field != null) {
+            field.isAccessible = true
             fields[fieldName] = WeakReference(field)
         }
         return field
