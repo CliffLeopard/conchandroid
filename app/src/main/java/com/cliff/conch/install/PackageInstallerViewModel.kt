@@ -44,7 +44,7 @@ class PackageInstallerViewModel : ViewModel() {
         intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
         installStart(intent, context)
     }
-
+    
     // 模拟InstallStart (activity)，这里Activity就是InstallStart,为了方便直接写在参数里
     private suspend fun installStart(intent: Intent, context: Activity) {
         val mPackageManager = context.packageManager

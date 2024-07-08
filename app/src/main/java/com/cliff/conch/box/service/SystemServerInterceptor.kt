@@ -3,7 +3,7 @@ package com.cliff.conch.box.service
 import android.annotation.SuppressLint
 import android.os.RemoteException
 import com.cliff.conch.box.service.client.ClientProxyHandlerATMS
-import com.cliff.conch.box.service.server.OriginServerManager
+import com.cliff.conch.box.service.origin.OriginServerManager
 import reflect.android.app.ActivityTaskManagerReImpl
 import reflect.android.util.SingletonReImpl
 import java.lang.reflect.Proxy

@@ -19,6 +19,8 @@ interface PackageInstaller {
     interface SessionParams {
         @PMethod
         fun setInstallAsInstantApp(isInstantApp: Boolean)
+        @PField
+        val abiOverride:String
     }
 
     @ProxyClass("android.content.pm.PackageInstaller\$SessionInfo")

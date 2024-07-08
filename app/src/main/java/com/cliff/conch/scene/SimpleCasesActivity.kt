@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cliff.conch.R
 import com.cliff.conch.databinding.ActivitySimpleCasesBinding
 import com.cliff.conch.databinding.SectionItemBinding
+import com.cliff.reflection.common.hidden.HiddenApi
 import com.orhanobut.logger.Logger
 
 
@@ -103,6 +104,11 @@ class SimpleCasesActivity : AppCompatActivity() {
                 },
                 Case("Java运行时编译") {
                     compileInMemory()
+                },
+                Case("Volatile HiddenApi") {
+                    val case = VolatileCase("Leopard",18)
+                    Logger.i("Name:${HiddenApi.getInstanceFiled("name",VolatileCase::class.java)!!.get(case)} ")
+                    Logger.i("Name:${HiddenApi.getInstanceFiled("age",VolatileCase::class.java)!!.get(case)} ")
                 }
             )
 

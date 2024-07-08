@@ -17,6 +17,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cliff.conch.ConchApplication
+import com.cliff.conch.box.HostApkInfo
 import com.cliff.conch.box.util.FileUtil
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +28,7 @@ import reflect.android.content.pm.SessionParamsReImpl
 import reflect.android.content.pm.parsing.ApkLiteParseUtilsReImpl
 import reflect.android.content.pm.parsing.result.ParseTypeImplReImpl
 import java.io.File
+import java.io.FileInputStream
 import java.io.FileOutputStream
 
 //@HiltViewModel
@@ -39,9 +41,48 @@ class InstallViewModel : ViewModel() {
     fun install() {
         viewModelScope.launch {
 //            scheduleApk()
-            normalInstallApk()
+//            normalInstallApk()
+            loadedApkInstall()
         }
     }
+
+    private suspend fun loadedApkInstall() {
+        withContext(Dispatchers.IO) {
+            val cacheApk = FileUtil.childCache()
+            if (!cacheApk.exists() || cacheApk.length() == 0L) {
+                context.assets.open("Now.apk").use { inputStream ->
+                    FileOutputStream(cacheApk).use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+                }
+            }
+            val packageInfo =
+                context.packageManager.getPackageArchiveInfo(cacheApk.absolutePath, 0)!!
+            val packageName = packageInfo.packageName
+            val baseApk = FileUtil.childAppBaseFile(packageName)
+            if (!baseApk.exists() || baseApk.length() == 0L) {
+                FileInputStream(cacheApk).use { inputStream ->
+                    FileOutputStream(baseApk).use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+                }
+            }
+            cacheApk.delete()
+            baseApk.setReadOnly()
+            Logger.i("LoadedApk 开始加载")
+            val loadedApk = HostApkInfo.loadApplication(baseApk.absolutePath)
+            Logger.i("LoadedApk 加载完成")
+            withContext(Dispatchers.Main) {
+                val intent = Intent().apply {
+                    setComponent(nowWindComponentName)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                Logger.i("LoadedApk 加载完成，启动Activity")
+                context.startActivity(intent)
+            }
+        }
+    }
+
 
     private suspend fun scheduleApk() {
         withContext(Dispatchers.IO) {
@@ -97,7 +138,7 @@ class InstallViewModel : ViewModel() {
     }
 
     @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-    private suspend fun normalInstallApk(apk:File,intent: Intent) {
+    private suspend fun normalInstallApk(apk: File, intent: Intent) {
         withContext(Dispatchers.IO) {
             val params = PackageInstaller.SessionParams(
                 PackageInstaller.SessionParams.MODE_FULL_INSTALL
@@ -107,18 +148,19 @@ class InstallViewModel : ViewModel() {
                 if (referrerUri != null) PackageInstaller.PACKAGE_SOURCE_DOWNLOADED_FILE
                 else PackageInstaller.PACKAGE_SOURCE_LOCAL_FILE
             )
-            SessionParamsReImpl.setInstallAsInstantApp(params,false)
+            SessionParamsReImpl.setInstallAsInstantApp(params, false)
             //        params.setInstallAsInstantApp(false)
             params.setReferrerUri(referrerUri)
             params.setOriginatingUri(intent.getParcelableExtra(Intent.EXTRA_ORIGINATING_URI))
-            params.setOriginatingUid(intent.getIntExtra("android.intent.extra.ORIGINATING_UID",-1))
+            params.setOriginatingUid(intent.getIntExtra("android.intent.extra.ORIGINATING_UID", -1))
             params.setInstallerPackageName(intent.getStringExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME))
             params.setInstallReason(PackageManager.INSTALL_REASON_USER)
 
             // ParseTypeImpl
             val input = ParseTypeImplReImpl.forDefaultParsing()
             // ParseResult<PackageLite>
-            val result = ApkLiteParseUtilsReImpl.parsePackageLite(ParseTypeImplReImpl.reset(input),apk,0)
+            val result =
+                ApkLiteParseUtilsReImpl.parsePackageLite(ParseTypeImplReImpl.reset(input), apk, 0)
 
         }
     }
@@ -152,9 +194,6 @@ class InstallViewModel : ViewModel() {
         val nowWindComponentName = ComponentName(nowWindPkgName, nowWindActivityName)
         const val DOWNLOADS_AUTHORITY: String = "downloads"
     }
-
-
-
 
 
 }

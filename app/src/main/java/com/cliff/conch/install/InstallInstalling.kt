@@ -15,8 +15,11 @@ import kotlinx.coroutines.withContext
 import reflect.android.content.pm.PackageManagerReImpl
 import reflect.android.content.pm.SessionParamsReImpl
 import reflect.android.content.pm.SessionReImpl
-import reflect.android.content.pm.parsing.result.ParseTypeImpl
+import reflect.android.content.pm.parsing.ApkLiteParseUtilsReImpl
+import reflect.android.content.pm.parsing.PackageLiteReImpl
+import reflect.android.content.pm.parsing.result.ParseResultReImpl
 import reflect.android.content.pm.parsing.result.ParseTypeImplReImpl
+import reflect.com.android.internal.content.InstallLocationUtilsReImpl
 import wrapper.android.content.WIntent
 import wrapper.android.content.pm.WPackageInstaller
 import wrapper.android.content.pm.WPackageManager
@@ -27,7 +30,8 @@ import java.io.IOException
 object InstallInstalling {
     const val SESSION_ID: String = "com.android.packageinstaller.SESSION_ID"
     const val INSTALL_ID: String = "com.android.packageinstaller.INSTALL_ID"
-    const val BROADCAST_ACTION: String = "com.android.packageinstaller.ACTION_INSTALL_COMMIT"
+    private const val BROADCAST_ACTION: String =
+        "com.android.packageinstaller.ACTION_INSTALL_COMMIT"
     private var mSessionId = 0
     private var mInstallId = 0
     private lateinit var mPackageURI: Uri
@@ -72,11 +76,13 @@ object InstallInstalling {
 
             val file = File(mPackageURI.path!!)
             try {
-//                val input: ParseTypeImpl = ParseTypeImpl.forDefaultParsing()
                 val input = ParseTypeImplReImpl.forDefaultParsing()
-                val result: ParseResult<PackageLite> =
-                    ApkLiteParseUtils.parsePackageLite(input.reset(), file, 0)
-                if (result.isError()) {
+                val result = ApkLiteParseUtilsReImpl.parsePackageLite(
+                    ParseTypeImplReImpl.reset(input),
+                    file,
+                    0
+                )
+                if (ParseResultReImpl.isError(result)) {
                     Logger.e(
                         "Cannot parse package $file. Assuming defaults."
                     )
@@ -85,13 +91,13 @@ object InstallInstalling {
                     )
                     params.setSize(file.length())
                 } else {
-                    val pkg: PackageLite = result.getResult()
-                    params.setAppPackageName(pkg.getPackageName())
-                    params.setInstallLocation(pkg.getInstallLocation())
+                    val pkg = ParseResultReImpl.getResult(result)
+                    params.setAppPackageName(PackageLiteReImpl.getPackageName(pkg))
+                    params.setInstallLocation(PackageLiteReImpl.getInstallLocation(pkg))
                     params.setSize(
-                        InstallLocationUtils.calculateInstalledSize(
+                        InstallLocationUtilsReImpl.calculateInstalledSize(
                             pkg,
-                            params.abiOverride
+                            SessionParamsReImpl.abiOverride_o_get_(params)
                         )
                     )
                 }
@@ -183,19 +189,19 @@ object InstallInstalling {
                     if (session != null) {
                         val broadcastIntent = Intent(BROADCAST_ACTION)
                         broadcastIntent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND)
-                        broadcastIntent.setPackage(getPackageName())
-                        broadcastIntent.putExtra(EventResultPersister.EXTRA_ID, mInstallId)
+                        broadcastIntent.setPackage(context.packageName)
+//                        broadcastIntent.putExtra(EventResultPersister.EXTRA_ID, mInstallId)
 
                         val pendingIntent = PendingIntent.getBroadcast(
-                            this@InstallInstalling,
+                            context,
                             mInstallId,
                             broadcastIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
                         )
 
                         session.commit(pendingIntent.intentSender)
-                        mCancelButton.setEnabled(false)
-                        setFinishOnTouchOutside(false)
+//                        mCancelButton.setEnabled(false)
+//                        setFinishOnTouchOutside(false)
                     }
 
                 }

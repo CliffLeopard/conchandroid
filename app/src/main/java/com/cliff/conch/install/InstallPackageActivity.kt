@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class InstallPackageActivity : AppCompatActivity() {
     lateinit var binding: ActivityInstallPackageBinding
     private val viewModel: InstallViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInstallPackageBinding.inflate(layoutInflater)

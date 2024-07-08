@@ -50,6 +50,7 @@ class ShellActivity : AppCompatActivity() {
                 val process = Runtime.getRuntime().exec("pm path $pkgName")
                 val result = StringBuilder()
                 var line: String?
+                process.waitFor()
                 BufferedReader(InputStreamReader(process.inputStream)).use { bufferReader ->
                     do {
                         line = bufferReader.readLine()

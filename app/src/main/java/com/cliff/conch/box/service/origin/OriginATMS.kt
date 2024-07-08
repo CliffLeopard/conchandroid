@@ -1,4 +1,4 @@
-package com.cliff.conch.box.service.server
+package com.cliff.conch.box.service.origin
 
 import android.app.PictureInPictureUiState
 import android.app.assist.AssistContent

@@ -59,8 +59,7 @@ class FilePathActivity : AppCompatActivity() {
         // 存储有base.apk,lib; release应用会存在oat目录，debug文件则没有。oat目录中存储着arm64/base.odex  arm64/base.vdex
         // 自己的apk目录也可以直接读取，不需要读取其它权限
         addCase("用户apk安装的文件夹", "/data/app/~~随机数==/packageName-随机数==")
-        val file =
-            File("/data/app/~~uoHJO8f8t9N_14eqve-T6Q==/com.cliff.conch-8MmnN__cpB7xpJWrsft4Hw==")
+        val file = File(packageManager.getApplicationInfo(packageName,0).sourceDir)
         addCase("用户apk安装的文件夹", file.absolutePath)
         addCase(
             "用户apk安装的文件夹内文件",
@@ -201,6 +200,7 @@ class FilePathActivity : AppCompatActivity() {
                 apkFile.absolutePath,
                 PackageManager.GET_ACTIVITIES
             )
+
             if (pkgInfo != null) {
                 Logger.i(pkgInfo.activities.joinToString { it.name })
             } else {

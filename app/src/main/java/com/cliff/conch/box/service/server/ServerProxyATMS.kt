@@ -3,6 +3,8 @@ package com.cliff.conch.box.service.server
 import android.content.Intent
 import android.os.Bundle
 import android.os.IBinder
+import com.cliff.conch.box.service.helper.ATMSScheduler
+import com.cliff.conch.box.service.origin.OriginATMS
 import wrapper.replace.PIAT
 import wrapper.replace.PProfilerInfo
 import com.orhanobut.logger.Logger
@@ -27,8 +29,8 @@ class ServerProxyATMS : OriginATMS() {
         options: Bundle?
     ): Int {
         Logger.i("ProxyActivityTaskManager:startActivity:${intent}")
-        val schedule = ATMSHelper.scheduleStartActivity(intent)
-        return if (schedule != ATMSHelper.NOT_SCHEDULE)
+        val schedule = ATMSScheduler.scheduleStartActivity(intent)
+        return if (schedule != ATMSScheduler.NOT_SCHEDULE)
             schedule
         else
             super.startActivity(

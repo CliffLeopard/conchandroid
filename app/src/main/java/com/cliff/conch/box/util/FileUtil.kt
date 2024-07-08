@@ -96,8 +96,7 @@ object FileUtil {
      * /data/data/宿主包名/app_children/cache/time.apk
      */
     fun childCache(): File {
-        val time = System.currentTimeMillis()
-        return File(childrenCacheDir(), "${time}.apk")
+        return File.createTempFile("temp-", ".apk", childrenCacheDir())
     }
 
     /**
@@ -140,8 +139,7 @@ object FileUtil {
     fun childrenAppExternalCache(): File {
         val externalCacheDir = File(context.getExternalFilesDir(CHILDREN_ROOT), CHILDREN_CACHE)
         if (!externalCacheDir.exists()) externalCacheDir.mkdirs()
-        val time = System.currentTimeMillis()
-        return File(externalCacheDir, "${time}.apk")
+        return File.createTempFile("temp-", ".apk", externalCacheDir)
     }
 
     /**
@@ -149,6 +147,10 @@ object FileUtil {
      */
     fun childAppDex(packageName: String): File {
         return File(childSourceDir(packageName), DEX_FILE)
+    }
+
+    fun childAppBaseFile(packageName: String):File {
+        return File(childSourceDir(packageName), BASE_FILE)
     }
 
     /**
@@ -160,12 +162,13 @@ object FileUtil {
         return file
     }
 
-    const val CHILDREN_ROOT = "children"
-    const val CHILDREN_CACHE = "cache"
-    const val SOURCE_DIR = "sourceDir"
-    const val INTERNAL_DIR = "internalDir"
-    const val DEX_FILE = "base.dex"
-    const val NATIVE_LIBRARY = "lib"
+    private const val CHILDREN_ROOT = "children"
+    private const val CHILDREN_CACHE = "cache"
+    private const val SOURCE_DIR = "sourceDir"
+    private const val INTERNAL_DIR = "internalDir"
+    private const val DEX_FILE = "base.dex"
+    private const val BASE_FILE = "base.apk"
+    private const val NATIVE_LIBRARY = "lib"
 }
 
 /**
