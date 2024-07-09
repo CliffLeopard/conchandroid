@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- 读取应用列表权限，这个权限无法在Google应用商店上架 -->
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
@@ -11,9 +10,7 @@
         <intent>
             <action android:name="android.intent.action.MAIN" />
         </intent>
-    </queries>
-
-    <!--  安装应用权限   -->
+    </queries> <!-- 安装应用权限 -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -32,8 +29,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Conchandroid"
         tools:targetApi="31">
-        <!--    非debug版本也可使用shell进行性能分析    -->
-        <profileable android:shell="true" tools:targetApi="q" />
+        <activity
+            android:name=".scene.PackageAppInfo"
+            android:exported="false" />
+        <!-- 非debug版本也可使用shell进行性能分析 -->
+        <profileable
+            android:shell="true"
+            tools:targetApi="q" />
+
         <activity
             android:name=".scene.ShellActivity"
             android:exported="false" />
@@ -136,9 +139,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="native-activity" />
-        </activity>
-
-        <!--   virtual activities-->
+        </activity> <!-- virtual activities -->
         <activity
             android:name="com.google.samples.apps.nowinandroid.MainActivityy"
             android:exported="false" />
@@ -197,50 +198,35 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path" />
         </provider>
-
         <provider
             android:name=".box.process.ProcessProvider$P1"
+            android:authorities="com.cliff.conch.box.process1"
             android:enabled="true"
-            android:exported="false"
-            android:authorities="com.cliff.conch.box.process1" />
+            android:exported="false" />
         <provider
             android:name=".box.process.ProcessProvider$P2"
+            android:authorities="com.cliff.conch.box.process2"
             android:enabled="true"
             android:exported="false"
-            android:process=":plugin_p2"
-            android:authorities="com.cliff.conch.box.process2" />
+            android:process=":plugin_p2" />
         <provider
             android:name=".box.process.ProcessProvider$P3"
+            android:authorities="com.cliff.conch.box.process3"
             android:enabled="true"
             android:exported="false"
-            android:process=":plugin_p3"
-            android:authorities="com.cliff.conch.box.process3" />
+            android:process=":plugin_p3" />
         <provider
             android:name=".box.process.ProcessProvider$P4"
+            android:authorities="com.cliff.conch.box.process4"
             android:enabled="true"
             android:exported="false"
-            android:process=":plugin_p4"
-            android:authorities="com.cliff.conch.box.process4" />
+            android:process=":plugin_p4" />
         <provider
             android:name=".box.process.ProcessProvider$P5"
+            android:authorities="com.cliff.conch.box.process5"
             android:enabled="true"
             android:exported="false"
-            android:process=":plugin_p5"
-            android:authorities="com.cliff.conch.box.process5" />
-
-
-
-<!--        <receiver-->
-<!--            android:name=".scene.ApkInstallReceiver"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.PACKAGE_ADDED" />-->
-<!--                <action android:name="android.intent.action.PACKAGE_REMOVED" />-->
-<!--                <action android:name="android.intent.action.PACKAGE_REPLACED" />-->
-<!--                <data android:scheme="package" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
+            android:process=":plugin_p5" />
     </application>
 
 </manifest>

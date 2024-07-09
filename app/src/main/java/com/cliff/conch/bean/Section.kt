@@ -4,6 +4,7 @@ import android.app.NativeActivity
 import android.content.Intent
 import android.view.View
 import com.cliff.conch.box.EgoActivity
+import com.cliff.conch.install.InstallPackageActivity
 import com.cliff.conch.scene.ANRActivity
 import com.cliff.conch.scene.ANRSummaryActivity
 import com.cliff.conch.scene.BookManagerActivity
@@ -13,6 +14,7 @@ import com.cliff.conch.scene.EventBusActivity
 import com.cliff.conch.scene.FilePathActivity
 import com.cliff.conch.scene.HiddenApiActivity
 import com.cliff.conch.scene.LeakActivity
+import com.cliff.conch.scene.PackageAppInfo
 import com.cliff.conch.scene.PineActivity
 import com.cliff.conch.scene.ReflectActivity
 import com.cliff.conch.scene.RetrofitActivity
@@ -23,7 +25,6 @@ import com.cliff.conch.scene.SimpleCasesActivity
 import com.cliff.conch.scene.TextureViewActivity
 import com.cliff.conch.scene.WebViewScreenShotActivity
 import com.cliff.conch.scene.bp.BinderProviderActivity
-import com.cliff.conch.install.InstallPackageActivity
 import com.cliff.conch.scene.provider.ProviderActivity
 import com.cliff.nativelib.FoodActivity
 
@@ -39,6 +40,7 @@ data class Section(
             Section("反射研究", ReflectActivity::class.java),
             Section("简单案例验证", SimpleCasesActivity::class.java),
             Section("各种文件路径", FilePathActivity::class.java),
+            Section("APK解析", PackageAppInfo::class.java),
             Section("执行Shell命令并获取结果", ShellActivity::class.java),
             Section("Apk安装流程解析", InstallPackageActivity::class.java),
             Section("EventBus验证", EventBusActivity::class.java),
