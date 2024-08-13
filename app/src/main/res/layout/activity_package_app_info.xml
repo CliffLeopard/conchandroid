@@ -7,4 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".scene.PackageAppInfo">
 
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="点击加载LoadedApk"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,8 @@ class PackageAppInfo : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPackageAppInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.getLoadedApkInfo()
+        binding.btn.setOnClickListener {
+            viewModel.getLoadedApkInfo()
+        }
     }
 }

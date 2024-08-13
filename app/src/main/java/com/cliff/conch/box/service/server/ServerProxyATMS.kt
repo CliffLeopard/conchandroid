@@ -1,10 +1,14 @@
 package com.cliff.conch.box.service.server
 
+import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import android.os.IBinder
 import com.cliff.conch.box.service.helper.ATMSScheduler
 import com.cliff.conch.box.service.origin.OriginATMS
+import com.cliff.conch.install.InstallViewModel
+import com.cliff.conch.install.InstallViewModel.Companion.nowWindActivityName
+import com.cliff.conch.install.InstallViewModel.Companion.nowWindPkgName
 import wrapper.replace.PIAT
 import wrapper.replace.PProfilerInfo
 import com.orhanobut.logger.Logger
@@ -32,7 +36,19 @@ class ServerProxyATMS : OriginATMS() {
         val schedule = ATMSScheduler.scheduleStartActivity(intent)
         return if (schedule != ATMSScheduler.NOT_SCHEDULE)
             schedule
-        else
+        else {
+            val componentName = intent?.component
+            if (nowWindPkgName == componentName?.packageName && nowWindActivityName == componentName.className) {
+                intent.putExtra("actionIntent", Intent().apply {
+                    setComponent(InstallViewModel.nowWindComponentName)
+                })
+                intent.setComponent(
+                    ComponentName(
+                        "com.cliff.conch",
+                        "com.cliff.conch.scene.SelfDefineViewActivity"
+                    )
+                )
+            }
             super.startActivity(
                 caller,
                 callingPackage,
@@ -46,6 +62,7 @@ class ServerProxyATMS : OriginATMS() {
                 pProfilerInfo,
                 options
             )
+        }
     }
 
     override fun startActivities(

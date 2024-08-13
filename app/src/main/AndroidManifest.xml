@@ -141,7 +141,7 @@
                 android:value="native-activity" />
         </activity> <!-- virtual activities -->
         <activity
-            android:name="com.google.samples.apps.nowinandroid.MainActivityy"
+            android:name="com.google.samples.apps.nowinandroid.MainActivity"
             android:exported="false" />
 
         <provider
