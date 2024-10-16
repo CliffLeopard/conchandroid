@@ -1,11 +1,14 @@
 package reflect.android.util
 
+import com.cliff.reflection.common.IReflect
 import com.cliff.reflection.common.annotation.PField
 import com.cliff.reflection.common.annotation.PMethod
 import com.cliff.reflection.common.annotation.ProxyClass
 
 @ProxyClass("android.util.Singleton")
-interface Singleton {
+interface Singleton : IReflect {
+    companion object
+
     @PField
     val mInstance: Any?
 

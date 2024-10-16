@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cliff.conch.bean.Section
-import com.cliff.reflection.common.hidden.HiddenApi
+import com.cliff.hidden.HiddenApi
 import com.orhanobut.logger.Logger
 
 class ReflectViewModel : ViewModel() {

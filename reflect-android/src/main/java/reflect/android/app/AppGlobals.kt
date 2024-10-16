@@ -1,10 +1,13 @@
 package reflect.android.app
 
+import com.cliff.reflection.common.IReflect
 import com.cliff.reflection.common.annotation.PStaticMethod
 import com.cliff.reflection.common.annotation.ProxyClass
 
 @ProxyClass("android.app.AppGlobals")
-interface AppGlobals {
+interface AppGlobals : IReflect {
+    companion object
+
     @PStaticMethod("android.content.pm.IPackageManager")
     fun getPackageManager(): Any?
 }

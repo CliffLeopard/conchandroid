@@ -2,6 +2,7 @@ package reflect.android.app
 
 import android.content.pm.ApplicationInfo
 import android.util.ArrayMap
+import com.cliff.reflection.common.IReflect
 import com.cliff.reflection.common.annotation.PField
 import com.cliff.reflection.common.annotation.PMethod
 import com.cliff.reflection.common.annotation.PMethodParameter
@@ -11,13 +12,15 @@ import com.cliff.reflection.common.annotation.ProxyClass
 import java.lang.ref.WeakReference
 
 @ProxyClass("android.app.ActivityThread")
-interface ActivityThread {
+interface ActivityThread : IReflect {
+    companion object
+
 
     @PStaticField("android.content.pm.IPackageManager")
     val sPackageManager: Any?
 
     @PStaticMethod("android.app.ActivityThread")
-    fun currentActivityThread(): Any?
+    fun currentActivityThread(): ActivityThread?
 
 
     @PField("android.app.ActivityThread\$ApplicationThread")

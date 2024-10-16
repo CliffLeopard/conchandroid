@@ -1,13 +1,16 @@
 package reflect.android.app
 
 import android.content.pm.ApplicationInfo
+import com.cliff.reflection.common.IReflect
 import com.cliff.reflection.common.annotation.PConstructor
 import com.cliff.reflection.common.annotation.PField
 import com.cliff.reflection.common.annotation.PMethodParameter
 import com.cliff.reflection.common.annotation.ProxyClass
 
 @ProxyClass("android.app.LoadedApk")
-interface LoadedApk {
+interface LoadedApk : IReflect {
+    companion object
+
     @PField
     val mApplicationInfo: ApplicationInfo
 

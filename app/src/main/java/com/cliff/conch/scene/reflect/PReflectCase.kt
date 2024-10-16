@@ -1,6 +1,7 @@
 package com.cliff.conch.scene.reflect
 
 import android.os.IBinder
+import com.cliff.reflection.common.IReflect
 import com.cliff.reflection.common.annotation.PConstructor
 import com.cliff.reflection.common.annotation.PField
 import com.cliff.reflection.common.annotation.PMethod
@@ -10,7 +11,9 @@ import com.cliff.reflection.common.annotation.PStaticMethod
 import com.cliff.reflection.common.annotation.ProxyClass
 
 @ProxyClass("com.cliff.conch.scene.reflect.ReflectCase")
-interface PReflectCase {
+interface PReflectCase : IReflect {
+    companion object
+
     @PField
     val name: String?
 
@@ -56,10 +59,10 @@ interface PReflectCase {
     @PConstructor("com.cliff.conch.scene.reflect.ReflectCase")
     fun getInstance(name: String, age: Int): Any?
 
-    @PConstructor
+    @PConstructor("com.cliff.conch.scene.reflect.ReflectCase")
     fun getInstance2(name: String, age: Int): ReflectCase
 
-    @PConstructor
+    @PConstructor("com.cliff.conch.scene.reflect.ReflectCase")
     fun getInstance3(name: String, age: Int): ReflectCase
 
 }

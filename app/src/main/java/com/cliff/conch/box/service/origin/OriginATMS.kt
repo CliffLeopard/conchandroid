@@ -4,31 +4,32 @@ import android.app.PictureInPictureUiState
 import android.app.assist.AssistContent
 import android.app.assist.AssistStructure
 import android.content.ComponentName
+import android.content.Intent
 import android.content.pm.ConfigurationInfo
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.graphics.Rect
 import android.net.Uri
-import android.content.Intent
 import android.os.Bundle
 import android.os.IBinder
-import com.cliff.reflection.common.hidden.HiddenApi
+import com.cliff.hidden.HiddenApi
+import com.orhanobut.logger.Logger
+import reflect.android.app.ActivityThread
+import reflect.android.app.ActivityThread__Functions.currentActivityThread
 import wrapper.android.app.IActivityTaskManager
 import wrapper.replace.PIAT
 import wrapper.replace.PProfilerInfo
-import com.orhanobut.logger.Logger
-import reflect.android.app.ActivityThreadReImpl
 
 open class OriginATMS : IActivityTaskManager.Stub() {
     private val originATMS by lazy {
         OriginServerManager.getOriginATMS()
     }
     private val activityThread by lazy {
-        ActivityThreadReImpl.currentActivityThread()
+        ActivityThread.currentActivityThread()
     }
     private val applicationThread by lazy {
-        ActivityThreadReImpl.getApplicationThread(activityThread!!)
+        activityThread?.getApplicationThread()
     }
 
     override fun startActivity(
