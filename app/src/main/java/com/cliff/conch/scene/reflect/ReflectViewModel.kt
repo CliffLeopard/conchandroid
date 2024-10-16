@@ -7,6 +7,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cliff.conch.bean.Section
+import com.cliff.conch.scene.reflect.PReflectCase__Functions.__instance__
+import com.cliff.conch.scene.reflect.PReflectCase__Functions.getInstance
+import com.cliff.conch.scene.reflect.PReflectCase__Functions.getInstance2
+import com.cliff.conch.scene.reflect.PReflectCase__Functions.getLogo
+import com.cliff.conch.scene.reflect.PReflectCase__Functions.getRTS
+import com.cliff.conch.scene.reflect.PReflectCase__Functions.getRTS2
+import com.cliff.conch.scene.reflect.PReflectCase__Functions.getSrt
+import com.cliff.conch.scene.reflect.PReflectCase__Functions.setLogo
+import com.cliff.conch.scene.reflect.PReflectCase__Functions.setSrt
 import com.cliff.hidden.HiddenApi
 import com.orhanobut.logger.Logger
 
@@ -24,7 +33,8 @@ class ReflectViewModel : ViewModel() {
             },
             Section("测试复杂类型") {
                 val case = ReflectCase("Leopard23", 123)
-                val map = PReflectCaseReImpl.sCache_o_get_(case)
+                val rCase = PReflectCase.__instance__(case)
+                val map = rCase.sCache
                 if (map == null) {
                     Logger.i("GGL:ReflectCase.sCache == null ")
                 } else {
@@ -38,9 +48,9 @@ class ReflectViewModel : ViewModel() {
                 val zz = newMap.plus(Pair<String, IBinder>("ABC", Binder()))
                 Logger.i("GGL:ReflectCase.reMap.size == ${newMap.size} ")
                 Logger.i("GGL:ReflectCase.reMap.size == ${zz.size} ")
-                PReflectCaseReImpl.sCache_o_set_(case, zz)
+                rCase.sCache = zz
 
-                val reMap = PReflectCaseReImpl.sCache_o_get_(case)
+                val reMap = rCase.sCache
                 if (reMap == null) {
                     Logger.i("GGL:ReflectCase.reMap == null ")
                 } else {
@@ -53,71 +63,74 @@ class ReflectViewModel : ViewModel() {
             },
             Section("测试反射Filed") {
                 val case = ReflectCase("Leopard23", 123)
-                val name = PReflectCaseReImpl.name_o_get_(case)
+                val rCase = PReflectCase.__instance__(case)
+                val name = rCase.name
                 Logger.i("GGL:测试反射getFiled:$name")
-                PReflectCaseReImpl.name_o_set_(case, "zhangsan")
+                rCase.name = "zhangsan"
                 Logger.i("GGL:测试反射setFiled:$case")
 
             },
             Section("测试反射Filed2") {
                 val case = ReflectCase("Leopard23", 123)
-                val getRt = PReflectCaseReImpl.rt_o_get_(case)
+                val rCase = PReflectCase.__instance__(case)
+                val getRt = rCase.rt
                 Logger.i("GGL:测试反射getFiled:$getRt")
                 val rt = ReflectCaseReturn()
                 rt.name = "lisi"
-                PReflectCaseReImpl.rt_o_set_(case, rt)
+                rCase.rt = rt
                 Logger.i("GGL:测试反射setFiled:$case")
 
-                val getRt2 = PReflectCaseReImpl.rt2_o_get_(case)
+                val getRt2 = rCase.rt2
                 Logger.i("GGL:测试反射getFiled,注解类型:$getRt2")
                 val rt2 = ReflectCaseReturn()
                 rt2.name = "注解lisi"
-                PReflectCaseReImpl.rt2_o_set_(case, rt2)
+                rCase.rt2 = rt2
                 Logger.i("GGL:测试反射setFiled,注解类型:$case")
             },
             Section("测试反射StaticFiled") {
-                val logo = PReflectCaseReImpl.logo_s_get_()
+                val logo = PReflectCase.getLogo()
                 Logger.i("GGL:测试反射getStaticFiled:$logo")
-
-                PReflectCaseReImpl.logo_s_set_("NewLogo")
+                PReflectCase.setLogo("NewLogo")
                 Logger.i("GGL:测试反射setStaticFiled:${ReflectCase.logo}")
             },
             Section("测试反射StaticFiled2") {
-                val srt = PReflectCaseReImpl.srt_s_get_()
+                val srt = PReflectCase.getSrt()
                 Logger.i("GGL:测试反射getStaticFiled2:$srt")
 
                 val newSrt = ReflectCaseReturn()
                 newSrt.name = "wangwu"
-                PReflectCaseReImpl.srt_s_set_(newSrt)
+                PReflectCase.setSrt(newSrt)
                 Logger.i("GGL:测试反射setStaticFiled2:${ReflectCase.srt}")
 
             },
             Section("测试反射Method") {
                 val case = ReflectCase("Leopard23", 123)
-                val rt = PReflectCaseReImpl.getRT(case, "wl", 145, ReflectCasePara())
+                val rCase = PReflectCase.__instance__(case)
+                val rt = rCase.getRT("wl", 145, ReflectCasePara())
                 Log.i("GGL", rt.toString())
             },
             Section("测试反射Method2") {
                 val case = ReflectCase("Leopard23", 123)
-                val rt = PReflectCaseReImpl.getRT2(case, "wl", 145, ReflectCasePara())
+                val rCase = PReflectCase.__instance__(case)
+                val rt = rCase.getRT2("wl", 145, ReflectCasePara())
                 Log.i("GGL", rt.toString())
 
             },
             Section("测试反射StaticMethod") {
-                val rt = PReflectCaseReImpl.getRTS("wl", 145, ReflectCasePara())
+                val rt = PReflectCase.getRTS("wl", 145, ReflectCasePara())
                 Log.i("GGL", rt.toString())
             },
             Section("测试反射StaticMethod2") {
-                val rt = PReflectCaseReImpl.getRTS2("wl", 145, ReflectCasePara())
+                val rt = PReflectCase.getRTS2("wl", 145, ReflectCasePara())
                 Log.i("GGL", rt.toString())
             },
 
             Section("测试反射Constructor") {
-                val rt = PReflectCaseReImpl.getInstance("zhangsanss", 123)
+                val rt = PReflectCase.getInstance("zhangsanss", 123)
                 Log.i("GGL", rt.toString())
             },
             Section("测试反射Constructor") {
-                val rt = PReflectCaseReImpl.getInstance2("lisis", 453)
+                val rt = PReflectCase.getInstance2("lisis", 453)
                 Log.i("GGL", rt.toString())
             },
         )

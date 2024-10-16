@@ -15,25 +15,25 @@ interface PReflectCase : IReflect {
     companion object
 
     @PField
-    val name: String?
+    var name: String?
 
     @PField
-    val jp: JavaParameter?
+    var jp: JavaParameter?
 
     @PField
-    val sCache: Map<String, IBinder>?
+    var sCache: Map<String, IBinder>?
 
     @PField
-    val rt: ReflectCaseReturn?
+    var rt: ReflectCaseReturn?
 
     @PField("com.cliff.conch.scene.reflect.ReflectCaseReturn")
-    val rt2: Any?
+    var rt2: Any?
 
     @PStaticField
-    val logo: String?
+    var logo: String?
 
     @PStaticField("com.cliff.conch.scene.reflect.ReflectCaseReturn")
-    val srt: Any?
+    var srt: Any?
 
     @PMethod
     fun getRT(name: String, age: Int, rp: ReflectCasePara): ReflectCaseReturn

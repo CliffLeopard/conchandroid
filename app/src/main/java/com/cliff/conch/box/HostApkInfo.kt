@@ -7,9 +7,13 @@ import com.orhanobut.logger.Logger
 import dalvik.system.PathClassLoader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import reflect.android.app.ActivityThreadReImpl
-import reflect.android.app.LoadedApkReImpl
-import reflect.android.view.DisplayAdjustmentsReImpl
+import reflect.android.app.ActivityThread
+import reflect.android.app.ActivityThread__Functions.currentActivityThread
+import reflect.android.app.LoadedApk
+import reflect.android.app.LoadedApk__Functions.__instance__
+import reflect.android.app.LoadedApk__Functions.newLoadedApk
+import reflect.android.view.DisplayAdjustments
+import reflect.android.view.DisplayAdjustments__Functions.__instance__
 import java.lang.ref.WeakReference
 
 object HostApkInfo {
@@ -18,11 +22,11 @@ object HostApkInfo {
     }
 
     private val activityThread by lazy {
-        ActivityThreadReImpl.currentActivityThread()!!
+        ActivityThread.currentActivityThread()!!
     }
 
     private val mPackages: ArrayMap<String, WeakReference<Any>> by lazy {
-        ActivityThreadReImpl.mPackages_o_get_(activityThread)
+        activityThread.mPackages
     }
 
     //    var packageInfo: LoadedApk? = null
@@ -31,17 +35,17 @@ object HostApkInfo {
     }
 
     private val applicationInfo: ApplicationInfo by lazy {
-        LoadedApkReImpl.mApplicationInfo_o_get_(packageInfo)
+        LoadedApk.__instance__(packageInfo).mApplicationInfo
     }
 
     private val compatInfo: Any by lazy {
-        val displayAdjustments = LoadedApkReImpl.mDisplayAdjustments_o_get_(packageInfo)
-        DisplayAdjustmentsReImpl.mCompatInfo_o_get_(displayAdjustments)
+        val displayAdjustments = LoadedApk.__instance__(packageInfo).mDisplayAdjustments
+        DisplayAdjustments.__instance__(displayAdjustments)
     }
 
     private fun newLoadedApk(appInfo: ApplicationInfo, baseLoader: ClassLoader): Any {
         val includeCode = true
-        return LoadedApkReImpl.newLoadedApk(
+        return LoadedApk.newLoadedApk(
             activityThread,
             appInfo,
             compatInfo,
