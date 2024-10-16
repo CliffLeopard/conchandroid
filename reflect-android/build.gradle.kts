@@ -51,7 +51,7 @@ android {
 dependencies {
 //    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
     ksp(projects.reflectionProcessor)
-    implementation(projects.reflectionCommon)
+    implementation(projects.common)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.google.material)

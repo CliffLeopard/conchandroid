@@ -13,11 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cliff.reflection.common.hidden
+package com.cliff.hidden
 
-import com.cliff.reflection.common.hidden.Helper.HandleInfo
-import com.cliff.reflection.common.hidden.Helper.InvokeStub
-import com.cliff.reflection.common.hidden.Helper.NeverCall
 import sun.misc.Unsafe
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandleInfo
@@ -27,6 +24,9 @@ import java.lang.reflect.Executable
 import java.lang.reflect.Field
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
+import com.cliff.hidden.Helper.NeverCall
+import com.cliff.hidden.Helper.HandleInfo
+import com.cliff.hidden.Helper.InvokeStub
 
 @Suppress("DiscouragedPrivateApi")
 object HiddenApi {
@@ -95,8 +95,7 @@ object HiddenApi {
         }
     }
 
-    @JvmStatic
-    fun checkArgsForInvokeMethod(params: Array<Class<*>>, args: Array<out Any?>): Boolean {
+    private fun checkArgsForInvokeMethod(params: Array<Class<*>>, args: Array<out Any?>): Boolean {
         if (params.size != args.size) return false
         for (i in params.indices) {
             if (params[i].isPrimitive) {
@@ -166,7 +165,7 @@ object HiddenApi {
         throw NoSuchMethodException("Cannot find matching method")
     }
 
-    fun getDeclaredMethods(clazz: Class<*>): List<Executable> {
+    private fun getDeclaredMethods(clazz: Class<*>): List<Executable> {
         val list = ArrayList<Executable>()
         if (clazz.isPrimitive || clazz.isArray) return list
         val mh: MethodHandle

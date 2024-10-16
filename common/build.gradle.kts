@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    api(projects.hidden)
+    api(projects.reflectionCommon)
     api(libs.javax.inject)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

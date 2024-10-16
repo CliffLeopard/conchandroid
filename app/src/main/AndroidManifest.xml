@@ -140,9 +140,9 @@
                 android:name="android.app.lib_name"
                 android:value="native-activity" />
         </activity> <!-- virtual activities -->
-        <activity
-            android:name="com.google.samples.apps.nowinandroid.MainActivity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name="com.google.samples.apps.nowinandroid.MainActivity"-->
+<!--            android:exported="false" />-->
 
         <provider
             android:name=".scene.provider.CliffContentProvider"

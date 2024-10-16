@@ -5,7 +5,9 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import androidx.multidex.MultiDexApplication
+import com.cliff.common.HiddenExecutor
 import com.cliff.eventbuskotlin.MyEventBusIndex
+import com.cliff.reflection.common.Reflect
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.HiltAndroidApp
@@ -25,6 +27,7 @@ class ConchApplication : MultiDexApplication() {
     override fun attachBaseContext(base: Context) {
 //        hook2()
         super.attachBaseContext(base)
+        Reflect.registerExecutor(HiddenExecutor())
         under28Init()
         context = base
     }

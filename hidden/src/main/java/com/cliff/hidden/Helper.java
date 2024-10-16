@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cliff.reflection.common.hidden;
+package com.cliff.hidden;
 
 import java.lang.invoke.MethodHandleInfo;
 import java.lang.invoke.MethodType;

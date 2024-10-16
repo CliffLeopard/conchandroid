@@ -1,10 +1,12 @@
-import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.isIncludeCompileClasspath
-import proguard.gradle.ProGuardTask
+import java.io.DataInputStream
+import java.net.URI
+import java.util.Properties
 
 //import org.jetbrains.kotlin.fir.declarations.builder.buildImport
 
 plugins {
     id("java-library")
+    id("maven-publish")
     alias(libs.plugins.jetbrains.kotlin.jvm)
 }
 
@@ -19,29 +21,54 @@ buildscript {
     }
 }
 
-task("proguardTask",ProGuardTask::class) {
-    description = "Obfuscates source files"
-    val artifactName = "reflection-common.jar" // 根据实际情况修改！！！
-    val inputFolder = "$buildDir/libs"
-    val obfuscatedFolder = "$buildDir/obfuscated"
-    val inputJar = "$inputFolder/$artifactName"
-    val outputJar = "$obfuscatedFolder/$artifactName"
+val localProperties by lazy {
+    val localProperties = Properties()
+    project.rootProject.file("local.properties")
+        .inputStream().use {
+            DataInputStream(it).use { inputStream ->
+                localProperties.load(inputStream)
+            }
+        }
+    localProperties
+}
+val isSnapShot = localProperties.getProperty("SNAPSHOT", "false").toBoolean()
+fun getRepositoryUrl(): URI {
+    return URI.create(localProperties["REPOSITORY_URL"] as? String ?: "")
+}
 
-    injars(inputJar)
-    outjars(outputJar)
-    printseeds("$obfuscatedFolder/seeds.txt")
-    printmapping("$obfuscatedFolder/mapping.txt")
-    libraryjars("${System.getProperty("java.home")}/lib/rt.jar")
-    libraryjars(configurations.runtimeElements)
-    libraryjars(sourceSets.main)
-    configuration(files("proguard-rules.pro"))
-    dontshrink()
-    delete(obfuscatedFolder)
-    doLast {
-        delete(inputJar)
-        copy {
-            from(outputJar)
-            into(inputFolder)
+fun getRepositoryUserName():String {
+    return localProperties["REPOSITORY_USER_NAME"] as? String ?: ""
+}
+
+fun getRepositoryPassword():String {
+    return localProperties["REPOSITORY_PASSWORD"] as? String ?: ""
+}
+
+val  pbGroupId = "com.cliff.reflection"
+val  pbArtifactId = "reflection-common"
+val  pbVersion = "1.0.0" + if (isSnapShot) "-SNAPSHOT" else ""
+
+afterEvaluate {
+    publishing {
+        publications {
+            register("release",MavenPublication::class) {
+                from(components.named("java").get())
+                artifacts {
+                    groupId = pbGroupId
+                    artifactId = pbArtifactId
+                    version = pbVersion
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                url = getRepositoryUrl()
+                credentials {
+                    username = getRepositoryUserName()
+                    password = getRepositoryPassword()
+                }
+            }
         }
     }
 }
