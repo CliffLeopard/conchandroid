@@ -27,7 +27,6 @@ class ConchApplication : MultiDexApplication() {
     override fun attachBaseContext(base: Context) {
 //        hook2()
         super.attachBaseContext(base)
-        Reflect.registerExecutor(HiddenExecutor())
         under28Init()
         context = base
     }
@@ -36,6 +35,7 @@ class ConchApplication : MultiDexApplication() {
         super.onCreate()
         Logger.d("ConchApplication OnCreate")
         initEventBus()
+        Reflect.registerExecutor(HiddenExecutor())
     }
 }
 

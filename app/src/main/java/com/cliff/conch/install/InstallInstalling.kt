@@ -8,6 +8,7 @@ import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
 import android.net.Uri
 import com.orhanobut.logger.Logger
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -44,6 +45,7 @@ object InstallInstalling {
     private var mSessionId = 0
     private var mInstallId = 0
     private lateinit var mPackageURI: Uri
+    @OptIn(DelicateCoroutinesApi::class)
     fun begin(intent: Intent, context: Activity) {
         val appInfo: ApplicationInfo =
             intent.getParcelableExtra(PackageUtil.INTENT_ATTR_APPLICATION_INFO)!!

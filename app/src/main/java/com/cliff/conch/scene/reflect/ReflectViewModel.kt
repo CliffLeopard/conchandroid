@@ -29,7 +29,6 @@ class ReflectViewModel : ViewModel() {
                 val clz = Class.forName("android.app.ActivityThread")
                 val obj = HiddenApi.invoke(clz, null, "getPermissionManager")
                 Log.i("GGL", obj?.javaClass?.name ?: "KKK")
-
             },
             Section("测试复杂类型") {
                 val case = ReflectCase("Leopard23", 123)
