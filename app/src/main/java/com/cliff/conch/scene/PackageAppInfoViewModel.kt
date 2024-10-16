@@ -13,9 +13,12 @@ import dalvik.system.PathClassLoader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import reflect.android.app.ActivityThreadReImpl
-import reflect.android.app.LoadedApkReImpl
-import reflect.android.view.DisplayAdjustmentsReImpl
+import reflect.android.app.ActivityThread
+import reflect.android.app.ActivityThread__Functions.currentActivityThread
+import reflect.android.app.LoadedApk
+import reflect.android.app.LoadedApk__Functions.__instance__
+import reflect.android.view.DisplayAdjustments
+import reflect.android.view.DisplayAdjustments__Functions.__instance__
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.ref.WeakReference
@@ -35,19 +38,19 @@ class PackageAppInfoViewModel : ViewModel() {
     private suspend fun loadedApk() {
         withContext(Dispatchers.IO) {
             val applicationInfo = pkgInfo.applicationInfo
-            Logger.i("ApplicationInfo:",applicationInfo)
+            Logger.i("ApplicationInfo:", applicationInfo)
 
-            val activityThread = ActivityThreadReImpl.currentActivityThread()!!
+            val activityThread = ActivityThread.currentActivityThread()!!
 
             val classLoader =
                 PathClassLoader(apkPath, PackageAppInfoViewModel::class.java.classLoader!!.parent)
-            val mPackages = ActivityThreadReImpl.mPackages_o_get_(activityThread)
+            val mPackages = activityThread.mPackages
             val nowLoadedApk = mPackages[ConchApplication.context.packageName]!!.get()!!
-            val mDisplayAdjustments = LoadedApkReImpl.mDisplayAdjustments_o_get_(nowLoadedApk)
-            val mCompatInfo = DisplayAdjustmentsReImpl.mCompatInfo_o_get_(mDisplayAdjustments)
+            val reLoadedApk = LoadedApk.__instance__(nowLoadedApk)
+            val mDisplayAdjustments = reLoadedApk.mDisplayAdjustments
+            val mCompatInfo = DisplayAdjustments.__instance__(mDisplayAdjustments).mCompatInfo
 
-            val newLoadedApk = ActivityThreadReImpl.getPackageInfo(
-                activityThread,
+            val newLoadedApk = activityThread.getPackageInfo(
                 applicationInfo,
                 mCompatInfo,
                 classLoader,

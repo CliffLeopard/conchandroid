@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cliff.conch.R
 import com.cliff.conch.databinding.ActivitySimpleCasesBinding
 import com.cliff.conch.databinding.SectionItemBinding
-import com.cliff.reflection.common.hidden.HiddenApi
+import com.cliff.hidden.HiddenApi
 import com.orhanobut.logger.Logger
 
 

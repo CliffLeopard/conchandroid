@@ -12,14 +12,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import reflect.android.content.pm.PackageManagerReImpl
-import reflect.android.content.pm.SessionParamsReImpl
-import reflect.android.content.pm.SessionReImpl
-import reflect.android.content.pm.parsing.ApkLiteParseUtilsReImpl
-import reflect.android.content.pm.parsing.PackageLiteReImpl
-import reflect.android.content.pm.parsing.result.ParseResultReImpl
-import reflect.android.content.pm.parsing.result.ParseTypeImplReImpl
-import reflect.com.android.internal.content.InstallLocationUtilsReImpl
+import reflect.android.content.pm.PackageInstaller_SessionParams__Functions.__instance__
+import reflect.android.content.pm.PackageInstaller_Session__Functions.__instance__
+import reflect.android.content.pm.PackageManager__Functions.__instance__
+import reflect.android.content.pm.parsing.ApkLiteParseUtils__Functions.parsePackageLite
+import reflect.android.content.pm.parsing.PackageLite__Functions.__instance__
+import reflect.android.content.pm.parsing.result.ParseResult__Functions.__instance__
+import reflect.android.content.pm.parsing.result.ParseTypeImpl__Functions.__instance__
+import reflect.android.content.pm.parsing.result.ParseTypeImpl__Functions.forDefaultParsing
+import reflect.com.android.internal.content.InstallLocationUtils__Functions.calculateInstalledSize
+import reflect.android.content.pm.PackageManager as PackageManagerReImpl
+import reflect.android.content.pm.PackageInstaller.SessionParams as SessionParamsReImpl
+import reflect.android.content.pm.PackageInstaller.Session as SessionReImpl
+import reflect.android.content.pm.parsing.ApkLiteParseUtils as ApkLiteParseUtilsReImpl
+import reflect.android.content.pm.parsing.PackageLite as PackageLiteReImpl
+import reflect.android.content.pm.parsing.result.ParseResult as ParseResultReImpl
+import reflect.android.content.pm.parsing.result.ParseTypeImpl as ParseTypeImplReImpl
+import reflect.com.android.internal.content.InstallLocationUtils as InstallLocationUtilsReImpl
 import wrapper.android.content.WIntent
 import wrapper.android.content.pm.WPackageInstaller
 import wrapper.android.content.pm.WPackageManager
@@ -42,7 +51,7 @@ object InstallInstalling {
         val mPm = context.packageManager
         if ("package" == mPackageURI.scheme) {
             try {
-                PackageManagerReImpl.installExistingPackage(mPm, appInfo.packageName)
+                PackageManagerReImpl.__instance__(mPm).installExistingPackage(appInfo.packageName)
 //                mPm.installExistingPackage(appInfo.packageName)
                 launchSuccess(intent)
             } catch (e: PackageManager.NameNotFoundException) {
@@ -61,7 +70,7 @@ object InstallInstalling {
                 if (referrerUri != null) PackageInstaller.PACKAGE_SOURCE_DOWNLOADED_FILE
                 else PackageInstaller.PACKAGE_SOURCE_LOCAL_FILE
             )
-            SessionParamsReImpl.setInstallAsInstantApp(params, false)
+            SessionParamsReImpl.__instance__(params).setInstallAsInstantApp(false)
 //            params.setInstallAsInstantApp(false)
             params.setReferrerUri(referrerUri)
             params.setOriginatingUri(intent.getParcelableExtra(Intent.EXTRA_ORIGINATING_URI))
@@ -78,11 +87,11 @@ object InstallInstalling {
             try {
                 val input = ParseTypeImplReImpl.forDefaultParsing()
                 val result = ApkLiteParseUtilsReImpl.parsePackageLite(
-                    ParseTypeImplReImpl.reset(input),
+                    ParseTypeImplReImpl.__instance__(input).reset(),
                     file,
                     0
                 )
-                if (ParseResultReImpl.isError(result)) {
+                if (ParseResultReImpl.__instance__(result).isError()) {
                     Logger.e(
                         "Cannot parse package $file. Assuming defaults."
                     )
@@ -91,13 +100,14 @@ object InstallInstalling {
                     )
                     params.setSize(file.length())
                 } else {
-                    val pkg = ParseResultReImpl.getResult(result)
-                    params.setAppPackageName(PackageLiteReImpl.getPackageName(pkg))
-                    params.setInstallLocation(PackageLiteReImpl.getInstallLocation(pkg))
+                    val pkg = ParseResultReImpl.__instance__(result).getResult()
+                    val pkgImpl = PackageLiteReImpl.__instance__(pkg)
+                    params.setAppPackageName(pkgImpl.getPackageName())
+                    params.setInstallLocation(pkgImpl.getInstallLocation())
                     params.setSize(
                         InstallLocationUtilsReImpl.calculateInstalledSize(
                             pkg,
-                            SessionParamsReImpl.abiOverride_o_get_(params)
+                            SessionParamsReImpl.__instance__(params).abiOverride
                         )
                     )
                 }
@@ -174,7 +184,7 @@ object InstallInstalling {
                                 outputStream.write(buffer, 0, numRead)
                                 if (sizeBytes > 0) {
                                     val fraction = (numRead.toFloat() / sizeBytes.toFloat())
-                                    SessionReImpl.addProgress(session!!, fraction)
+                                    SessionReImpl.__instance__(session!!).addProgress(fraction)
 //                                    session.addProgress(fraction)
                                 }
                             }

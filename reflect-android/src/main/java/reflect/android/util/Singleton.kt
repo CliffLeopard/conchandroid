@@ -10,7 +10,7 @@ interface Singleton : IReflect {
     companion object
 
     @PField
-    val mInstance: Any?
+    var mInstance: Any?
 
     @PMethod
     fun get(): Any?

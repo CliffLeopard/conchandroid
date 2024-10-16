@@ -23,10 +23,15 @@ import com.orhanobut.logger.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import reflect.android.app.ActivityThreadReImpl
-import reflect.android.content.pm.SessionParamsReImpl
-import reflect.android.content.pm.parsing.ApkLiteParseUtilsReImpl
-import reflect.android.content.pm.parsing.result.ParseTypeImplReImpl
+import reflect.android.app.ActivityThread
+import reflect.android.app.ActivityThread__Functions.getSPackageManager
+import reflect.android.content.pm.PackageInstaller.SessionParams
+import reflect.android.content.pm.PackageInstaller_SessionParams__Functions.__instance__
+import reflect.android.content.pm.parsing.ApkLiteParseUtils
+import reflect.android.content.pm.parsing.ApkLiteParseUtils__Functions.parsePackageLite
+import reflect.android.content.pm.parsing.result.ParseTypeImpl
+import reflect.android.content.pm.parsing.result.ParseTypeImpl__Functions.__instance__
+import reflect.android.content.pm.parsing.result.ParseTypeImpl__Functions.forDefaultParsing
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -148,7 +153,7 @@ class InstallViewModel : ViewModel() {
                 if (referrerUri != null) PackageInstaller.PACKAGE_SOURCE_DOWNLOADED_FILE
                 else PackageInstaller.PACKAGE_SOURCE_LOCAL_FILE
             )
-            SessionParamsReImpl.setInstallAsInstantApp(params, false)
+            SessionParams.__instance__(params).setInstallAsInstantApp(false)
             //        params.setInstallAsInstantApp(false)
             params.setReferrerUri(referrerUri)
             params.setOriginatingUri(intent.getParcelableExtra(Intent.EXTRA_ORIGINATING_URI))
@@ -157,10 +162,10 @@ class InstallViewModel : ViewModel() {
             params.setInstallReason(PackageManager.INSTALL_REASON_USER)
 
             // ParseTypeImpl
-            val input = ParseTypeImplReImpl.forDefaultParsing()
+            val input = ParseTypeImpl.forDefaultParsing()
             // ParseResult<PackageLite>
             val result =
-                ApkLiteParseUtilsReImpl.parsePackageLite(ParseTypeImplReImpl.reset(input), apk, 0)
+                ApkLiteParseUtils.parsePackageLite(ParseTypeImpl.__instance__(input).reset(), apk, 0)
 
         }
     }
@@ -170,7 +175,7 @@ class InstallViewModel : ViewModel() {
             //PackageManager
             val mPm = context.packageManager
             //IPackageManager
-            val mIpm = ActivityThreadReImpl.sPackageManager_s_get_()
+            val mIpm = ActivityThread.getSPackageManager()
             // AppOpsManager
             val mAppOpsManager = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
             // PackageInstaller

@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import reflect.android.app.ActivityThreadReImpl;
+import reflect.android.app.ActivityThread;
 
 
 @SuppressLint("DiscouragedPrivateApi,PrivateApi")
@@ -28,14 +28,14 @@ public class MirrorCases {
     }
 
     private static void refTest() {
-        if (ActivityThreadReImpl.INSTANCE.currentActivityThread() == null) {
-            Logger.e("currentActivityThread 是NUll");
-        } else {
-            Logger.d("currentActivityThread不是NUll");
-        }
-        Object mainThread = ActivityThreadReImpl.INSTANCE.currentActivityThread();
-        Object processName = ActivityThreadReImpl.INSTANCE.getProcessName(mainThread);
-        Logger.d("processName:" + processName);
+//        if (ActivityThread.currentActivityThread() == null) {
+//            Logger.e("currentActivityThread 是NUll");
+//        } else {
+//            Logger.d("currentActivityThread不是NUll");
+//        }
+//        Object mainThread = ActivityThread.currentActivityThread();
+//        Object processName = mainThread.getProcessName();
+//        Logger.d("processName:" + processName);
     }
 
     private static void invokeStaticMethod() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {

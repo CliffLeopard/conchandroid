@@ -21,16 +21,20 @@ import com.cliff.conch.box.util.FileUtil
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import reflect.android.app.ActivityManagerReImpl
-import reflect.android.app.ActivityReImpl
-import reflect.android.app.IActivityManagerReImpl
-import reflect.android.content.pm.ApplicationInfoReImpl
+import reflect.android.app.ActivityManager
+import reflect.android.app.ActivityManager__Functions.getService
+import reflect.android.app.Activity__Functions.__instance__
+import reflect.android.app.IActivityManager
+import reflect.android.app.IActivityManager__Functions.__instance__
+import reflect.android.content.pm.ApplicationInfo__Functions.__instance__
+import wrapper.android.content.WIntent
+import wrapper.android.content.pm.WPackageInstaller.WSessionParams
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.Arrays
-import wrapper.android.content.WIntent as WIntent
-import wrapper.android.content.pm.WPackageInstaller.WSessionParams as WSessionParams
+import reflect.android.app.Activity as ReActivity
+import reflect.android.content.pm.ApplicationInfo as ReApplicationInfo
 
 // 模拟系统应用PackageInstaller的处理过程
 class PackageInstallerViewModel : ViewModel() {
@@ -44,7 +48,7 @@ class PackageInstallerViewModel : ViewModel() {
         intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
         installStart(intent, context)
     }
-    
+
     // 模拟InstallStart (activity)，这里Activity就是InstallStart,为了方便直接写在参数里
     private suspend fun installStart(intent: Intent, context: Activity) {
         val mPackageManager = context.packageManager
@@ -59,7 +63,9 @@ class PackageInstallerViewModel : ViewModel() {
             val packageInstaller: PackageInstaller = mPackageManager.packageInstaller
             val sessionInfo = packageInstaller.getSessionInfo(sessionId)
             callingPackage = sessionInfo?.installerPackageName
-            callingAttributionTag = sessionInfo?.installerAttributionTag
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                callingAttributionTag = sessionInfo?.installerAttributionTag
+            }
         }
 
         // 请求方应用信息
@@ -75,7 +81,8 @@ class PackageInstallerViewModel : ViewModel() {
         // 获取安装来源的uid,并判断是否是可信来源(只有特权应用设置的可信源可以参与判断)
         val originatingUid: Int = originatingUid(sourceInfo, intent, context)
         var isTrustedSource = false
-        if (sourceInfo != null && ApplicationInfoReImpl.isPrivilegedApp(sourceInfo)) {
+
+        if (sourceInfo != null && ReApplicationInfo.__instance__(sourceInfo).isPrivilegedApp()) {
             isTrustedSource = intent.getBooleanExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, false)
         }
 
@@ -105,8 +112,10 @@ class PackageInstallerViewModel : ViewModel() {
         // 如果Intent中存在EXTRA_INSTALLER_PACKAGE_NAME，则比较启动package是否与之相同，如果不同则判断callingPkgName是否拥有安装包权限
         val installerPackageNameFromIntent =
             intent.getStringExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME)
+
+        val reActivity = ReActivity.__instance__(context)
         if (installerPackageNameFromIntent != null) {
-            val callingPkgName = ActivityReImpl.getLaunchedFromPackage(context)
+            val callingPkgName = reActivity.getLaunchedFromPackage()
             if (callingPkgName.isNullOrBlank()) {
                 Logger.e("getLaunchedFromPackage is:${callingPkgName ?: "NULL"}")
             } else if (!TextUtils.equals(installerPackageNameFromIntent, callingPkgName)
@@ -119,7 +128,7 @@ class PackageInstallerViewModel : ViewModel() {
                 EventLog.writeEvent(
                     0x534e4554,
                     "236687884",
-                    ActivityReImpl.getLaunchedFromUid(context),
+                    reActivity.getLaunchedFromUid(),
                     "Invalid EXTRA_INSTALLER_PACKAGE_NAME"
                 )
                 intent.removeExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME)
@@ -222,7 +231,6 @@ class PackageInstallerViewModel : ViewModel() {
     }
 
 
-
     // 模拟 InstallInstalling （activity）
     private suspend fun installInstalling() {
         val file = File.createTempFile("pacakgeName", ".apk", File(""))
@@ -237,9 +245,9 @@ class PackageInstallerViewModel : ViewModel() {
         )
 
         val callingUid = sourceInfo?.uid ?: try {
-            val iActivityManager = ActivityManagerReImpl.getService()!!
-            val iToken = ActivityReImpl.getActivityToken(context)
-            IActivityManagerReImpl.getLaunchedFromUid(iActivityManager, iToken)
+            val iActivityManager = ActivityManager.getService()!!
+            val iToken = ReActivity.__instance__(context).getActivityToken()
+            IActivityManager.__instance__(iActivityManager).getLaunchedFromUid(iToken)
         } catch (ex: RemoteException) {
             // Cannot reach ActivityManager. Aborting install.
             Logger.e("Could not determine the launching uid.")
@@ -268,7 +276,7 @@ class PackageInstallerViewModel : ViewModel() {
             return false
         }
         val appInfo = downloadProviderPackage.applicationInfo
-        return (ApplicationInfoReImpl.isSystemApp(appInfo) && uid == appInfo.uid)
+        return (ReApplicationInfo.__instance__(appInfo).isSystemApp() && uid == appInfo.uid)
     }
 
 
@@ -297,8 +305,6 @@ class PackageInstallerViewModel : ViewModel() {
         }
         return false
     }
-
-
 
 
     companion object {

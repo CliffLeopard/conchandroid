@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.os.RemoteException
 import com.cliff.conch.box.service.client.ClientProxyHandlerATMS
 import com.cliff.conch.box.service.origin.OriginServerManager
-import reflect.android.app.ActivityTaskManagerReImpl
-import reflect.android.util.SingletonReImpl
+import reflect.android.app.ActivityTaskManager
+import reflect.android.app.ActivityTaskManager__Functions.getIActivityTaskManagerSingleton
+import reflect.android.util.Singleton
+import reflect.android.util.Singleton__Functions.__instance__
 import java.lang.reflect.Proxy
 
 object SystemServerInterceptor {
@@ -21,7 +23,8 @@ object SystemServerInterceptor {
             interfaces,
             ClientProxyHandlerATMS(originATMS, atmsProxy)
         )
-        val single: Any = ActivityTaskManagerReImpl.IActivityTaskManagerSingleton_s_get_()
-        SingletonReImpl.mInstance_o_set_(single, proxy)
+
+        val single: Any =  ActivityTaskManager.getIActivityTaskManagerSingleton()!!
+        Singleton.__instance__(single).mInstance = proxy
     }
 }

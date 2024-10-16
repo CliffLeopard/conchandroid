@@ -15,14 +15,17 @@ import com.cliff.conch.install.PackageInstallerViewModel.Companion.EXTRA_CALLING
 import com.cliff.conch.install.PackageInstallerViewModel.Companion.EXTRA_CALLING_PACKAGE
 import com.cliff.conch.install.PackageInstallerViewModel.Companion.EXTRA_ORIGINAL_SOURCE_INFO
 import com.orhanobut.logger.Logger
-import reflect.android.app.AppGlobalsReImpl
-import reflect.android.content.pm.PackageInstallerReImpl
-import reflect.android.content.pm.SessionInfoReImpl
+import reflect.android.app.AppGlobals
+import reflect.android.app.AppGlobals__Functions.getPackageManager
+import reflect.android.content.pm.PackageInstaller.SessionInfo
+import reflect.android.content.pm.PackageInstaller_SessionInfo__Functions.__instance__
+import reflect.android.content.pm.PackageInstaller__Functions.__instance__
+import wrapper.android.content.WIntent
+import wrapper.android.content.pm.WPackageInstaller
+import wrapper.android.content.pm.WPackageInstaller.WSessionParams
 import java.io.File
 import kotlin.properties.Delegates
-import wrapper.android.content.WIntent as WIntent
-import wrapper.android.content.pm.WPackageInstaller as WPackageInstaller
-import wrapper.android.content.pm.WPackageInstaller.WSessionParams as WSessionParams
+import reflect.android.content.pm.PackageInstaller as RPackageInstaller
 
 object Install {
     private var mPackageURI: Uri? = null
@@ -37,7 +40,7 @@ object Install {
     // 模拟 PackageInstallerActivity
     suspend fun packageInstallerActivity(intent: Intent, context: Activity) {
         mPm = context.packageManager
-        val mIpm = AppGlobalsReImpl.getPackageManager()
+        val mIpm = AppGlobals.getPackageManager()
         val mAppOpsManager = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
         mInstaller = mPm.packageInstaller
         val mUserManager = context.getSystemService(Context.USER_SERVICE) as UserManager
@@ -61,18 +64,19 @@ object Install {
             val sessionId =
                 intent.getIntExtra(android.content.pm.PackageInstaller.EXTRA_SESSION_ID, -1)
             val info = mInstaller.getSessionInfo(sessionId)
-            if (info == null || !SessionInfoReImpl.sealed_o_get_(info) || SessionInfoReImpl.resolvedBaseCodePath_o_get_(
-                    info
-                ) == null
-            ) {
-                Logger.w(
-                    "Session $sessionId in funky state; ignoring"
-                )
+
+            if (info == null) {
+                Logger.w("Session $sessionId  is null")
+                return
+            }
+            val rInfo = SessionInfo.__instance__(info)
+            val baseCodePath = rInfo.resolvedBaseCodePath
+            if (baseCodePath == null) {
+                Logger.w("Session $sessionId   resolvedBaseCodePath is null")
                 return
             }
 
             mSessionId = sessionId
-            val baseCodePath = SessionInfoReImpl.resolvedBaseCodePath_o_get_(info)!!
             packageUri = Uri.fromFile(File(baseCodePath))
             mOriginatingURI = null
             mReferrerURI = null
@@ -163,7 +167,7 @@ object Install {
 
     private suspend fun clickOk(intent: Intent, context: Activity) {
         if (mSessionId != -1) {
-            PackageInstallerReImpl.setPermissionsResult(mInstaller, mSessionId, true)
+            RPackageInstaller.__instance__(mInstaller).setPermissionsResult(mSessionId, true)
 //            mInstaller.setPermissionsResult(mSessionId, true)
 //            finish()
         } else {

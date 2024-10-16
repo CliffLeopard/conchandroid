@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.cliff.conch.databinding.ActivityHiddenApiBinding
-import com.cliff.reflection.common.hidden.HiddenApi
+import com.cliff.hidden.HiddenApi
 
 
 class HiddenApiActivity : AppCompatActivity() {
@@ -55,7 +55,7 @@ class HiddenApiActivity : AppCompatActivity() {
         val parameter = LinearLayout.LayoutParams(MATCH_PARENT, 300)
         val button = Button(this@HiddenApiActivity)
         button.text = title
-        button.setTextColor(resources.getColor(android.R.color.black,null))
+        button.setTextColor(resources.getColor(android.R.color.black, null))
         button.gravity = Gravity.CENTER
         button.setOnClickListener { action() }
         binding.caseContainer.addView(button, parameter)
