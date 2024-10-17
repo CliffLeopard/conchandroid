@@ -122,8 +122,8 @@ android {
 }
 
 dependencies {
-//    implementation(projects.wrapper)
-    implementation(libs.hilt.android)
+    ksp(projects.reflectionProcessor)
+    kapt(libs.eventbus.annotation)
     kapt(libs.hilt.android.compiler)
 
     implementation(projects.reflectAndroid)
@@ -131,9 +131,6 @@ dependencies {
     implementation(projects.reflectionCommon)
     implementation(projects.data)
     implementation(projects.common)
-
-    ksp(projects.reflectionProcessor)
-    kapt(libs.eventbus.annotation)
 
     implementation(libs.pine.core)
     implementation(libs.pine.enhances)
@@ -149,6 +146,7 @@ dependencies {
     implementation(libs.androidx.startup)
     implementation(libs.eventbus)
 
+    implementation(libs.hilt.android)
     implementation(libs.annotation)
     implementation(libs.slice.builders)
     implementation(libs.androidx.activity)

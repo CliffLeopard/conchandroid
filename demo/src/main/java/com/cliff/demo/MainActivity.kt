@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.cliff.common.HiddenCase
 import com.cliff.demo.ui.theme.ConchandroidTheme
 import com.cliff.hidden.HiddenApi
 
@@ -33,8 +34,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val clzz = Class.forName("android.view.DisplayAdjustments")
-    val fields = HiddenApi.getInstanceFields(clzz).joinToString { it.name }
+    val fields = HiddenCase.hiddenInfo()
     Text(
         text = "Hello $fields!",
         modifier = modifier

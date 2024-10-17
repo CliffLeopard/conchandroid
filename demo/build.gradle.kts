@@ -38,9 +38,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.nativelib)
     ksp(projects.reflectionProcessor)
-    implementation(projects.hidden)
-    implementation(projects.reflectionCommon)
     implementation(projects.common)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

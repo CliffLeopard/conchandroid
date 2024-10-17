@@ -3,8 +3,8 @@ package com.cliff.conch.scene
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.cliff.common.HiddenCase
 import com.cliff.conch.databinding.ActivityPackageAppInfoBinding
-import com.cliff.hidden.HiddenApi
 import com.orhanobut.logger.Logger
 
 class PackageAppInfo : AppCompatActivity() {
@@ -18,10 +18,8 @@ class PackageAppInfo : AppCompatActivity() {
             viewModel.getLoadedApkInfo()
         }
         binding.hidden.setOnClickListener {
-            val clzz = Class.forName("android.view.DisplayAdjustments")
-            Logger.i("fields:${HiddenApi.getInstanceFields(clzz).joinToString { it.name }}")
-            val field = HiddenApi.getInstanceFiled("mCompatInfo",clzz)
-            Logger.i("field:${field?.name}")
+            val field = HiddenCase.hiddenInfo()
+            Logger.i("fields:${field}")
         }
     }
 }
