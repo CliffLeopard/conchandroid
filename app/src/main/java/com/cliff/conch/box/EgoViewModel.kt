@@ -39,6 +39,7 @@ class EgoViewModel : ViewModel() {
             },
             Section("创建ProxyServer，代理系统SystemServer") {
                 SystemServerInterceptor.interceptATMS()
+                Logger.i("成功创建ProxyServer，代理系统SystemServer")
             },
             Section("安装应用", InstallPackageActivity::class.java),
             Section("反射调用系统API") {
