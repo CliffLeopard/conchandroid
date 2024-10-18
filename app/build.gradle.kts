@@ -128,7 +128,6 @@ dependencies {
 
     implementation(projects.reflectAndroid)
     implementation(projects.nativelib)
-    implementation(projects.reflectionCommon)
     implementation(projects.data)
     implementation(projects.common)
 
