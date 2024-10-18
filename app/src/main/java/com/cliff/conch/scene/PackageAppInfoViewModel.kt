@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.cliff.conch.ConchApplication
 import com.cliff.conch.box.util.FileUtil
 import com.cliff.conch.install.InstallViewModel
+import com.cliff.hidden.HiddenApi
 import com.orhanobut.logger.Logger
 import dalvik.system.PathClassLoader
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +50,20 @@ class PackageAppInfoViewModel : ViewModel() {
             val reLoadedApk = LoadedApk.__instance__(nowLoadedApk)
             val mDisplayAdjustments = reLoadedApk.mDisplayAdjustments
             val mCompatInfo = DisplayAdjustments.__instance__(mDisplayAdjustments).mCompatInfo
+
+            val clazz = Class.forName("android.app.ActivityThread")
+            val methodName = "getPackageInfo"
+            val parameterTypes = arrayOf(
+                Class.forName("android.content.pm.ApplicationInfo"),
+                Class.forName("android.content.res.CompatibilityInfo"),
+                Class.forName("java.lang.ClassLoader"),
+                Boolean::class.java,
+                Boolean::class.java,
+                Boolean::class.java,
+                Boolean::class.java
+            )
+            val method = HiddenApi.getDeclaredMethod(clazz, methodName, *parameterTypes).apply { isAccessible = true }
+            Logger.i("method:${method.name}")
 
             val newLoadedApk = activityThread.getPackageInfo(
                 applicationInfo,

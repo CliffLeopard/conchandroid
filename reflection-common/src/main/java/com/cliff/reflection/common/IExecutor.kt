@@ -60,6 +60,7 @@ interface IExecutor {
                 }
                 methods[methodKey]!!.get()!!.invoke(if (isStatic) null else obj, *parameters)
             } catch (exp: Exception) {
+                exp.printStackTrace()
                 throw NoSuchMethodException()
             }
         }

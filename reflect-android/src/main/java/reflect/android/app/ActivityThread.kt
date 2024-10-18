@@ -9,6 +9,7 @@ import com.cliff.reflection.common.annotation.PMethodParameter
 import com.cliff.reflection.common.annotation.PStaticField
 import com.cliff.reflection.common.annotation.PStaticMethod
 import com.cliff.reflection.common.annotation.ProxyClass
+import reflect.android.content.res.CompatibilityInfo
 import java.lang.ref.WeakReference
 
 @ProxyClass("android.app.ActivityThread")
@@ -41,9 +42,12 @@ interface ActivityThread : IReflect {
     @PMethod("android.app.LoadedApk")
     fun getPackageInfo(
         aInfo: ApplicationInfo?,
-        @PMethodParameter("android.content.res.CompatibilityInfo") compatInfo: Any,
-        baseLoader: ClassLoader? = null, securityViolation: Boolean = false, includeCode: Boolean = true,
-        registerPackage: Boolean = false, isSdkSandbox: Boolean = false
+        @PMethodParameter("android.content.res.CompatibilityInfo") compatInfo: CompatibilityInfo?,
+        baseLoader: ClassLoader? = null,
+        securityViolation: Boolean = false,
+        includeCode: Boolean = true,
+        registerPackage: Boolean = false,
+        isSdkSandbox: Boolean = false
     ): Any
 
 }
