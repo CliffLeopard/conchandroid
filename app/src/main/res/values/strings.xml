@@ -5,4 +5,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="screen_shot">ScreenShot</string>
     <string name="desp_add">安装应用</string>
+    <string name="no_installed_app">未找到已安装的应用</string>
+    <string name="app_icon_desc">APP_ICON</string>
 </resources>

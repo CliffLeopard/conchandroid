@@ -4,6 +4,7 @@ import android.app.NativeActivity
 import android.content.Intent
 import android.view.View
 import com.cliff.conch.box.EgoActivity
+import com.cliff.conch.box.show.ShowApkInfoActivity
 import com.cliff.conch.install.InstallPackageActivity
 import com.cliff.conch.scene.ANRActivity
 import com.cliff.conch.scene.ANRSummaryActivity
@@ -37,6 +38,7 @@ data class Section(
     companion object {
         val sections: List<Section> = listOf(
             Section("沙盒先验技术", EgoActivity::class.java),
+            Section("显示APK信息", ShowApkInfoActivity::class.java),
             Section("反射研究", ReflectActivity::class.java),
             Section("简单案例验证", SimpleCasesActivity::class.java),
             Section("各种文件路径", FilePathActivity::class.java),

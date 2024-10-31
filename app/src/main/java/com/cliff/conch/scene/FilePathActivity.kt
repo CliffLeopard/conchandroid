@@ -158,7 +158,7 @@ class FilePathActivity : AppCompatActivity() {
         val content = ConchApplication.context
         val appInfo = content.applicationInfo
         val appInfos = packageManager.getInstalledApplications(0)
-        val blackInfo = packageManager.getApplicationInfo("top.niunaijun.blackboxa64_beta", 0)
+        val blackInfo = packageManager.getApplicationInfo("top.niunaijun.blackboxa64", 0)
         Logger.i("appInfos:${appInfos.size}")
         Logger.i("blackInfo:${blackInfo.sourceDir}")
         Logger.i("blackInfo:${blackInfo.dataDir}")

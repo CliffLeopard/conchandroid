@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cliff.conch.R
 import com.cliff.conch.databinding.ActivitySimpleCasesBinding
 import com.cliff.conch.databinding.SectionItemBinding
+import com.cliff.conch.tools.DefaultCase
+import com.cliff.conch.tools.DefaultKtCase
 import com.cliff.hidden.HiddenApi
 import com.orhanobut.logger.Logger
 
@@ -106,9 +108,15 @@ class SimpleCasesActivity : AppCompatActivity() {
                     compileInMemory()
                 },
                 Case("Volatile HiddenApi") {
-                    val case = VolatileCase("Leopard",18)
-                    Logger.i("Name:${HiddenApi.getInstanceFiled("name",VolatileCase::class.java)!!.get(case)} ")
-                    Logger.i("Name:${HiddenApi.getInstanceFiled("age",VolatileCase::class.java)!!.get(case)} ")
+                    val case = VolatileCase("Leopard", 18)
+                    Logger.i("Name:${HiddenApi.getInstanceFiled("name", VolatileCase::class.java)!!.get(case)} ")
+                    Logger.i("Name:${HiddenApi.getInstanceFiled("age", VolatileCase::class.java)!!.get(case)} ")
+                },
+                Case("Java Default") {
+                    DefaultCase.println()
+                },
+                Case("Kotlin Default") {
+                    DefaultKtCase.println()
                 }
             )
 

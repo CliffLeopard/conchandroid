@@ -136,6 +136,9 @@ object FileUtil {
         return file
     }
 
+    /**
+     * /sdcard/Android/data/宿主包名/files/Children/cache/temp-[random].apk
+     */
     fun childrenAppExternalCache(): File {
         val externalCacheDir = File(context.getExternalFilesDir(CHILDREN_ROOT), CHILDREN_CACHE)
         if (!externalCacheDir.exists()) externalCacheDir.mkdirs()

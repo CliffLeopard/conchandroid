@@ -23,6 +23,10 @@ class EgoViewModel : ViewModel() {
 
     companion object {
         val egos: List<Section> = listOf(
+            Section("创建ProxyServer，代理系统SystemServer") {
+                SystemServerInterceptor.interceptATMS()
+                Logger.i("成功创建ProxyServer，代理系统SystemServer")
+            },
             Section("隐藏代码Mirror映射实现") {
                 MirrorCases.testMirror()
             },
@@ -36,10 +40,6 @@ class EgoViewModel : ViewModel() {
                 }
 
                 Logger.i("服务总数: ${map.size}")
-            },
-            Section("创建ProxyServer，代理系统SystemServer") {
-                SystemServerInterceptor.interceptATMS()
-                Logger.i("成功创建ProxyServer，代理系统SystemServer")
             },
             Section("安装应用", InstallPackageActivity::class.java),
             Section("反射调用系统API") {

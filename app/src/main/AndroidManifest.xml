@@ -30,9 +30,14 @@
         android:theme="@style/Theme.Conchandroid"
         tools:targetApi="31">
         <activity
-            android:name=".scene.PackageAppInfo"
+            android:name=".box.show.AppListActivity"
             android:exported="false" />
-        <!-- 非debug版本也可使用shell进行性能分析 -->
+        <activity
+            android:name=".box.show.ShowApkInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".scene.PackageAppInfo"
+            android:exported="false" /> <!-- 非debug版本也可使用shell进行性能分析 -->
         <profileable
             android:shell="true"
             tools:targetApi="q" />
@@ -139,8 +144,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="native-activity" />
-        </activity>
-        <!-- virtual activities -->
+        </activity> <!-- virtual activities -->
         <activity
             android:name="com.google.samples.apps.nowinandroid.MainActivity"
             android:exported="false" />
