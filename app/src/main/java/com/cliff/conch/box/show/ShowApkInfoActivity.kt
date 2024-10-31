@@ -8,14 +8,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.cliff.conch.databinding.ActivityShowApkInfoBinding
-import com.orhanobut.logger.Logger
 
 class ShowApkInfoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowApkInfoBinding
     private lateinit var viewModel: ShowApkViewModel
     private val apkLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        uri?.let {
-            viewModel.processApk(this, it)
+        if (uri == null || uri.path == null || !uri.path!!.endsWith(".apk")) {
+            Toast.makeText(this, "应用选择失败", Toast.LENGTH_SHORT).show()
+        } else {
+            viewModel.processApk(this, uri)
         }
     }
 
