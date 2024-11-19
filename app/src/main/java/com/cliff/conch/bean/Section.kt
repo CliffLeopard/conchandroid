@@ -27,6 +27,7 @@ import com.cliff.conch.scene.TextureViewActivity
 import com.cliff.conch.scene.WebViewScreenShotActivity
 import com.cliff.conch.scene.bp.BinderProviderActivity
 import com.cliff.conch.scene.provider.ProviderActivity
+import com.cliff.conch.scene.transaction.TransactionActivity
 import com.cliff.nativelib.FoodActivity
 
 data class Section(
@@ -40,6 +41,7 @@ data class Section(
             Section("沙盒先验技术", EgoActivity::class.java),
             Section("显示APK信息", ShowApkInfoActivity::class.java),
             Section("反射研究", ReflectActivity::class.java),
+            Section("Transaction验证", TransactionActivity::class.java),
             Section("简单案例验证", SimpleCasesActivity::class.java),
             Section("各种文件路径", FilePathActivity::class.java),
             Section("APK解析", PackageAppInfo::class.java),
