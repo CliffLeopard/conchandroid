@@ -13,7 +13,7 @@ class ShowApkInfoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowApkInfoBinding
     private lateinit var viewModel: ShowApkViewModel
     private val apkLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        if (uri == null || uri.path == null || !uri.path!!.endsWith(".apk")) {
+        if (uri == null || uri.path == null ) {
             Toast.makeText(this, "应用选择失败", Toast.LENGTH_SHORT).show()
         } else {
             viewModel.processApk(this, uri)

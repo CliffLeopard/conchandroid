@@ -9,7 +9,7 @@ import android.util.Log
 
 open class ProcessProvider : ContentProvider() {
     override fun onCreate(): Boolean {
-        Log.e("GGL", "onCreate:" + this::class.java.canonicalName +" processName:"+Process.myProcessName())
+//        Log.e("GGL", "onCreate:" + this::class.java.canonicalName +" processName:"+Process.myProcessName())
         return true
     }
 
