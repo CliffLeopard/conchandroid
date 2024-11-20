@@ -4,20 +4,18 @@ import android.content.pm.ApplicationInfo
 import android.graphics.drawable.ClipDrawable
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
+import com.cliff.common.BaseActivity
 import com.cliff.conch.databinding.ActivityHiddenApiBinding
 import com.cliff.hidden.HiddenApi
 
 
-class HiddenApiActivity : AppCompatActivity() {
-    lateinit var binding: ActivityHiddenApiBinding
+class HiddenApiActivity : BaseActivity<ActivityHiddenApiBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHiddenApiBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         addCase("Invoke a restricted method:") {
             HiddenApi.invoke(ApplicationInfo::class.java, ApplicationInfo(), "usesNonSdkApi")
@@ -49,6 +47,14 @@ class HiddenApiActivity : AppCompatActivity() {
                 "Lx" // all classes whose full name is started with x
             );
         }
+    }
+
+    override fun initBinding() {
+        binding = ActivityHiddenApiBinding.inflate(layoutInflater)
+    }
+
+    override fun mainView(): View {
+        return binding.main
     }
 
     private fun addCase(title: String, action: () -> Unit) {

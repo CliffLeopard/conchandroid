@@ -2,16 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main"
-    tools:context=".scene.EventBusActivity">
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/section_height"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="发送事件"
-        />
+    tools:context=".scene.transaction.TransactDemo2Activity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

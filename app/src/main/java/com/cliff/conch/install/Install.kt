@@ -139,7 +139,7 @@ object Install {
                     Logger.w("Requested package ${packageUri.scheme} not available. Discontinuing installation")
                     return false
                 }
-                val label: CharSequence = mPm.getApplicationLabel(mPkgInfo!!.applicationInfo)
+                val label: CharSequence = mPm.getApplicationLabel(mPkgInfo!!.applicationInfo!!)
                 Logger.i("creating snippet for $label")
                 clickOk(intent, context)
             }

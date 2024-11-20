@@ -6,7 +6,7 @@ import android.os.RemoteException
 import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import androidx.appcompat.app.AppCompatActivity
+import com.cliff.common.BaseActivity
 import com.cliff.conch.databinding.ActivityBinderProviderBinding
 import com.cliff.conch.scene.aidl.Book
 import com.cliff.conch.scene.aidl.IOnNewBookArrivedListener
@@ -25,8 +25,7 @@ import com.orhanobut.logger.Logger
  * Main <-- BinderProvider2  并返回Manager
  */
 
-class BinderProviderActivity : AppCompatActivity() {
-    lateinit var binding: ActivityBinderProviderBinding
+class BinderProviderActivity : BaseActivity<ActivityBinderProviderBinding>() {
     private var manager: ProviderBookManager? = null
     private var nowDeathRecipient: IBinder.DeathRecipient? = null
     private val listener by lazy {
@@ -51,8 +50,14 @@ class BinderProviderActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun initBinding() {
         binding = ActivityBinderProviderBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    }
+
+    override fun mainView(): View {
+        return binding.main
     }
 
     fun bindProvider(view: View?) {

@@ -7,11 +7,10 @@ import android.os.Bundle
 import android.os.IBinder
 import android.os.IBinder.DeathRecipient
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import com.cliff.common.BaseActivity
 import com.cliff.nativelib.databinding.ActivityFoodBinding
 
-class FoodActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityFoodBinding
+class FoodActivity : BaseActivity<ActivityFoodBinding>() {
     lateinit var foodService: IFoodManager
 
     private val serviceConnection by lazy {
@@ -36,11 +35,17 @@ class FoodActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFoodBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         Intent(this, FoodService::class.java).apply {
             bindService(this, serviceConnection, BIND_AUTO_CREATE)
         }
+    }
+
+    override fun initBinding() {
+        binding = ActivityFoodBinding.inflate(layoutInflater)
+    }
+
+    override fun mainView(): View {
+        return binding.main
     }
 
     fun addFood(view: View) {

@@ -3,7 +3,7 @@ package com.cliff.conch.scene
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import com.cliff.common.BaseActivity
 import com.cliff.conch.databinding.ActivityRxJavaBinding
 import com.orhanobut.logger.Logger
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -12,14 +12,19 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class RxJavaActivity : AppCompatActivity() {
-    lateinit var binding: ActivityRxJavaBinding
+class RxJavaActivity : BaseActivity<ActivityRxJavaBinding>() {
     private val disposables = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun initBinding() {
         binding = ActivityRxJavaBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    }
+
+    override fun mainView(): View {
+        return binding.main
     }
 
     fun clickMe(view: View) {

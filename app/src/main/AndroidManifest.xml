@@ -31,9 +31,12 @@
         android:theme="@style/Theme.Conchandroid"
         tools:targetApi="31">
         <activity
-            android:name=".scene.transaction.TransactDemoActivity"
-            android:process=":transact_demo"
+            android:name=".scene.transaction.TransactDemo2Activity"
             android:exported="false" />
+        <activity
+            android:name=".scene.transaction.TransactDemoActivity"
+            android:exported="false"
+            android:process=":transact_demo" />
         <activity
             android:name=".scene.transaction.TransactionActivity"
             android:exported="false" />

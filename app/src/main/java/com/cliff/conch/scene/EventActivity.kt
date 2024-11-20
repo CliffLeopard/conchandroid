@@ -2,20 +2,14 @@ package com.cliff.conch.scene
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
-import androidx.appcompat.app.AppCompatActivity
+import com.cliff.common.BaseActivity
 import com.cliff.conch.databinding.ActivityEventBinding
-import com.orhanobut.logger.Logger
 
-class EventActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityEventBinding
+class EventActivity : BaseActivity<ActivityEventBinding>() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityEventBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
 //        binding.eventText.setOnClickListener{
 //            Logger.i("ClickText")
@@ -35,6 +29,15 @@ class EventActivity : AppCompatActivity() {
 //            true
 //        }
     }
+
+    override fun initBinding() {
+        binding = ActivityEventBinding.inflate(layoutInflater)
+    }
+
+    override fun mainView(): View {
+        return binding.main
+    }
+
 
     override fun onContentChanged() {
         super.onContentChanged()

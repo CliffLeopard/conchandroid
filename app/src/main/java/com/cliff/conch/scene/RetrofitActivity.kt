@@ -1,14 +1,22 @@
 package com.cliff.conch.scene
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import com.cliff.common.BaseActivity
 import com.cliff.conch.databinding.ActivityRetrofitBinding
 
-class RetrofitActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityRetrofitBinding
+class RetrofitActivity : BaseActivity<ActivityRetrofitBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRetrofitBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
+    }
+
+    override fun initBinding() {
+        binding = ActivityRetrofitBinding.inflate(layoutInflater)
+    }
+
+    override fun mainView(): View {
+        return binding.main
     }
 }

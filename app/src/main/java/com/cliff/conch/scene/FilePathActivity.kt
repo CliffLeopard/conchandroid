@@ -14,8 +14,8 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.cliff.common.BaseActivity
 import com.cliff.conch.ConchApplication
 import com.cliff.conch.databinding.ActivityFilePathBinding
 import com.orhanobut.logger.Logger
@@ -25,8 +25,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileInputStream
 
-class FilePathActivity : AppCompatActivity() {
-    lateinit var binding: ActivityFilePathBinding
+class FilePathActivity : BaseActivity<ActivityFilePathBinding>() {
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -47,8 +46,6 @@ class FilePathActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFilePathBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         // 系统目录
         addCase("系统应用安装目录", "/system/app/appName")
@@ -59,7 +56,7 @@ class FilePathActivity : AppCompatActivity() {
         // 存储有base.apk,lib; release应用会存在oat目录，debug文件则没有。oat目录中存储着arm64/base.odex  arm64/base.vdex
         // 自己的apk目录也可以直接读取，不需要读取其它权限
         addCase("用户apk安装的文件夹", "/data/app/~~随机数==/packageName-随机数==")
-        val file = File(packageManager.getApplicationInfo(packageName,0).sourceDir)
+        val file = File(packageManager.getApplicationInfo(packageName, 0).sourceDir)
         addCase("用户apk安装的文件夹", file.absolutePath)
         addCase(
             "用户apk安装的文件夹内文件",
@@ -154,6 +151,14 @@ class FilePathActivity : AppCompatActivity() {
         //context.startActivity(intent);
     }
 
+    override fun initBinding() {
+        binding = ActivityFilePathBinding.inflate(layoutInflater)
+    }
+
+    override fun mainView(): View {
+        return binding.main
+    }
+
     private fun getApplicationIfo() {
         val content = ConchApplication.context
         val appInfo = content.applicationInfo
@@ -202,7 +207,7 @@ class FilePathActivity : AppCompatActivity() {
             )
 
             if (pkgInfo != null) {
-                Logger.i(pkgInfo.activities.joinToString { it.name })
+                Logger.i(pkgInfo.activities!!.joinToString { it.name })
             } else {
                 Logger.i("pkgInfo is null")
             }

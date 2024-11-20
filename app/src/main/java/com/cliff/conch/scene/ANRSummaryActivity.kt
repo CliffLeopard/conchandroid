@@ -7,7 +7,8 @@ import android.os.Looper
 import android.os.Message
 import android.os.MessageQueue
 import android.os.SystemClock
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import com.cliff.common.BaseActivity
 import com.cliff.conch.BuildConfig
 import com.cliff.conch.databinding.ActivityAnractivityBinding
 import com.orhanobut.logger.Logger
@@ -15,13 +16,18 @@ import top.canyie.pine.Pine
 import top.canyie.pine.PineConfig
 import top.canyie.pine.callback.MethodHook
 
-class ANRSummaryActivity : AppCompatActivity() {
-    private lateinit var binder: ActivityAnractivityBinding
+class ANRSummaryActivity : BaseActivity<ActivityAnractivityBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binder = ActivityAnractivityBinding.inflate(layoutInflater)
-        setContentView(binder.root)
         setActions()
+    }
+
+    override fun initBinding() {
+        binding = ActivityAnractivityBinding.inflate(layoutInflater)
+    }
+
+    override fun mainView(): View {
+        TODO("Not yet implemented")
     }
 
     private fun setActions() {
@@ -30,7 +36,7 @@ class ANRSummaryActivity : AppCompatActivity() {
             println("IDLE:$it")
         }
 
-        binder.longWorkUi.setOnClickListener {
+        binding.longWorkUi.setOnClickListener {
             Logger.i("Sleep Begin")
             Thread.sleep(20 * 1000)
             Logger.i("Sleep End:20s")
@@ -123,12 +129,24 @@ class ANRSummaryActivity : AppCompatActivity() {
             object : MethodHook() {
                 override fun beforeCall(callFrame: Pine.CallFrame?) {
                     super.beforeCall(callFrame)
-                    Logger.i("IDLE: beforeCall:removeMessages:${Thread.currentThread().name}  ${callFrame?.args?.get(0)} ${callFrame?.args?.get(1)} ${callFrame?.args?.get(2)}")
+                    Logger.i(
+                        "IDLE: beforeCall:removeMessages:${Thread.currentThread().name}  ${
+                            callFrame?.args?.get(
+                                0
+                            )
+                        } ${callFrame?.args?.get(1)} ${callFrame?.args?.get(2)}"
+                    )
                 }
 
                 override fun afterCall(callFrame: Pine.CallFrame?) {
                     super.afterCall(callFrame)
-                    Logger.i("IDLE: afterCall:removeMessages:${Thread.currentThread().name} ${callFrame?.args?.get(0)} ${callFrame?.args?.get(1)} ${callFrame?.args?.get(2)}")
+                    Logger.i(
+                        "IDLE: afterCall:removeMessages:${Thread.currentThread().name} ${
+                            callFrame?.args?.get(
+                                0
+                            )
+                        } ${callFrame?.args?.get(1)} ${callFrame?.args?.get(2)}"
+                    )
                 }
             }
         )

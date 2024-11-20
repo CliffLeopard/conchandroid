@@ -4,19 +4,25 @@ import android.content.ContentValues
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import com.cliff.common.BaseActivity
 import com.cliff.conch.databinding.ActivityProviderBinding
 import com.cliff.conch.scene.aidl.Book
 import com.orhanobut.logger.Logger
 
 
-class ProviderActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityProviderBinding
+class ProviderActivity : BaseActivity<ActivityProviderBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityProviderBinding.inflate(layoutInflater)
-        setContentView(binding.root)
     }
+
+    override fun initBinding() {
+        binding = ActivityProviderBinding.inflate(layoutInflater)
+    }
+
+    override fun mainView(): View {
+        return binding.main
+    }
+
 
     fun clickInsertBook(view: View) {
         val uri = Uri.parse("content://com.cliff.conch.provider/book")

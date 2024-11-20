@@ -1,11 +1,12 @@
 package com.cliff.conch.scene
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import com.cliff.common.BaseActivity
 import com.cliff.conch.ConchApplication
 import com.cliff.conch.databinding.ActivityShellBinding
 import com.orhanobut.logger.Logger
@@ -15,18 +16,12 @@ import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.io.InputStreamReader
-import java.io.OutputStreamWriter
 
-class ShellActivity : AppCompatActivity() {
-    lateinit var binding: ActivityShellBinding
+class ShellActivity : BaseActivity<ActivityShellBinding>() {
     private val viewModel: ShellViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityShellBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         binding.runShell.setOnClickListener {
             lifecycleScope.run {
                 viewModel.showApkLocation()
@@ -34,6 +29,13 @@ class ShellActivity : AppCompatActivity() {
         }
     }
 
+    override fun initBinding() {
+        binding = ActivityShellBinding.inflate(layoutInflater)
+    }
+
+    override fun mainView(): View {
+        return binding.main
+    }
 
     class ShellViewModel : ViewModel() {
 

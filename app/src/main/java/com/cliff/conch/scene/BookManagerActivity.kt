@@ -8,14 +8,13 @@ import android.os.Bundle
 import android.os.IBinder
 import android.os.IBinder.DeathRecipient
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import com.cliff.common.BaseActivity
 import com.cliff.conch.databinding.ActivityBookManagerBinding
 import com.cliff.conch.scene.aidl.Book
 import com.cliff.conch.scene.aidl.IBookManager
 import com.orhanobut.logger.Logger
 
-class BookManagerActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityBookManagerBinding
+class BookManagerActivity : BaseActivity<ActivityBookManagerBinding>() {
     private var bookManager: IBookManager? = null
 
     private val recipient: DeathRecipient by lazy {
@@ -51,8 +50,14 @@ class BookManagerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun initBinding() {
         binding = ActivityBookManagerBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    }
+
+    override fun mainView(): View {
+       return binding.main
     }
 
     fun clickBindService(view: View) {

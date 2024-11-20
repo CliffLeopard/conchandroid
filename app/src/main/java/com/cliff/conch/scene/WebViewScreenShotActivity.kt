@@ -3,16 +3,15 @@ package com.cliff.conch.scene
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Message
+import android.view.View
 import android.webkit.JsPromptResult
 import android.webkit.JsResult
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.webkit.ProxyConfig
 import androidx.webkit.ProxyController
 import androidx.webkit.SafeBrowsingResponseCompat
@@ -24,23 +23,29 @@ import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewClientCompat
 import androidx.webkit.WebViewCompat
 import androidx.webkit.WebViewFeature
+import com.cliff.common.BaseActivity
 import com.cliff.conch.databinding.ActivityWebViewScreenShotBinding
 import com.cliff.conch.tools.ScreenShooter
 import com.orhanobut.logger.Logger
 import java.util.concurrent.Executor
 
-class WebViewScreenShotActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityWebViewScreenShotBinding
+class WebViewScreenShotActivity : BaseActivity<ActivityWebViewScreenShotBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityWebViewScreenShotBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         initWebView()
         binding.web.loadUrl("https://www.baidu.com")
         binding.flow.setOnClickListener {
             val bitmap = ScreenShooter.takeFullPageScreenshotOfWebView(binding.web)
             Logger.d(bitmap)
         }
+    }
+
+    override fun initBinding() {
+        binding = ActivityWebViewScreenShotBinding.inflate(layoutInflater)
+    }
+
+    override fun mainView(): View {
+        return binding.main
     }
 
     @SuppressLint("SetJavaScriptEnabled", "RequiresFeature")

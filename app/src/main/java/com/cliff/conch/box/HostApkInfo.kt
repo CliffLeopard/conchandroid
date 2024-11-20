@@ -59,7 +59,7 @@ object HostApkInfo {
     suspend fun loadApplication(apkPath: String): Any {
         return withContext(Dispatchers.IO) {
             val packageInfo = context.packageManager.getPackageArchiveInfo(apkPath, 0)!!
-            val applicationInfo = packageInfo.applicationInfo
+            val applicationInfo = packageInfo.applicationInfo!!
             Logger.i("applicationInfo:${applicationInfo.packageName}")
             val parentClassLoader = HostApkInfo::class.java.classLoader!!.parent!!
             Logger.i("开始创建LoadedApk:${parentClassLoader::class.java.canonicalName}")

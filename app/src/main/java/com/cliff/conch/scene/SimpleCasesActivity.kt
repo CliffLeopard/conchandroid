@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.cliff.common.BaseActivity
 import com.cliff.conch.R
 import com.cliff.conch.databinding.ActivitySimpleCasesBinding
 import com.cliff.conch.databinding.SectionItemBinding
@@ -20,12 +20,11 @@ import com.cliff.hidden.HiddenApi
 import com.orhanobut.logger.Logger
 
 
-class SimpleCasesActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySimpleCasesBinding
+class SimpleCasesActivity : BaseActivity<ActivitySimpleCasesBinding>() {
     private lateinit var adapter: SAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySimpleCasesBinding.inflate(layoutInflater)
+
         binding.root.setOnSystemUiVisibilityChangeListener { visibility ->
             when (visibility) {
                 View.GONE ->
@@ -44,6 +43,14 @@ class SimpleCasesActivity : AppCompatActivity() {
         }
         setContentView(binding.root)
         prepareRecycleView()
+    }
+
+    override fun initBinding() {
+        binding = ActivitySimpleCasesBinding.inflate(layoutInflater)
+    }
+
+    override fun mainView(): View {
+        return binding.main
     }
 
     private fun prepareRecycleView() {
@@ -109,8 +116,16 @@ class SimpleCasesActivity : AppCompatActivity() {
                 },
                 Case("Volatile HiddenApi") {
                     val case = VolatileCase("Leopard", 18)
-                    Logger.i("Name:${HiddenApi.getInstanceFiled("name", VolatileCase::class.java)!!.get(case)} ")
-                    Logger.i("Name:${HiddenApi.getInstanceFiled("age", VolatileCase::class.java)!!.get(case)} ")
+                    Logger.i(
+                        "Name:${
+                            HiddenApi.getInstanceFiled("name", VolatileCase::class.java)!!.get(case)
+                        } "
+                    )
+                    Logger.i(
+                        "Name:${
+                            HiddenApi.getInstanceFiled("age", VolatileCase::class.java)!!.get(case)
+                        } "
+                    )
                 },
                 Case("Java Default") {
                     DefaultCase.println()

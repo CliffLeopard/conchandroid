@@ -3,15 +3,21 @@ package com.cliff.conch.scene
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import com.cliff.common.BaseActivity
 import com.cliff.conch.databinding.ActivityAnractivityBinding
 
-class ANRActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityAnractivityBinding
+class ANRActivity : BaseActivity<ActivityAnractivityBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun initBinding() {
         binding = ActivityAnractivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    }
+
+    override fun mainView(): View {
+        return binding.main
     }
 
     override fun onResume() {
