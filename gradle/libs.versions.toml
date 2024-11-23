@@ -1,5 +1,8 @@
 [versions]
 androidGradlePlugin = "8.7.2"
+freereflection = "3.2.2"
+yukiApi = "1.2.1"
+xposedApi = "82"
 compileSdk = "35"
 targetSdk = "35"
 minSdk21 = "21"
@@ -9,20 +12,20 @@ cmakeVersion = "3.22.1"
 jvmTarget = "17"
 versionCode = "1"
 versionName = "1.0"
-kotlin = "2.0.0"
-kspVersion = "2.0.0-1.0.22"
+kotlin = "2.0.21"
+kspVersion = "2.0.21-1.0.27"
 kotlinpoet = "1.17.0"
 proguardGradle = "7.5.0"
 junit = "4.13.2"
 
 core = "0.2.7"
 glide = "4.16.0"
-gson = "2.10.1"
+gson = "2.11.0"
 retrofit = "2.11.0"
 rxandroid = "3.0.2"
 rxjava = "3.1.8"
 swiperefreshlayout = "1.1.0"
-symbolProcessingApi = "2.0.0-1.0.22"
+symbolProcessingApi = "2.0.21-1.0.27"
 eventbus = "3.3.1"
 logger = "2.2.0"
 
@@ -79,6 +82,8 @@ androidx-work-runtime = { group = "androidx.work", name = "work-runtime", versio
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 androidx-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
 
+freereflection = { module = "com.github.tiann:FreeReflection", version.ref = "freereflection" }
+yuki-api = { module = "com.highcapable.yukihookapi:api", version.ref = "yukiApi" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
@@ -90,6 +95,7 @@ androidx-dataStore-core = { group = "androidx.datastore", name = "datastore", ve
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
 kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinpoet" }
+yuki-ksp-xposed = { module = "com.highcapable.yukihookapi:ksp-xposed", version.ref = "yukiApi" }
 proguard-gradle = { module = "com.guardsquare:proguard-gradle", version.ref = "proguardGradle" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
@@ -121,6 +127,7 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+xposed-api = { module = "de.robv.android.xposed:api", version.ref = "xposedApi" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
