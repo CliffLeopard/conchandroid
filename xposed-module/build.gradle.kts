@@ -33,12 +33,19 @@ android {
     }
     kotlinOptions {
         jvmTarget = libs.versions.jvmTarget.get()
+        freeCompilerArgs = listOf(
+            "-Xno-param-assertions",
+            "-Xno-call-assertions",
+            "-Xno-receiver-assertions"
+        )
     }
     buildFeatures {
         viewBinding = true
         buildConfig = true
         aidl = true
     }
+    lint { checkReleaseBuilds = false }
+    androidResources.additionalParameters += listOf("--allow-reserved-package-id", "--package-id", "0x64")
 }
 
 dependencies {

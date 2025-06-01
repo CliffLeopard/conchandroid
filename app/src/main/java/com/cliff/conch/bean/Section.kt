@@ -9,6 +9,7 @@ import com.cliff.conch.install.InstallPackageActivity
 import com.cliff.conch.scene.ANRActivity
 import com.cliff.conch.scene.ANRSummaryActivity
 import com.cliff.conch.scene.BookManagerActivity
+import com.cliff.conch.scene.ClassLoaderActivity
 import com.cliff.conch.scene.CoroutineActivity
 import com.cliff.conch.scene.EventActivity
 import com.cliff.conch.scene.EventBusActivity
@@ -41,6 +42,7 @@ data class Section(
             Section("沙盒先验技术", EgoActivity::class.java),
             Section("显示APK信息", ShowApkInfoActivity::class.java),
             Section("反射研究", ReflectActivity::class.java),
+            Section("ClassLoader研究",ClassLoaderActivity::class.java),
             Section("Transaction验证", TransactionActivity::class.java),
             Section("简单案例验证", SimpleCasesActivity::class.java),
             Section("各种文件路径", FilePathActivity::class.java),

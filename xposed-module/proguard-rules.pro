@@ -19,3 +19,30 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-ignorewarnings
+
+-optimizationpasses 10
+-dontusemixedcaseclassnames
+
+-dontoptimize
+-verbose
+-overloadaggressively
+-allowaccessmodification
+
+-adaptclassstrings
+-adaptresourcefilenames
+-adaptresourcefilecontents
+
+-renamesourcefileattribute P
+-keepattributes SourceFile,LineNumberTable
+
+-keepclassmembers class androidx.appcompat.app.AlertDialog {
+    *** mAlert;
+}
+
+-keepclassmembers class androidx.appcompat.app.AlertController {
+    *** mButtonPositive;
+    *** mButtonNegative;
+    *** mButtonNeutral;
+}

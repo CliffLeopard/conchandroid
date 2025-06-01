@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="module_scope">
-        <item>com.cliff.conch</item>
+<!--        <item>com.cliff.conch</item>-->
+        <item>com.oxcc.leaveTraces</item>
     </string-array>
 </resources>
